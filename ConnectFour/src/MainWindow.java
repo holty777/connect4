@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 public class MainWindow {
 	
 	private JFrame mainFrame;
-	private Connect4Panel sodukuPanel;
+	private Connect4Panel connect4Panel;
 	private JButton newGameButton;
 
 	/**
@@ -35,13 +35,16 @@ public class MainWindow {
 		mainFrame = new JFrame("Soduku GUI Demo");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		// create the soduku panel
-		sodukuPanel = new Connect4Panel();
+		// create the connect4 panel
+		connect4Panel = new Connect4Panel();
+        connect4Panel.setLayout(null);
 		
 		// Create a new button and add the action listener.
 		newGameButton = new JButton("New Game");
-		newGameButton.addActionListener(sodukuPanel);
+        newGameButton.setBounds(150, 375, 150, 50);
+		newGameButton.addActionListener(connect4Panel);
 		
+		connect4Panel.add(newGameButton);
 		// Or do it through an anonymous inner class
 //		newGameButton = new JButton(new AbstractAction("New Game") {
 //		    public void actionPerformed(ActionEvent e) {
@@ -55,8 +58,12 @@ public class MainWindow {
 	 * Method to display the main window
 	 */
 	private void display() {
-		mainFrame.getContentPane().add(sodukuPanel,BorderLayout.CENTER);
-		mainFrame.getContentPane().add(newGameButton,BorderLayout.SOUTH);
+
+	    
+	    
+		mainFrame.getContentPane().add(connect4Panel);
+		//mainFrame.getContentPane().add(newGameButton);
+
 		mainFrame.pack();
         mainFrame.setVisible(true);
 	}

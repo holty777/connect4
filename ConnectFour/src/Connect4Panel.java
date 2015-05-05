@@ -61,7 +61,7 @@ public class Connect4Panel extends JPanel implements ActionListener {
      * Set the size of the panel
      */
 	public Dimension getPreferredSize() {
-        return new Dimension(460,460);
+        return new Dimension(450,450);
     }
 
 	/**
@@ -74,19 +74,27 @@ public class Connect4Panel extends JPanel implements ActionListener {
         Graphics2D g2 = (Graphics2D) g;
         
         // draw grid lines
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
         	g2.setStroke(new BasicStroke(1));
+        	/*
         	if (i % 3 == 0) {
         		g2.setStroke(new BasicStroke(2));
         	}
-            g2.drawLine(5 + i*50, 5, 5 + i*50, 455);
-            g2.drawLine(5, 5 + i*50, 455, 5 + i*50);
+        	*/
+        	g2.setColor(Color.RED);
+            g2.drawLine(50 + i*50, 50, 50 + i*50, 350);
+            for (int j = 0; j < 7; j++) {
+            	g2.setColor(Color.PINK);
+            	g2.drawLine(50, 50 + j*50, 400, 50 + j*50);
+            	g2.setColor(Color.BLACK);
+            	g2.fillOval(52, 52, 46, 46);
+            }
         }
         
-        for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 6; j++) {
 				if (board[i][j] > 0)
-					g.drawString(board[i][j].toString(),25 + i*50, 35 + j*50);
+					g.drawString(board[i][j].toString(),75 + i*50, 85 + j*50);
 			}
         }
     }

@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -17,6 +19,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private boolean paintToken;
 	private int xPos;
 	private int yPos;
+	private int tempx;
+	private int tempy;
+	private ArrayList<Integer> xP;
+	private ArrayList<Integer> yP;
 	
 	/**
 	 * Constructor for a Connect4 panel
@@ -27,8 +33,12 @@ public class Connect4Panel extends JPanel implements ActionListener{
         board = new Integer[7][6];
         this.paintBoard = true;
         this.paintToken = false;
-        this.setxPos(0);
-        this.setyPos(0);
+        this.xPos = 0;
+        this.yPos = 0;
+        this.tempx = 0;
+        this.tempy = 0;
+        this.xP = new ArrayList<Integer>();
+        this.yP = new ArrayList<Integer>();
 
     }
 
@@ -53,8 +63,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
         //get XCoords/YCoords from another function
         System.out.println(paintToken);
         if (paintToken){
-        	System.out.println("hereee");
-        	paintToken(g2);
+        	for (Integer i : xP){
+        		xPos = xP.get(i);
+        		yPos = yP.get(i);
+        		paintToken(g);
+        	}
         }
        
     }
@@ -87,41 +100,48 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			setPaintToken(true);
 			//change the way to get x and make it dynamically change each
 			//time we call it + do a checkislegal move in another function
-			setxPos(0);
-			setyPos(0);
-			repaint();
+			tempx = 0;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(1)){
 			setPaintToken(true);
-			setxPos(1);
-			setyPos(0);
-			repaint();
+			tempx = 1;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(2)){
 			setPaintToken(true);
-			setxPos(2);
-			setyPos(0);
-			repaint();
+			tempx = 2;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(3)){
 			setPaintToken(true);
-			setxPos(3);
-			setyPos(0);
-			repaint();
+			tempx = 3;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(4)){
 			setPaintToken(true);
-			setxPos(4);
-			setyPos(0);
-			repaint();
+			tempx = 4;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(5)){
 			setPaintToken(true);
-			setxPos(5);
-			setyPos(0);
-			repaint();
+			tempx = 5;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		} else if (e.getSource() == mw.getToken(6)){
 			setPaintToken(true);
-			setxPos(6);
-			setyPos(0);
-			repaint();
+			tempx = 6;
+			tempy = 0;
+			xP.add(tempx);
+			yP.add(tempy);
 		}
-		
+		repaint();
 	}
     
 	/**

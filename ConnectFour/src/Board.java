@@ -45,9 +45,6 @@ public class Board {
 		//new game
 	}
 	
-	
-	
-	
 	public ArrayList<ArrayList<Tokens>> getBoard() {
 		return board;
 	}

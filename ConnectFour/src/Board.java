@@ -9,10 +9,11 @@ public class Board {
 	String gameDifficulty;
 	int scoreA;
 	int scoreB;
+	boolean isLegal;
 	
 	public Board() {
-		
-		
+		board = new ArrayList<ArrayList<Tokens>>(7);
+		fillBoard();
 	}
 	
 	
@@ -52,6 +53,7 @@ public class Board {
 	public void setBoard(ArrayList<ArrayList<Tokens>> board) {
 		this.board = board;
 	}
+	
 	public boolean isPlayerTurn() {
 		return playerTurn;
 	}
@@ -86,5 +88,34 @@ public class Board {
 	}
 	public void setScoreB(int scoreB) {
 		this.scoreB = scoreB;
+	}
+	
+	
+	
+	
+	// self created functions
+	public void fillBoard(){
+		for (int i = 0; i < 7; i++){
+			ArrayList<Tokens> arr = new ArrayList<Tokens>(6);
+			Tokens token = new Tokens (true); //testing,  make true for now, will be getPlayer though
+			board.add(arr); 
+			board.get(i).add(token);
+		}
+	}
+	
+	public void addToken(int col, int row){
+		Tokens t = new Tokens (true); //testing, make true for now, will be getPlayer though
+		board.get(col).add(t);
+		System.out.println(board.get(col).size());
+	}
+	
+	public int getNextToken(int i) {
+		return board.get(i).size()-1;
+		
+	}
+	
+	public int isLegal(int i){
+		//TO DO
+		return 0;
 	}
 }

@@ -1,6 +1,7 @@
 
 public class Tokens {
 	String colour;
+	int num;
 	
 	public Tokens (boolean playerNum) {
 		if (playerNum == true) {
@@ -18,4 +19,13 @@ public class Tokens {
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 }
+

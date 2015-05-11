@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 public class Connect4Panel extends JPanel implements ActionListener{
 	
 	private MainWindow mw;
+	private Board board;
 	private boolean paintBoard;
 	private boolean paintToken;
 	private int xPos;
@@ -28,6 +29,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	 */
 	public Connect4Panel(MainWindow mw) {
 		this.mw = mw;
+		this.board = new Board();
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.paintBoard = true;
         this.paintToken = false;
@@ -95,12 +97,15 @@ public class Connect4Panel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mw.getToken(0)){
 			setPaintToken(true);
+			//check is legal
 			//change the way to get x and make it dynamically change each
 			//time we call it + do a checkislegal move in another function
 			tempx = 0;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(1)){
 			setPaintToken(true);
 			tempx = 1;

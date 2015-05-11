@@ -56,18 +56,19 @@ public class Connect4Panel extends JPanel implements ActionListener{
         // convert the graphics component into graphics 2D
         Graphics2D g2 = (Graphics2D) g;
         paintBoard(g2);
-        
-        
+ 
         //this makes sure the board keeps the old drawn graphics too
         for (int i = 0; i < xP.size(); i++){
         	xPos = xP.get(i);
         	yPos = yP.get(i);
-        	if (i%2 == 0){
+        	if (i % 2 == 0){ //cheat way to get alternating players (change maybe)
         		paintAToken(g);
         	} else {
         		paintBToken(g);
         	}
         }
+        
+        
        
     }
 
@@ -186,8 +187,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			}
 			
 		} else if (e.getSource() == mw.getRestart()){
-			//do something here
-			//clear all the arrays etc
+			System.out.println("was i even in here?");
+			board = new Board();
+			xP.clear();
+			yP.clear();
 		}
 		
 		repaint();

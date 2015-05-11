@@ -39,7 +39,8 @@ public class MainWindow {
 		
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
-        
+		restart = new JButton("restart");
+
         createButtons();
 		
 	}
@@ -64,7 +65,7 @@ public class MainWindow {
 		int i = 0;
 		
 		for (int j = 0; j < 7; j++){
-			JButton a = new JButton("O");
+			JButton a = new JButton("");
         	tokens.add(a);
         }
 	 
@@ -75,7 +76,7 @@ public class MainWindow {
 			i++;
 		}
 		
-		restart = new JButton("restart (?)");
+		restart.addActionListener(connect4Panel);
 		restart.setBounds(350,650,150,50);
         connect4Panel.add(restart);
 	}

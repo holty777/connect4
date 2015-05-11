@@ -12,6 +12,7 @@ public class MainWindow {
 	private JFrame mainFrame;
 	private Connect4Panel connect4Panel;
 	private JButton newGameButton;
+	private JButton newTestButton;
 
 	/**
 	 * Method to bootstrap the main frame
@@ -40,18 +41,37 @@ public class MainWindow {
         connect4Panel.setLayout(null);
 		
 		// Create a new button and add the action listener.
-		newGameButton = new JButton("New Game");
-        newGameButton.setBounds(150, 375, 150, 50);
-		newGameButton.addActionListener(connect4Panel);
+//		newGameButton = new JButton("New Game");
+//      newGameButton.setBounds(150, 375, 150, 50);
+//		newGameButton.addActionListener(connect4Panel);
+//		connect4Panel.add(newGameButton);
 		
-		connect4Panel.add(newGameButton);
 		// Or do it through an anonymous inner class
-//		newGameButton = new JButton(new AbstractAction("New Game") {
-//		    public void actionPerformed(ActionEvent e) {
-//		        sodukuPanel.generateBoard();
-//		        sodukuPanel.repaint();
-//		    }
-//		});
+		newGameButton = new JButton(new AbstractAction("New Game") {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        connect4Panel.generateBoard();
+		        connect4Panel.repaint();
+		    }
+			
+			
+		});
+		newGameButton.setBounds(250,375,150,50);
+		connect4Panel.add(newGameButton);
+
+		newTestButton = new JButton(new AbstractAction("Add Token") {
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+				connect4Panel.setPaintToken(true);
+		        connect4Panel.setxPos(1);
+		        connect4Panel.setyPos(1);
+		        connect4Panel.repaint();
+				connect4Panel.setPaintToken(false);
+		    }
+		});
+		
+		newTestButton.setBounds(50,375,150,50);
+        connect4Panel.add(newTestButton);
 	}
 
 	/**
@@ -59,11 +79,7 @@ public class MainWindow {
 	 */
 	private void display() {
 
-	    
-	    
 		mainFrame.getContentPane().add(connect4Panel);
-		//mainFrame.getContentPane().add(newGameButton);
-
 		mainFrame.pack();
         mainFrame.setVisible(true);
 	}

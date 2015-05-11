@@ -62,7 +62,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
         for (int i = 0; i < xP.size(); i++){
         	xPos = xP.get(i);
         	yPos = yP.get(i);
-        	paintToken(g);
+        	if (i%2 == 0){
+        		paintAToken(g);
+        	} else {
+        		paintBToken(g);
+        	}
         }
        
     }
@@ -82,10 +86,17 @@ public class Connect4Panel extends JPanel implements ActionListener{
         
     }
     
-    public void paintToken(Graphics g){
+    public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setColor(Color.BLACK);
+    	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
+    }
+    
+    public void paintBToken(Graphics g){
+    	
+    	Graphics2D g2 = (Graphics2D) g;
+    	g2.setColor(Color.RED);
     	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
     }
     

@@ -187,7 +187,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			}
 			
 		} else if (e.getSource() == mw.getRestart()){
-			System.out.println("was i even in here?");
 			board = new Board();
 			xP.clear();
 			yP.clear();

@@ -109,39 +109,51 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		} else if (e.getSource() == mw.getToken(1)){
 			setPaintToken(true);
 			tempx = 1;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(2)){
 			setPaintToken(true);
 			tempx = 2;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(3)){
 			setPaintToken(true);
 			tempx = 3;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(4)){
 			setPaintToken(true);
 			tempx = 4;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(5)){
 			setPaintToken(true);
 			tempx = 5;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(6)){
 			setPaintToken(true);
 			tempx = 6;
-			tempy = 0;
+			tempy = board.getNextToken(tempx);
 			xP.add(tempx);
 			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getRestart()){
 			//do something here
 			//clear all the arrays etc

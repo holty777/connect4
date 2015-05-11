@@ -25,6 +25,7 @@ public class Board {
 		return false;
 	}
 	
+	
 	public void drawBoard() {
 		//GUI
 	}

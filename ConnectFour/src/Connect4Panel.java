@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 public class Connect4Panel extends JPanel implements ActionListener{
 	
 	private MainWindow mw;
-	private Integer[][] board;
 	private boolean paintBoard;
 	private boolean paintToken;
 	private int xPos;
@@ -30,7 +29,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	public Connect4Panel(MainWindow mw) {
 		this.mw = mw;
         setBorder(BorderFactory.createLineBorder(Color.black));
-        board = new Integer[7][6];
         this.paintBoard = true;
         this.paintToken = false;
         this.xPos = 0;
@@ -59,11 +57,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
         Graphics2D g2 = (Graphics2D) g;
         paintBoard(g2);
         
-        // finish later
-        //get XCoords/YCoords from another function
-        System.out.println(paintToken);
+        
         if (paintToken){
-        	for (Integer i : xP){
+        	//this makes sure the board keeps the old drawn graphics too
+        	for (int i = 0; i < xP.size(); i++){
         		xPos = xP.get(i);
         		yPos = yP.get(i);
         		paintToken(g);
@@ -140,6 +137,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			tempy = 0;
 			xP.add(tempx);
 			yP.add(tempy);
+		} else if (e.getSource() == mw.getRestart()){
+			//do something here
+			//clear all the arrays etc
 		}
 		repaint();
 	}

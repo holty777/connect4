@@ -9,7 +9,7 @@ public class MainWindow {
 	private JFrame mainFrame;
 	private Connect4Panel connect4Panel;
 	private ArrayList<JButton> tokens;
-	private JButton newTestButton;
+	private JButton restart;
 
 	/**
 	 * Method to bootstrap the main frame
@@ -37,26 +37,51 @@ public class MainWindow {
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(null);
 		
+        //create token buttons 
         tokens = new ArrayList<JButton>(7);
         
-        for (int j = 0; j < 7; j++){
-        	JButton a = new JButton("O");
+        createButtons();
+		
+	}
+	
+	public ArrayList<JButton> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(ArrayList<JButton> tokens) {
+		this.tokens = tokens;
+	}
+
+	public JButton getRestart() {
+		return restart;
+	}
+
+	public void setRestart(JButton restart) {
+		this.restart = restart;
+	}
+
+	public void createButtons(){
+		int i = 0;
+		
+		for (int j = 0; j < 7; j++){
+			JButton a = new JButton("O");
         	tokens.add(a);
         }
-        
-        int i = 0;
-        
-        for (JButton j : tokens){
+	 
+		for (JButton j : tokens){
 		    j.addActionListener(connect4Panel);
 			j.setBounds(130 + i*80, 50,40,40);
 			connect4Panel.add(j);
 			i++;
 		}
 		
-
-		newTestButton = new JButton("Test");
-		newTestButton.setBounds(350,650,150,50);
-        connect4Panel.add(newTestButton);
+		restart = new JButton("restart (?)");
+		restart.setBounds(350,650,150,50);
+        connect4Panel.add(restart);
+	}
+	
+	public JButton getToken(int i) {
+		return tokens.get(i);
 	}
 
 	/**
@@ -69,7 +94,5 @@ public class MainWindow {
         mainFrame.setVisible(true);
 	}
 
-	public JButton getToken(int i) {
-		return tokens.get(i);
-	}
+
 }

@@ -16,7 +16,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private MainWindow mw;
 	private Board board;
 	private boolean paintBoard;
-	private boolean paintToken;
 	private int xPos;
 	private int yPos;
 	private int tempx;
@@ -32,7 +31,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		this.board = new Board();
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.paintBoard = true;
-        this.paintToken = false;
         this.xPos = 0;
         this.yPos = 0;
         this.tempx = 0;
@@ -60,13 +58,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
         paintBoard(g2);
         
         
-        if (paintToken){
-        	//this makes sure the board keeps the old drawn graphics too
-        	for (int i = 0; i < xP.size(); i++){
-        		xPos = xP.get(i);
-        		yPos = yP.get(i);
-        		paintToken(g);
-        	}
+        //this makes sure the board keeps the old drawn graphics too
+        for (int i = 0; i < xP.size(); i++){
+        	xPos = xP.get(i);
+        	yPos = yP.get(i);
+        	paintToken(g);
         }
        
     }
@@ -96,68 +92,93 @@ public class Connect4Panel extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mw.getToken(0)){
-			setPaintToken(true);
-			//check is legal
-			//change the way to get x and make it dynamically change each
-			//time we call it + do a checkislegal move in another function
-			tempx = 0;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
-			
-			board.addToken(tempx, tempy);
+			if (board.isLegal(0)){
+				tempx = 0;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 		} else if (e.getSource() == mw.getToken(1)){
-			setPaintToken(true);
-			tempx = 1;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(1)){
+				tempx = 1;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 			
-			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(2)){
-			setPaintToken(true);
-			tempx = 2;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(2)){
+				tempx = 2;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 			
-			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(3)){
-			setPaintToken(true);
-			tempx = 3;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(3)){
+				tempx = 3;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
 
-			board.addToken(tempx, tempy);
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
+			
 		} else if (e.getSource() == mw.getToken(4)){
-			setPaintToken(true);
-			tempx = 4;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(4)){
+				tempx = 4;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 			
-			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(5)){
-			setPaintToken(true);
-			tempx = 5;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(5)){
+				tempx = 5;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 			
-			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getToken(6)){
-			setPaintToken(true);
-			tempx = 6;
-			tempy = board.getNextToken(tempx);
-			xP.add(tempx);
-			yP.add(tempy);
+			if (board.isLegal(6)){
+				tempx = 6;
+				tempy = board.getNextToken(tempx);
+				xP.add(tempx);
+				yP.add(tempy);
+				
+				board.addToken(tempx, tempy);
+			} else {
+				//do something (print error message? not sure)
+			}
 			
-			board.addToken(tempx, tempy);
 		} else if (e.getSource() == mw.getRestart()){
 			//do something here
 			//clear all the arrays etc
 		}
+		
 		repaint();
 	}
     
@@ -175,20 +196,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		this.paintBoard = paintBoard;
 	}
 	
-	/**
-	 * @return the paintToken
-	 */
-	public boolean isPaintToken() {
-		return paintToken;
-	}
-
-	/**
-	 * @param paintBoard the paintBoard to set
-	 */
-	public void setPaintToken(boolean paintToken) {
-		this.paintToken = paintToken;
-	}
-
 	/**
 	 * @return the xPos
 	 */

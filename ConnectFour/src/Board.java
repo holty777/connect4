@@ -106,7 +106,6 @@ public class Board {
 	public void addToken(int col, int row){
 		Tokens t = new Tokens (true); //testing, make true for now, will be getPlayer though
 		board.get(col).add(t);
-		System.out.println(board.get(col).size());
 	}
 	
 	public int getNextToken(int i) {
@@ -114,8 +113,13 @@ public class Board {
 		
 	}
 	
-	public int isLegal(int i){
-		//TO DO
-		return 0;
+	public boolean isLegal(int i){
+		boolean l = true;
+		
+		if (board.get(i).size() > 6){
+			l = false;
+		}
+		
+		return l;
 	}
 }

@@ -75,11 +75,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
     public void paintBoard(Graphics g){
     	 // draw grid lines
         for (int i = 0; i < 8; i++) {
-        	((Graphics2D) g).setStroke(new BasicStroke(1));
-        	g.setColor(Color.RED);
+        	((Graphics2D) g).setStroke(new BasicStroke(2));
+        	g.setColor(Color.BLUE);
             g.drawLine(110 + i*80, 110, 110 + i*80, 590);
             for (int j = 0; j < 7; j++) {
-            	g.setColor(Color.PINK);
+            	g.setColor(Color.BLUE);
             	g.drawLine(110, 110 + j*80, 670, 110 + j*80);
             }
         }
@@ -90,7 +90,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
     public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
-    	g2.setColor(Color.BLACK);
+    	g2.setColor(Color.YELLOW);
     	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
     }
     
@@ -100,11 +100,13 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	g2.setColor(Color.RED);
     	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
     }
-    /*
+    
     public void paintPlayer(Graphics g) {
-    	Graphics2D g
+    	
+    	Graphics2D g2 = (Graphics2D) g;
+    	
     }
-    */
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mw.getToken(0)){
@@ -244,5 +246,4 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
 	}  
-
 }

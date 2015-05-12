@@ -97,9 +97,7 @@ public class Board {
 	public void fillBoard(){
 		for (int i = 0; i < 7; i++){
 			ArrayList<Tokens> arr = new ArrayList<Tokens>(6);
-			Tokens token = new Tokens (true); //testing,  make true for now, will be getPlayer though
 			board.add(arr); 
-			board.get(i).add(token);
 		}
 	}
 	
@@ -109,14 +107,20 @@ public class Board {
 	}
 	
 	public int getNextToken(int i) {
-		return board.get(i).size()-1;
+		if (board.get(i) == null){
+			Tokens token = new Tokens (true); //testing,  make true for now, will be getPlayer though
+			board.get(i).add(token);
+
+		}
+		System.out.println(board.get(i).size()-1);
+		return board.get(i).size();
 		
 	}
 	
 	public boolean isLegal(int i){
 		boolean l = true;
 		
-		if (board.get(i).size() > 6){
+		if (board.get(i).size() > 5){
 			l = false;
 		}
 		

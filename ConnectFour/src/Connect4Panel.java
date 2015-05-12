@@ -100,7 +100,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	g2.setColor(Color.RED);
     	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
     }
-    
+    /*
+    public void paintPlayer(Graphics g) {
+    	Graphics2D g
+    }
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mw.getToken(0)){
@@ -190,6 +194,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			board = new Board();
 			xP.clear();
 			yP.clear();
+		}
+		
+		if (!(e.getSource() == mw.getRestart())){
+			//change the ad
 		}
 		
 		repaint();

@@ -28,9 +28,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	 */
 	public Connect4Panel(MainWindow mw) {
 		this.mw = mw;
+        this.paintBoard = true;
 		this.board = new Board();
         setBorder(BorderFactory.createLineBorder(Color.black));
-        this.paintBoard = true;
         this.xPos = 0;
         this.yPos = 0;
         this.tempx = 0;
@@ -44,7 +44,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
      * Set the size of the panel
      */
 	public Dimension getPreferredSize() {
-        return new Dimension(800,800);
+        return new Dimension(770,770);
     }
 
 	/**
@@ -55,7 +55,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
         // convert the graphics component into graphics 2D
         Graphics2D g2 = (Graphics2D) g;
-        paintBoard(g2);
+        //paintBoard(g2);
  
         //this makes sure the board keeps the old drawn graphics too
         for (int i = 0; i < xP.size(); i++){
@@ -91,14 +91,14 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setColor(Color.BLACK);
-    	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
+    	g2.fillOval(15 + getxPos()*109, 563 - getyPos()*110, 83, 83);
     }
     
     public void paintBToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setColor(Color.RED);
-    	g2.fillOval(120 + getxPos()*80, 520 - getyPos()*80, 60, 60);
+    	g2.fillOval(15 + getxPos()*109, 563 - getyPos()*110, 83, 83);
     }
     /*
     public void paintPlayer(Graphics g) {

@@ -1,6 +1,13 @@
+import java.awt.GridLayout;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
@@ -10,12 +17,15 @@ public class MainWindow {
 	private Connect4Panel connect4Panel;
 	private ArrayList<JButton> tokens;
 	private JButton restart;
+    GridLayout experimentLayout = new GridLayout(7,7);
+    List<JLabel> holes = new ArrayList<JLabel>();
 
 	/**
 	 * Method to bootstrap the main frame
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		final MainWindow mw = new MainWindow();
 		
 		// display the main window in a different thread.
@@ -28,19 +38,23 @@ public class MainWindow {
 	
 	/**
 	 * Constructor for the main window.
+	 * @throws IOException 
 	 */
-	public MainWindow() {
+	public MainWindow() throws IOException {
+		final JPanel experiment = new JPanel();
+		experiment.setLayout(experimentLayout);
 		mainFrame = new JFrame("Connect 4 GUI Demo");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// create the connect4 panel
 		connect4Panel = new Connect4Panel(this);
-        connect4Panel.setLayout(null);
-		
+        connect4Panel.setLayout(experimentLayout);
+        
+        //Add buttons to Grid
+      
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
 		restart = new JButton("restart");
-
         createButtons();
 		
 	}
@@ -64,6 +78,11 @@ public class MainWindow {
 	public void createButtons(){
 		int i = 0;
 		
+		  for(i=0;i<42;i++){
+	        	connect4Panel.add(new JLabel(new ImageIcon("pic1.png")));
+	        }
+			
+		
 		for (int j = 0; j < 7; j++){
 			JButton a = new JButton("");
         	tokens.add(a);
@@ -75,10 +94,10 @@ public class MainWindow {
 			connect4Panel.add(j);
 			i++;
 		}
+	
 		
 		restart.addActionListener(connect4Panel);
-		restart.setBounds(350,650,150,50);
-        connect4Panel.add(restart);
+		//restart.setBounds(350,650,150,50);
 	}
 	
 	public JButton getToken(int i) {
@@ -93,6 +112,7 @@ public class MainWindow {
 		mainFrame.getContentPane().add(connect4Panel);
 		mainFrame.pack();
         mainFrame.setVisible(true);
+        mainFrame.setResizable(false);
 	}
 
 

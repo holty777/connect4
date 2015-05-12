@@ -112,7 +112,7 @@ public class Board {
 			board.get(i).add(token);
 
 		}
-		System.out.println(board.get(i).size()-1);
+//		System.out.println(board.get(i).size()-1);
 		return board.get(i).size();
 		
 	}

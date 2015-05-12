@@ -91,14 +91,14 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setColor(Color.YELLOW);
-    	g2.fillRect(15 + getxPos()*109, 563 - getyPos()*110, 90, 90);
+    	g2.fillRect(15 + getxPos()*109, 673 - getyPos()*110, 90, 90);
     }
     
     public void paintBToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setColor(Color.RED);
-    	g2.fillRect(15 + getxPos()*109, 563 - getyPos()*110, 90, 90);
+    	g2.fillRect(15 + getxPos()*109, 673 - getyPos()*110, 90, 90);
     }
     /*
     public void paintPlayer(Graphics g) {
@@ -126,6 +126,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 				
 				board.addToken(tempx, tempy);
+				
+
 			} else {
 				//do something (print error message? not sure)
 			}
@@ -138,6 +140,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 				
 				board.addToken(tempx, tempy);
+				
+
 			} else {
 				//do something (print error message? not sure)
 			}
@@ -150,6 +154,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 
 				board.addToken(tempx, tempy);
+				
+
 			} else {
 				//do something (print error message? not sure)
 			}
@@ -162,6 +168,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 				
 				board.addToken(tempx, tempy);
+				
+
 			} else {
 				//do something (print error message? not sure)
 			}
@@ -174,6 +182,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 				
 				board.addToken(tempx, tempy);
+				
+
 			} else {
 				//do something (print error message? not sure)
 			}
@@ -186,6 +196,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempy);
 				
 				board.addToken(tempx, tempy);
+				
+				
 			} else {
 				//do something (print error message? not sure)
 			}

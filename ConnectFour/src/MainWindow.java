@@ -15,9 +15,12 @@ public class MainWindow {
 	
 	private JFrame mainFrame;
 	private Connect4Panel connect4Panel;
+	private JPanel outsidePanel;
 	private ArrayList<JButton> tokens;
 	private JButton restart;
     GridLayout experimentLayout = new GridLayout(7,7);
+    GridLayout leftSideLayout = new GridLayout(4,1);
+    GridLayout outsideLayout = new GridLayout(1,1);
     List<JLabel> holes = new ArrayList<JLabel>();
 
 	/**
@@ -42,6 +45,8 @@ public class MainWindow {
 	 */
 	public MainWindow() throws IOException {
 		final JPanel experiment = new JPanel();
+		final JPanel leftPanel = new JPanel();
+		leftPanel.setLayout(leftSideLayout);
 		experiment.setLayout(experimentLayout);
 		mainFrame = new JFrame("Connect 4 GUI Demo");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,12 +54,20 @@ public class MainWindow {
 		// create the connect4 panel
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(experimentLayout);
+		restart = new JButton("Restart");
+        //Creates outside Panel
+        //Adds buttons on left side
+        outsidePanel = new JPanel();
+        leftPanel.add(new JButton("New Game PVP"));
+        leftPanel.add(new JButton("New Game Computer"));
+        leftPanel.add(restart);
+        outsidePanel.add(leftPanel);
+        outsidePanel.add(connect4Panel);
         
         //Add buttons to Grid
       
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
-		restart = new JButton("restart");
         createButtons();
 		
 	}
@@ -70,6 +83,8 @@ public class MainWindow {
 	public JButton getRestart() {
 		return restart;
 	}
+	
+
 
 	public void setRestart(JButton restart) {
 		this.restart = restart;
@@ -78,9 +93,7 @@ public class MainWindow {
 	public void createButtons(){
 		int i = 0;
 		
-		  for(i=0;i<42;i++){
-	        	connect4Panel.add(new JLabel(new ImageIcon("pic1.png")));
-	        }
+		  
 			
 		
 		for (int j = 0; j < 7; j++){
@@ -94,6 +107,10 @@ public class MainWindow {
 			connect4Panel.add(j);
 			i++;
 		}
+		
+		for(i=0;i<42;i++){
+        	connect4Panel.add(new JLabel(new ImageIcon("src/pic1.png")));
+        }
 	
 		
 		restart.addActionListener(connect4Panel);
@@ -109,7 +126,7 @@ public class MainWindow {
 	 */
 	private void display() {
 
-		mainFrame.getContentPane().add(connect4Panel);
+		mainFrame.getContentPane().add(outsidePanel);
 		mainFrame.pack();
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);

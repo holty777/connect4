@@ -1,19 +1,13 @@
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -69,9 +63,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	 */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);       
-
-        // convert the graphics component into graphics 2D
-        Graphics2D g2 = (Graphics2D) g;
         
         if (isAi()){
         	mw.drawGame("mvp", turn);

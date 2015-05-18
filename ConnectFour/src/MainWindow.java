@@ -1,7 +1,7 @@
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,7 +219,9 @@ public class MainWindow {
 	public void drawGame(String name, int turn){
 		leftPanel.removeAll();
 		
-		con.fill = GridBagConstraints.PAGE_START;
+		con.fill = GridBagConstraints.HORIZONTAL;
+		con.anchor = GridBagConstraints.PAGE_START;
+		con.insets = new Insets(10,0,10,0);
 		con.gridx = 0;
 		con.gridy = 0;
 		con.gridwidth = 2;

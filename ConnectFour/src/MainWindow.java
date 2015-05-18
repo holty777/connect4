@@ -1,3 +1,6 @@
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,8 +29,8 @@ public class MainWindow {
 	private JRadioButton hard;
 	private ButtonGroup bg;
     GridLayout experimentLayout = new GridLayout(7,7);
-    GridLayout leftSideLayout = new GridLayout(7,1,10,10);
-    GridLayout outsideLayout = new GridLayout(1,1);
+    GridBagLayout leftSideLayout = new GridBagLayout();
+    GridBagConstraints con;
     List<JLabel> holes = new ArrayList<JLabel>();
     private JPanel leftPanel;
     private JPanel experiment;
@@ -63,20 +66,22 @@ public class MainWindow {
 		// create the connect4 panel
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(experimentLayout);
-		restart = new JButton("Restart");
+        con = new GridBagConstraints();
+        
+        // create the leftPanel
+		restart = new JButton("Restart");		
 		pvp =  new JButton ("Player VS Player");
 		mvp = new JButton ("Player VS Computer");
 		easy = new JRadioButton ("Easy Mode");
 		easy.setSelected(true);
 		hard = new JRadioButton ("Hard Mode");
+		
         //Creates outside Panel
-        //Adds buttons on left side
         outsidePanel = new JPanel();
         outsidePanel.add(leftPanel);
-        outsidePanel.add(connect4Panel);
+        outsidePanel.add(connect4Panel );
         
-        //Add buttons to Grid
-      
+       
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
         createTopButtons();
@@ -176,12 +181,36 @@ public class MainWindow {
 	
 	public void createLeftButtons(){
 		
-        leftPanel.add(pvp);
-        leftPanel.add(easy);
-        leftPanel.add(hard);
-        
-        leftPanel.add(mvp);
-        leftPanel.add(restart);
+        con.fill = GridBagConstraints.CENTER;
+		con.gridx = 0;
+		con.gridy = 1;
+		con.gridwidth = 2;
+
+        leftPanel.add(pvp, con);
+        con.fill = GridBagConstraints.CENTER;
+		con.gridx = 0;
+		con.gridy = 2;
+		con.gridwidth = 1;
+
+        leftPanel.add(easy, con);
+        con.fill = GridBagConstraints.CENTER;
+		con.gridx = 1;
+		con.gridy = 2;
+		con.gridwidth = 1;
+
+        leftPanel.add(hard, con);
+        con.fill = GridBagConstraints.CENTER;
+		con.gridx = 0;
+		con.gridy = 3;
+		con.gridwidth = 2;
+
+        leftPanel.add(mvp, con);
+        con.fill = GridBagConstraints.PAGE_END;
+		con.gridx = 0;
+		con.gridy = 4;
+		con.gridwidth = 2;
+
+        leftPanel.add(restart, con);
 		restart.addActionListener(connect4Panel);
 		pvp.addActionListener(connect4Panel);
 		mvp.addActionListener(connect4Panel);
@@ -189,20 +218,21 @@ public class MainWindow {
 	
 	public void drawGame(String name, int turn){
 		leftPanel.removeAll();
-
-		if (name.equals("pvp")){
-			leftPanel.add(new JLabel(new ImageIcon("src/pvp.png")));	
-		} else {
-			leftPanel.add(new JLabel(new ImageIcon("src/mvp.png")));
-		}
 		
-		createLeftButtons();
-	
-		if (turn % 2 == 0){
-			leftPanel.add(new JLabel ("It is Player 1 Turn!", JLabel.CENTER));
-		} else {
-			leftPanel.add(new JLabel ("It is Player 2 Turn!", JLabel.CENTER));
+		con.fill = GridBagConstraints.PAGE_START;
+		con.gridx = 0;
+		con.gridy = 0;
+		con.gridwidth = 2;
+		
+		if (name.equals("pvp") && turn % 2 == 0){
+			leftPanel.add(new JLabel(new ImageIcon("src/pvp 1.png")), con);	
+		} else if (name.equals("pvp") && turn % 2 == 1){
+			leftPanel.add(new JLabel(new ImageIcon("src/pvp 2.png")), con);
+		} else{
+			leftPanel.add(new JLabel(new ImageIcon("src/mvp.png")), con);
 		}
+	
+		createLeftButtons();
 
 		leftPanel.revalidate();
 

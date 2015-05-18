@@ -17,14 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-/**
- * @author Steven
- *
- */
-/**
- * @author Steven
- *
- */
 public class Connect4Panel extends JPanel implements ActionListener{
 	
 	private MainWindow mw;

@@ -1,31 +1,25 @@
 
 public class Tokens {
-	String colour;
-	int num;
+	private boolean player;
 	
 	public Tokens (boolean playerNum) {
-		if (playerNum == true) {
-			this.setColour("blue");
-		} else {
-			this.setColour("red");
-		}
-		
+		this.setPlayer(playerNum);
 	}
 
-	public String getColour() {
-		return colour;
+	/**
+	 * @return the player
+	 */
+	public boolean isPlayer() {
+		return player;
 	}
 
-	public void setColour(String colour) {
-		this.colour = colour;
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(boolean player) {
+		this.player = player;
 	}
 
-	public int getNum() {
-		return num;
-	}
 
-	public void setNum(int num) {
-		this.num = num;
-	}
 }
 

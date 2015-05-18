@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
 
@@ -20,8 +22,11 @@ public class MainWindow {
 	private JButton restart;
 	private JButton pvp;
 	private JButton mvp;
+	private JRadioButton easy;
+	private JRadioButton hard;
+	private ButtonGroup bg;
     GridLayout experimentLayout = new GridLayout(7,7);
-    GridLayout leftSideLayout = new GridLayout(5,2);
+    GridLayout leftSideLayout = new GridLayout(7,1,10,10);
     GridLayout outsideLayout = new GridLayout(1,1);
     List<JLabel> holes = new ArrayList<JLabel>();
     private JPanel leftPanel;
@@ -59,8 +64,11 @@ public class MainWindow {
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(experimentLayout);
 		restart = new JButton("Restart");
-		pvp =  new JButton ("New Game PVP");
-		mvp = new JButton ("New Game Computer");
+		pvp =  new JButton ("Player VS Player");
+		mvp = new JButton ("Player VS Computer");
+		easy = new JRadioButton ("Easy Mode");
+		easy.setSelected(true);
+		hard = new JRadioButton ("Hard Mode");
         //Creates outside Panel
         //Adds buttons on left side
         outsidePanel = new JPanel();
@@ -71,8 +79,10 @@ public class MainWindow {
       
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
-        createButtons();
+        createTopButtons();
+        createButtonGroup();
         createLeftButtons();
+        
 		
 	}
 	
@@ -108,7 +118,35 @@ public class MainWindow {
 		this.mvp = mvp;
 	}
 
-	public void createButtons(){
+	/**
+	 * @return the easy
+	 */
+	public JRadioButton getEasy() {
+		return easy;
+	}
+
+	/**
+	 * @param easy the easy to set
+	 */
+	public void setEasy(JRadioButton easy) {
+		this.easy = easy;
+	}
+
+	/**
+	 * @return the hard
+	 */
+	public JRadioButton getHard() {
+		return hard;
+	}
+
+	/**
+	 * @param hard the hard to set
+	 */
+	public void setHard(JRadioButton hard) {
+		this.hard = hard;
+	}
+
+	public void createTopButtons(){
 		int i = 0;
 		
 		for (int j = 0; j < 7; j++){
@@ -126,35 +164,51 @@ public class MainWindow {
 		for(i=0;i<42;i++){
         	connect4Panel.add(new JLabel(new ImageIcon("src/pic1.png")));
         }
-	
-		
+
 	}
+	
+	public void createButtonGroup(){
+		bg = new ButtonGroup();
+		
+		bg.add(easy);
+		bg.add(hard);
+	}
+	
 	public void createLeftButtons(){
+		
         leftPanel.add(pvp);
+        leftPanel.add(easy);
+        leftPanel.add(hard);
+        
         leftPanel.add(mvp);
         leftPanel.add(restart);
-        
 		restart.addActionListener(connect4Panel);
 		pvp.addActionListener(connect4Panel);
 		mvp.addActionListener(connect4Panel);
 	}
 	
-	public void drawGame(String name){
+	public void drawGame(String name, int turn){
+		leftPanel.removeAll();
+
 		if (name.equals("pvp")){
-			leftPanel.removeAll();
-			leftPanel.add(new JLabel(new ImageIcon("src/pvp.png")));
-			createLeftButtons();
-			
-			leftPanel.revalidate();
+			leftPanel.add(new JLabel(new ImageIcon("src/pvp.png")));	
 		} else {
-			leftPanel.removeAll();
 			leftPanel.add(new JLabel(new ImageIcon("src/mvp.png")));
-			createLeftButtons();
-			
-			leftPanel.revalidate();
 		}
 		
+		createLeftButtons();
+	
+		if (turn % 2 == 0){
+			leftPanel.add(new JLabel ("It is Player 1 Turn!", JLabel.CENTER));
+		} else {
+			leftPanel.add(new JLabel ("It is Player 2 Turn!", JLabel.CENTER));
+		}
+
+		leftPanel.revalidate();
+
 	}
+	
+	
 	public JButton getToken(int i) {
 		return tokens.get(i);
 	}

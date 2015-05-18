@@ -24,6 +24,8 @@ public class AI {
 		if (diff.equals("easy")){
 			easyMode();
 			
+		} else if (diff.equals("hard")){
+			hardMode();
 		}
 		
 		return moves;
@@ -32,11 +34,11 @@ public class AI {
 	public void easyMode () {
 		while (!isFinished()){
 			
-			rNum = random.nextInt(6);
+			rNum = random.nextInt(7);
 
 			if (board.isLegal(rNum)){
 				moves.add(rNum);
-				moves.add(board.getNextToken(rNum));
+				moves.add(board.getNextToken(rNum, false));
 				setFinished(true);
 			}
 		}
@@ -48,7 +50,17 @@ public class AI {
 	}
 	
 	public void hardMode () {
-		
+		while (!isFinished()){
+			
+			rNum = random.nextInt(7);
+
+			if (board.isLegal(rNum)){
+				moves.add(rNum);
+				moves.add(board.getNextToken(rNum, false));
+				setFinished(true);
+			}
+		}
+		setFinished(false);
 	}
 
 	/**

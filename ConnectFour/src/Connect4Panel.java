@@ -72,12 +72,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
         // convert the graphics component into graphics 2D
         Graphics2D g2 = (Graphics2D) g;
-        //paintBoard(g2);
         
         if (isAi()){
-        	mw.drawGame("mvp");
+        	mw.drawGame("mvp", turn);
         } else {
-        	mw.drawGame("pvp");
+        	mw.drawGame("pvp", turn);
         }
  
         //this makes sure the board keeps the old drawn graphics too
@@ -90,9 +89,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
         		paintBToken(g);
         	}
         }
-        
-        
-       
+
     }
     
     public void paintTest(Graphics g){
@@ -123,98 +120,73 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		if (e.getSource() == mw.getToken(0)){
 			if (board.isLegal(0)){
 				tempx = 0;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(1)){
 			if (board.isLegal(1)){
 				tempx = 1;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-				
-
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getToken(2)){
 			if (board.isLegal(2)){
 				tempx = 2;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-				
-
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getToken(3)){
 			if (board.isLegal(3)){
 				tempx = 3;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 
-				board.addToken(tempx, tempy);
-				
-
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getToken(4)){
 			if (board.isLegal(4)){
 				tempx = 4;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-				
-
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getToken(5)){
 			if (board.isLegal(5)){
 				tempx = 5;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-				
-
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getToken(6)){
 			if (board.isLegal(6)){
 				tempx = 6;
-				tempy = board.getNextToken(tempx);
+				tempy = board.getNextToken(tempx, player);
 				xP.add(tempx);
 				yP.add(tempy);
 				
-				board.addToken(tempx, tempy);
-				
-				
-			} else {
-				//do something (print error message? not sure)
+				board.addToken(tempx, tempy, player);
+				incTurn();
 			}
-			
 		} else if (e.getSource() == mw.getRestart()){
 			clearEverything();
 		} else if (e.getSource() == mw.getPvp()){
@@ -223,12 +195,17 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		} else if (e.getSource() == mw.getMvp()){
 			clearEverything();
 			setAi(true);
-			aiPlayer = new AI("easy", board);
+			if (mw.getEasy().isSelected()){
+				aiPlayer = new AI("easy", board);
+			} else if (mw.getHard().isSelected()){
+				aiPlayer = new AI("hard", board);
+			}
+			
 		}
 		
 		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
 				&& !(e.getSource() == mw.getMvp())){
-				incTurn();
+				changePlayer();
 			}
 		
 		if (isAi() && (getTurn() % 2 == 1)){
@@ -240,7 +217,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			xP.add(tempx);
 			yP.add(tempy);
 			
-			board.addToken(tempx, tempy);
+			board.addToken(tempx, tempy, player);
 			
 			AIMove.clear();
 			aiPlayer.clearMoves();
@@ -327,6 +304,14 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
 	public void incTurn(){
 		this.setTurn(this.getTurn() + 1);
+	}
+	
+	public void changePlayer(){
+		if (player){
+			this.player = false;
+		} else if (!player){
+			this.player = true;
+		}
 	}
 
 	public void clearEverything(){

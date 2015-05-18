@@ -101,18 +101,18 @@ public class Board {
 		}
 	}
 	
-	public void addToken(int col, int row){
-		Tokens t = new Tokens (true); //testing, make true for now, will be getPlayer though
+	public void addToken(int col, int row, boolean player){
+		Tokens t = new Tokens (player);
 		board.get(col).add(t);
 	}
 	
-	public int getNextToken(int i) {
+	public int getNextToken(int i, boolean player) {
 		if (board.get(i) == null){
-			Tokens token = new Tokens (true); //testing,  make true for now, will be getPlayer though
+			Tokens token = new Tokens (player);
 			board.get(i).add(token);
 
 		}
-//		System.out.println(board.get(i).size()-1);
+		
 		return board.get(i).size();
 		
 	}

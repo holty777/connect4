@@ -18,10 +18,14 @@ public class MainWindow {
 	private JPanel outsidePanel;
 	private ArrayList<JButton> tokens;
 	private JButton restart;
+	private JButton pvp;
+	private JButton mvp;
     GridLayout experimentLayout = new GridLayout(7,7);
-    GridLayout leftSideLayout = new GridLayout(4,1);
+    GridLayout leftSideLayout = new GridLayout(5,2);
     GridLayout outsideLayout = new GridLayout(1,1);
     List<JLabel> holes = new ArrayList<JLabel>();
+    private JPanel leftPanel;
+    private JPanel experiment;
 
 	/**
 	 * Method to bootstrap the main frame
@@ -44,8 +48,8 @@ public class MainWindow {
 	 * @throws IOException 
 	 */
 	public MainWindow() throws IOException {
-		final JPanel experiment = new JPanel();
-		final JPanel leftPanel = new JPanel();
+		experiment = new JPanel();
+		leftPanel = new JPanel();
 		leftPanel.setLayout(leftSideLayout);
 		experiment.setLayout(experimentLayout);
 		mainFrame = new JFrame("Connect 4 GUI Demo");
@@ -55,12 +59,11 @@ public class MainWindow {
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(experimentLayout);
 		restart = new JButton("Restart");
+		pvp =  new JButton ("New Game PVP");
+		mvp = new JButton ("New Game Computer");
         //Creates outside Panel
         //Adds buttons on left side
         outsidePanel = new JPanel();
-        leftPanel.add(new JButton("New Game PVP"));
-        leftPanel.add(new JButton("New Game Computer"));
-        leftPanel.add(restart);
         outsidePanel.add(leftPanel);
         outsidePanel.add(connect4Panel);
         
@@ -69,6 +72,7 @@ public class MainWindow {
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
         createButtons();
+        createLeftButtons();
 		
 	}
 	
@@ -84,17 +88,28 @@ public class MainWindow {
 		return restart;
 	}
 	
-
-
 	public void setRestart(JButton restart) {
 		this.restart = restart;
 	}
 
+	public JButton getPvp() {
+		return pvp;
+	}
+
+	public void setPvp(JButton pvp) {
+		this.pvp = pvp;
+	}
+
+	public JButton getMvp() {
+		return mvp;
+	}
+
+	public void setMvp(JButton mvp) {
+		this.mvp = mvp;
+	}
+
 	public void createButtons(){
 		int i = 0;
-		
-		  
-			
 		
 		for (int j = 0; j < 7; j++){
 			JButton a = new JButton("");
@@ -113,10 +128,33 @@ public class MainWindow {
         }
 	
 		
+	}
+	public void createLeftButtons(){
+        leftPanel.add(pvp);
+        leftPanel.add(mvp);
+        leftPanel.add(restart);
+        
 		restart.addActionListener(connect4Panel);
-		//restart.setBounds(350,650,150,50);
+		pvp.addActionListener(connect4Panel);
+		mvp.addActionListener(connect4Panel);
 	}
 	
+	public void drawGame(String name){
+		if (name.equals("pvp")){
+			leftPanel.removeAll();
+			leftPanel.add(new JLabel(new ImageIcon("src/pvp.png")));
+			createLeftButtons();
+			
+			leftPanel.revalidate();
+		} else {
+			leftPanel.removeAll();
+			leftPanel.add(new JLabel(new ImageIcon("src/mvp.png")));
+			createLeftButtons();
+			
+			leftPanel.revalidate();
+		}
+		
+	}
 	public JButton getToken(int i) {
 		return tokens.get(i);
 	}

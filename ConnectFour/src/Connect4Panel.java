@@ -5,9 +5,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -16,27 +22,38 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private MainWindow mw;
 	private Board board;
 	private boolean paintBoard;
+	private boolean player;
+	private boolean ai;
 	private int xPos;
 	private int yPos;
 	private int tempx;
 	private int tempy;
+	private int turn;
+	private ArrayList<Integer> AIMove;
 	private ArrayList<Integer> xP;
 	private ArrayList<Integer> yP;
+	private AI aiPlayer;
 	
 	/**
 	 * Constructor for a Connect4 panel
+	 * @throws IOException 
 	 */
-	public Connect4Panel(MainWindow mw) {
+	public Connect4Panel(MainWindow mw) throws IOException {
 		this.mw = mw;
         this.paintBoard = true;
+        this.player = true;
+        this.ai = false;
 		this.board = new Board();
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.xPos = 0;
         this.yPos = 0;
         this.tempx = 0;
         this.tempy = 0;
+        this.setTurn(0);
+        this.AIMove = new ArrayList<Integer>();
         this.xP = new ArrayList<Integer>();
         this.yP = new ArrayList<Integer>();
+        
 
     }
 
@@ -56,6 +73,12 @@ public class Connect4Panel extends JPanel implements ActionListener{
         // convert the graphics component into graphics 2D
         Graphics2D g2 = (Graphics2D) g;
         //paintBoard(g2);
+        
+        if (isAi()){
+        	mw.drawGame("mvp");
+        } else {
+        	mw.drawGame("pvp");
+        }
  
         //this makes sure the board keeps the old drawn graphics too
         for (int i = 0; i < xP.size(); i++){
@@ -71,20 +94,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
         
        
     }
-
-    public void paintBoard(Graphics g){
-    	 // draw grid lines
-        for (int i = 0; i < 8; i++) {
-        	((Graphics2D) g).setStroke(new BasicStroke(1));
-        	g.setColor(Color.RED);
-            g.drawLine(110 + i*80, 110, 110 + i*80, 590);
-            for (int j = 0; j < 7; j++) {
-            	g.setColor(Color.PINK);
-            	g.drawLine(110, 110 + j*80, 670, 110 + j*80);
-            }
-        }
-        
-        
+    
+    public void paintTest(Graphics g){
+    	Graphics2D g2 = (Graphics2D) g;
+    	g2.fillRect(0, 0, 10, 10);
     }
     
     public void paintAToken(Graphics g){
@@ -203,14 +216,38 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			}
 			
 		} else if (e.getSource() == mw.getRestart()){
-			board = new Board();
-			xP.clear();
-			yP.clear();
+			clearEverything();
+		} else if (e.getSource() == mw.getPvp()){
+			clearEverything();
+			setAi(false);
+		} else if (e.getSource() == mw.getMvp()){
+			clearEverything();
+			setAi(true);
+			aiPlayer = new AI("easy", board);
 		}
 		
-		if (!(e.getSource() == mw.getRestart())){
-			//change the ad
+		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
+				&& !(e.getSource() == mw.getMvp())){
+				incTurn();
+			}
+		
+		if (isAi() && (getTurn() % 2 == 1)){
+			AIMove = aiPlayer.placeToken();
+			
+			tempx = AIMove.get(0);
+			tempy =	AIMove.get(1);
+			
+			xP.add(tempx);
+			yP.add(tempy);
+			
+			board.addToken(tempx, tempy);
+			
+			AIMove.clear();
+			aiPlayer.clearMoves();
+			incTurn();
 		}
+		
+		//need to check here if the game is won or if board is full
 		
 		repaint();
 	}
@@ -229,6 +266,22 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		this.paintBoard = paintBoard;
 	}
 	
+	public boolean isPlayer() {
+		return player;
+	}
+
+	public void setPlayer(boolean player) {
+		this.player = player;
+	}
+
+	public boolean isAi() {
+		return ai;
+	}
+
+	public void setAi(boolean ai) {
+		this.ai = ai;
+	}
+
 	/**
 	 * @return the xPos
 	 */
@@ -256,5 +309,34 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
 	}  
+	
+	
+	/**
+	 * @return the turn
+	 */
+	public int getTurn() {
+		return turn;
+	}
 
+	/**
+	 * @param turn the turn to set
+	 */
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
+	public void incTurn(){
+		this.setTurn(this.getTurn() + 1);
+	}
+
+	public void clearEverything(){
+		board = new Board();
+		xP.clear();
+		yP.clear();
+		setTurn(0);
+		AIMove.clear();
+		if (aiPlayer != null){
+			aiPlayer.setBoard(board);
+		}
+	}
 }

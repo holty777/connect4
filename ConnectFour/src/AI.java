@@ -6,25 +6,25 @@ public class AI {
 	
 	private Board board;
 	private int playerNum;
-	private String diff;
+	private String difficulty;
 	private ArrayList<Integer> moves;
 	private Random random;
 	private int rNum;
 	private boolean finished;
 	
-	public AI (String diff, Board board) {
+	public AI (String difficulty, Board board) {
 		this.board = board;
-		this.setDiff(diff);
+		this.difficulty = difficulty;
 		this.moves = new ArrayList<Integer>();
 		random = new Random();
 		
 	}
 	
 	public ArrayList<Integer> placeToken () {
-		if (diff.equals("easy")){
+		if (difficulty.equals("easy")){
 			easyMode();
 			
-		} else if (diff.equals("hard")){
+		} else if (difficulty.equals("hard")){
 			hardMode();
 		}
 		
@@ -86,17 +86,17 @@ public class AI {
 	}
 
 	/**
-	 * @return the diff
+	 * @return the difficulty
 	 */
 	public String getDiff() {
-		return diff;
+		return difficulty;
 	}
 
 	/**
-	 * @param diff the diff to set
+	 * @param diff the difficulty to set
 	 */
-	public void setDiff(String diff) {
-		this.diff = diff;
+	public void setDiff(String difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	/**

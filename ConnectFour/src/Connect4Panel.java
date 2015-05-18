@@ -17,6 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+/**
+ * @author Steven
+ *
+ */
+/**
+ * @author Steven
+ *
+ */
 public class Connect4Panel extends JPanel implements ActionListener{
 	
 	private MainWindow mw;
@@ -110,11 +118,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	g2.setColor(Color.RED);
     	g2.fillRect(15 + getxPos()*109, 670 - getyPos()*110, 90, 90);
     }
-    /*
-    public void paintPlayer(Graphics g) {
-    	Graphics2D g
-    }
-    */
+
     @Override
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == mw.getToken(0)){
@@ -243,14 +247,23 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		this.paintBoard = paintBoard;
 	}
 	
+	/**
+	 * @return the current player
+	 */
 	public boolean isPlayer() {
 		return player;
 	}
 
+	/**
+	 * @param player
+	 */
 	public void setPlayer(boolean player) {
 		this.player = player;
 	}
 
+	/**
+	 * @return if ai is present in the game
+	 */
 	public boolean isAi() {
 		return ai;
 	}
@@ -302,6 +315,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		this.turn = turn;
 	}
 
+	/**
+	 * increments the turn number
+	 */
 	public void incTurn(){
 		this.setTurn(this.getTurn() + 1);
 	}
@@ -314,6 +330,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void clearEverything(){
 		board = new Board();
 		xP.clear();

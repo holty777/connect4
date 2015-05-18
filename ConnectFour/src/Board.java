@@ -16,19 +16,9 @@ public class Board {
 		fillBoard();
 	}
 	
-	
-	public void addToken(String token) {
-		// add token to arraylist
-	}
-	
 	public boolean checkGameFinished() {
 		//check if winner/board full
 		return false;
-	}
-	
-	
-	public void drawBoard() {
-		//GUI
 	}
 	
 	public void incrementScore(boolean player) {
@@ -41,10 +31,6 @@ public class Board {
 	
 	public void addHighscore(String name, int score) {
 		//set the highscore
-	}
-	
-	public void restart () {
-		//new game
 	}
 	
 	public ArrayList<ArrayList<Tokens>> getBoard() {

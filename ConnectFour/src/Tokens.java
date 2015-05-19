@@ -20,6 +20,11 @@ public class Tokens {
 		this.player = player;
 	}
 
+	public String getColour() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
 

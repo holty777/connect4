@@ -29,9 +29,7 @@ public class Highscores {
 	}
 	
 	public void createHighScore(String name, int score){
-		for (HighScore score1 : highscoreList){
 			highscoreList.add(new HighScore(name, score));
-		}
 	}
 	
 	public void setHighscoreList() throws IOException{

@@ -33,6 +33,7 @@ public class MainWindow {
     GridBagConstraints con;
     List<JLabel> holes = new ArrayList<JLabel>();
     private JPanel leftPanel;
+    private JPanel rightPanel;
     private JPanel experiment;
 
 	/**
@@ -58,7 +59,9 @@ public class MainWindow {
 	public MainWindow() throws IOException {
 		experiment = new JPanel();
 		leftPanel = new JPanel();
+		rightPanel = new JPanel();
 		leftPanel.setLayout(leftSideLayout);
+		rightPanel.setLayout(leftSideLayout);
 		experiment.setLayout(experimentLayout);
 		mainFrame = new JFrame("Connect 4 GUI Demo");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,10 +79,14 @@ public class MainWindow {
 		easy.setSelected(true);
 		hard = new JRadioButton ("Hard Mode");
 		
+		//create the rightPanel
+		JLabel pic = new JLabel(new ImageIcon("BackgroundImage/Connect4Vertical.png"));
+		rightPanel.add(pic);
         //Creates outside Panel
         outsidePanel = new JPanel();
         outsidePanel.add(leftPanel);
         outsidePanel.add(connect4Panel );
+        outsidePanel.add(rightPanel);
         
        
         //create token buttons 

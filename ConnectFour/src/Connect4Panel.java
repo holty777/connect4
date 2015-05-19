@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
-public class Connect4Panel extends JPanel implements ActionListener{
+public class Connect4Panel extends JPanel implements ActionListener, MouseListener{
 	
 	private MainWindow mw;
 	private Board board;
@@ -326,4 +328,37 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			aiPlayer.setBoard(board);
 		}
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
 }

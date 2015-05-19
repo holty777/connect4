@@ -1,3 +1,4 @@
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -22,6 +23,7 @@ public class MainWindow {
 	private Connect4Panel connect4Panel;
 	private JPanel outsidePanel;
 	private ArrayList<JButton> tokens;
+	private ArrayList<JLabel> labels;
 	private JButton restart;
 	private JButton pvp;
 	private JButton mvp;
@@ -91,12 +93,22 @@ public class MainWindow {
        
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
+        labels = new ArrayList<JLabel>();
         createTopButtons();
         createButtonGroup();
         createLeftButtons();
         
 		
 	}
+	
+	public ArrayList<JLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(ArrayList<JLabel> labels) {
+		this.labels = labels;
+	}
+
 	
 	public ArrayList<JButton> getTokens() {
 		return tokens;
@@ -105,7 +117,6 @@ public class MainWindow {
 	public void setTokens(ArrayList<JButton> tokens) {
 		this.tokens = tokens;
 	}
-
 	public JButton getRestart() {
 		return restart;
 	}
@@ -174,7 +185,11 @@ public class MainWindow {
 		}
 		
 		for(i=0;i<42;i++){
-        	connect4Panel.add(new JLabel(new ImageIcon("src/pic1.png")));
+			JLabel hole = new JLabel(new ImageIcon("src/pic1.png"));
+			labels.add(hole);
+			hole.addMouseListener(connect4Panel);
+			hole.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        	connect4Panel.add(hole);
         }
 
 	}

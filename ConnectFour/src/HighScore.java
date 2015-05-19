@@ -9,6 +9,11 @@ public class HighScore {
 		this.score = score;
 	}
 
-	
+	public String getName(){
+		return this.name;
+	}
 
+	public int getScore(){
+		return this.score;
+	}
 }

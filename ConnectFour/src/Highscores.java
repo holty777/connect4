@@ -1,5 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +17,7 @@ public class Highscores {
 
 	public ArrayList getHighscoreList() throws FileNotFoundException {
 		Scanner sc = null;
-	    sc = new Scanner(new FileReader("HighScores.txt"));
+	    sc = new Scanner(new FileReader("src/HighScores.txt"));
 	    while(sc.hasNext()){
 	    	String splitt = sc.nextLine();
 			String[] action = splitt.split("\\s+");
@@ -27,6 +31,15 @@ public class Highscores {
 	public void createHighScore(String name, int score){
 		for (HighScore score1 : highscoreList){
 			highscoreList.add(new HighScore(name, score));
+		}
+	}
+	
+	public void setHighscoreList() throws IOException{
+		try (PrintWriter out = new PrintWriter(new BufferedWriter(
+				new FileWriter("HighScores.txt", true)))) {
+			for (HighScore score : highscoreList){
+				out.println(score.getName() + " " + score.getScore());
+			}
 		}
 	}
 }

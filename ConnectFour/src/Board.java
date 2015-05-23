@@ -113,6 +113,50 @@ public class Board {
 		return l;
 	}
 	
+	public boolean isBoardFull()
+	{
+		boolean boardFull = false;
+		
+		ArrayList<Tokens> column0 = board.get(0);
+		ArrayList<Tokens> column1 = board.get(1);
+		ArrayList<Tokens> column2 = board.get(2);
+		ArrayList<Tokens> column3 = board.get(3);
+		ArrayList<Tokens> column4 = board.get(4);
+		ArrayList<Tokens> column5 = board.get(5);
+		ArrayList<Tokens> column6 = board.get(6);
+		
+		int counter = 0;
+		
+		
+		if(column0.get(6) != null)
+			counter = counter + 1;
+		
+		if(column1.get(6) != null)
+			counter = counter + 1;
+		
+		if(column2.get(6) != null)
+			counter = counter + 1;
+		
+		if(column3.get(6) != null)
+			counter = counter + 1;
+		
+		if(column4.get(6) != null)
+			counter = counter + 1;
+		
+		if(column5.get(6) != null)
+			counter = counter + 1;
+		
+		if(column6.get(6) != null)
+			counter = counter + 1;
+		
+		if(counter == 7)
+		{
+			boardFull = true;
+		}
+		
+		return boardFull;
+	}
+	
 	public boolean weHaveAWinner (int row, int column) 	//Board position given by (row,column)
 	{
 		boolean result = false;
@@ -122,9 +166,9 @@ public class Board {
 		ArrayList<Tokens> columns = board.get(column);
 		for (int i = 0; i < columns.size(); i++)
 		{
-			String tokenColour = columns.get(0).getColour();
+			int tokenColour = columns.get(0).getPlayerNum();
 			int counter = 0;
-			if (columns.get(i).getColour().equals(tokenColour))
+			if (columns.get(i).getPlayerNum() == tokenColour)
 			{
 				counter += counter;
 				if (counter == 4)
@@ -135,7 +179,7 @@ public class Board {
 			}
 			else
 			{
-				tokenColour = columns.get(i).getColour();
+				tokenColour = columns.get(i).getPlayerNum();
 				counter = 0;
 			}
 		}
@@ -147,15 +191,15 @@ public class Board {
 			ArrayList<Tokens> columnj1 = board.get(j + 1);
 			ArrayList<Tokens> columnj2 = board.get(j + 2);
 			ArrayList<Tokens> columnj3 = board.get(j + 3);
-			String a = columnj.get(row).getColour();
-			String b = columnj1.get(row).getColour();
-			String c = columnj2.get(row).getColour();
-			String d = columnj3.get(row).getColour();
-			if(a.equals(b))										// A = B
+			int a = columnj.get(row).getPlayerNum();
+			int b = columnj1.get(row).getPlayerNum();
+			int c = columnj2.get(row).getPlayerNum();
+			int d = columnj3.get(row).getPlayerNum();
+			if(a == b)										// A = B
 			{
-				if(c.equals(d))									// C = D
+				if(c == d)									// C = D
 				{
-					if(a.equals(c))								// A = C, therefore they are all equal 
+					if(a == c)								// A = C, therefore they are all equal 
 					{
 						result = true;
 						break;
@@ -164,53 +208,87 @@ public class Board {
 			}
 		}
 		
-		//check diagonals
+		//ignore initialization values
+		int token = 99;
 		
-		String token = board.get(column).get(row).getColour();
+		int ne1 = 91;
+		int ne2 = 92;
+		int ne3 = 98;
+		
+		int sw1	= 87;
+		int sw2	= 84;
+		int sw3 = 81;
+		
+		int nw1 = 82;
+		int nw2 = 85;
+		int nw3 = 82;
+		
+		int se1 = 91;
+		int se2 = 93;
+		int se3 = 94;
+		//check diagonals
+		if(board.get(column).get(row) != null)
+			token = board.get(column).get(row).getPlayerNum();
+		
 		//North East from token
-		String ne1 = board.get(column + 1).get(row + 1).getColour();
-		String ne2 = board.get(column + 2).get(row + 2).getColour();
-		String ne3 = board.get(column + 3).get(row + 3).getColour();
+		if(board.get(column + 1).get(row + 1) != null)
+			ne1 = board.get(column + 1).get(row + 1).getPlayerNum();
+		if(board.get(column + 2).get(row + 2) != null)
+			ne2 = board.get(column + 2).get(row + 2).getPlayerNum();
+		if(board.get(column + 3).get(row + 3) != null)
+			ne3 = board.get(column + 3).get(row + 3).getPlayerNum();
+		
 		//South West from token
-		String sw1 = board.get(column - 1).get(row - 1).getColour();
-		String sw2 = board.get(column - 2).get(row - 2).getColour();
-		String sw3 = board.get(column - 3).get(row - 3).getColour();
+		if(board.get(column - 1).get(row - 1) != null)
+			sw1 = board.get(column - 1).get(row - 1).getPlayerNum();
+		if(board.get(column - 2).get(row - 2) != null)
+			sw2 = board.get(column - 2).get(row - 2).getPlayerNum();
+		if(board.get(column - 3).get(row - 3) != null)
+			sw3 = board.get(column - 3).get(row - 3).getPlayerNum();
+		
 		//North West from token
-		String nw1 = board.get(column - 1).get(row + 1).getColour();
-		String nw2 = board.get(column - 2).get(row + 2).getColour();
-		String nw3 = board.get(column - 3).get(row + 3).getColour();
+		if(board.get(column - 1).get(row + 1) != null)
+			nw1 = board.get(column - 1).get(row + 1).getPlayerNum();
+		if(board.get(column - 2).get(row + 2) != null)
+			nw2 = board.get(column - 2).get(row + 2).getPlayerNum();
+		if(board.get(column - 3).get(row + 2) != null)
+			nw3 = board.get(column - 3).get(row + 3).getPlayerNum();
+		
 		//South East from token
-		String se1 = board.get(column + 1).get(row - 1).getColour();
-		String se2 = board.get(column + 2).get(row - 2).getColour();
-		String se3 = board.get(column + 3).get(row - 3).getColour();
+		if(board.get(column + 1).get(row - 1) != null)
+			se1 = board.get(column + 1).get(row - 1).getPlayerNum();
+		if(board.get(column + 2).get(row - 2) != null)
+			se2 = board.get(column + 2).get(row - 2).getPlayerNum();
+		if(board.get(column + 3).get(row - 3) != null)
+			se3 = board.get(column + 3).get(row - 3).getPlayerNum();
 		
 		// win with NE/SW diagonal
-		if(token.equals(ne1))						// token = ne1					
+		if(token == ne1)						// token = ne1					
 		{
-			if(ne1.equals(ne2))						//	token = ne1 = ne2		
+			if(ne1 == ne2)						//	token = ne1 = ne2		
 			{
-				if(ne2.equals(ne3))					//  token = ne1 = ne2 = ne3		GG	 
+				if(ne2 == ne3)					//  token = ne1 = ne2 = ne3		GG	 
 				{
 					result = true;
 				}
-				else if(ne2.equals(sw1))			//	sw1 = token = ne1 = ne2		GG
+				else if(ne2 == sw1)			//	sw1 = token = ne1 = ne2		GG
 				{
 					result = true;
 				}
 			}
-			else if (ne1.equals(sw1))				//	sw1 = token = ne1
+			else if (ne1 == sw1)				//	sw1 = token = ne1
 			{
-				if(sw1.equals(sw2))					//	sw2 = sw1 = token = ne1		GG
+				if(sw1 == sw2)					//	sw2 = sw1 = token = ne1		GG
 				{
 					result = true;					
 				}
 			}
 		}
-		else if (token.equals(sw1))					// sw1 = token 
+		else if (token == sw1)					// sw1 = token 
 		{
-			if(sw1.equals(sw2))						// sw2 = sw1 = token 
+			if(sw1 == sw2)						// sw2 = sw1 = token 
 			{
-				if(sw2.equals(sw3))					// sw3 = sw2 = sw1 = token 		GG
+				if(sw2 == sw3)					// sw3 = sw2 = sw1 = token 		GG
 				{
 					result = true;
 				}
@@ -218,32 +296,32 @@ public class Board {
 		}
 				
 		//win with NW/SE diagonal
-		if(token.equals(nw1))						// token = nw1					
+		if(token == nw1)						// token = nw1					
 		{
-			if(nw1.equals(nw2))						//	token = nw1 = nw2		
+			if(nw1 ==nw2)						//	token = nw1 = nw2		
 			{
-				if(nw2.equals(nw3))					//  token = nw1 = nw2 = nw3		GG	 
+				if(nw2 == nw3)					//  token = nw1 = nw2 = nw3		GG	 
 				{
 					result = true;
 				}
-				else if(nw2.equals(se1))			//	se1 = token = nw1 = nw2		GG
+				else if(nw2 == se1)			//	se1 = token = nw1 = nw2		GG
 				{
 					result = true;
 				}
 			}
-			else if (nw1.equals(se1))				//	se1 = token = nw1
+			else if (nw1 == se1)				//	se1 = token = nw1
 			{
-				if(se1.equals(se2))					//	se2 = se1 = token = nw1		GG
+				if(se1 == se2)					//	se2 = se1 = token = nw1		GG
 				{
 					result = true;					
 				}
 			}
 		}
-		else if (token.equals(se1))					// se1 = token 
+		else if (token == se1)					// se1 = token 
 		{
-			if(se1.equals(se2))						// se2 = se1 = token 
+			if(se1 == se2)						// se2 = se1 = token 
 			{
-				if(se2.equals(se3))					// se3 = se2 = se1 = token 		GG
+				if(se2 == se3)					// se3 = se2 = se1 = token 		GG
 				{
 					result = true;
 				}

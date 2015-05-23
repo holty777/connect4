@@ -212,7 +212,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		}
 		
 		//need to check here if the game is won or if board is full
-		
+		//tempX(row) and tempY(column) is the position on the board
 		repaint();
 	}
     

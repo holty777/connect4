@@ -20,11 +20,18 @@ public class Tokens {
 		this.player = player;
 	}
 
-	public String getColour() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public int getPlayerNum()
+	{
+		if (player == true)
+		{
+			return 1;
+		}
+		else
+		{
+			return 2;
+		}
 	}
-
 
 }
 

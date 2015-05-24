@@ -117,46 +117,6 @@ public class Board {
 	{
 		boolean boardFull = false;
 
-		/*
-		ArrayList<Tokens> column0 = board.get(0);
-		ArrayList<Tokens> column1 = board.get(1);
-		ArrayList<Tokens> column2 = board.get(2);
-		ArrayList<Tokens> column3 = board.get(3);
-		ArrayList<Tokens> column4 = board.get(4);
-		ArrayList<Tokens> column5 = board.get(5);
-		ArrayList<Tokens> column6 = board.get(6);
-
-		int counter = 0;
-
-		// this is assuming that there is stuff in the board so there is
-		// array out of bounds exception.
-		if(column0.get(6) != null)
-			counter = counter + 1;
-
-		if(column1.get(6) != null)
-			counter = counter + 1;
-
-		if(column2.get(6) != null)
-			counter = counter + 1;
-
-		if(column3.get(6) != null)
-			counter = counter + 1;
-
-		if(column4.get(6) != null)
-			counter = counter + 1;
-
-		if(column5.get(6) != null)
-			counter = counter + 1;
-
-		if(column6.get(6) != null)
-			counter = counter + 1;
-
-		if(counter == 7)
-		{
-			boardFull = true;
-		}
-		 */
-
 		if (turn > 41){
 			boardFull = true;
 		}
@@ -224,7 +184,7 @@ public class Board {
 			}
 		}
 		
-		/*
+
 		//ignore initialization values
 		// i guess you need to do the same here :) haha lots of checking
 		if (result != true){
@@ -245,40 +205,41 @@ public class Board {
 			int se1 = 91;
 			int se2 = 93;
 			int se3 = 94;
+						
 			//check diagonals
-			if(board.get(column).get(row) != null)
-				token = board.get(column).get(row).getPlayerNum();
+			if(row < board.get(column).size())
+				token = board.get(column).get(row).getPlayerNum();			// token just played
 
 			//North East from token
-			if(board.get(column + 1).get(row + 1) != null)
+			if((row + 1) < board.get(column + 1).size())
 				ne1 = board.get(column + 1).get(row + 1).getPlayerNum();
-			if(board.get(column + 2).get(row + 2) != null)
+			if((row + 2) < board.get(column + 2).size())
 				ne2 = board.get(column + 2).get(row + 2).getPlayerNum();
-			if(board.get(column + 3).get(row + 3) != null)
+			if((row + 3) < board.get(column + 3).size())
 				ne3 = board.get(column + 3).get(row + 3).getPlayerNum();
 
 			//South West from token
-			if(board.get(column - 1).get(row - 1) != null)
+			if((row - 1) < board.get(column - 1).size())
 				sw1 = board.get(column - 1).get(row - 1).getPlayerNum();
-			if(board.get(column - 2).get(row - 2) != null)
+			if((row - 2) < board.get(column - 2).size())
 				sw2 = board.get(column - 2).get(row - 2).getPlayerNum();
-			if(board.get(column - 3).get(row - 3) != null)
+			if((row - 3) < board.get(column - 3).size())
 				sw3 = board.get(column - 3).get(row - 3).getPlayerNum();
 
 			//North West from token
-			if(board.get(column - 1).get(row + 1) != null)
+			if((row + 1) < board.get(column - 1).size())
 				nw1 = board.get(column - 1).get(row + 1).getPlayerNum();
-			if(board.get(column - 2).get(row + 2) != null)
+			if((row + 2) < board.get(column - 2).size())
 				nw2 = board.get(column - 2).get(row + 2).getPlayerNum();
-			if(board.get(column - 3).get(row + 2) != null)
+			if((row + 3) < board.get(column - 3).size())
 				nw3 = board.get(column - 3).get(row + 3).getPlayerNum();
 
 			//South East from token
-			if(board.get(column + 1).get(row - 1) != null)
+			if((row - 1) < board.get(column + 1).size())
 				se1 = board.get(column + 1).get(row - 1).getPlayerNum();
-			if(board.get(column + 2).get(row - 2) != null)
+			if((row - 2) < board.get(column + 2).size())
 				se2 = board.get(column + 2).get(row - 2).getPlayerNum();
-			if(board.get(column + 3).get(row - 3) != null)
+			if((row - 3) < board.get(column + 3).size())
 				se3 = board.get(column + 3).get(row - 3).getPlayerNum();
 
 			// win with NE/SW diagonal
@@ -290,7 +251,7 @@ public class Board {
 					{
 						result = true;
 					}
-					else if(ne2 == sw1)			//	sw1 = token = ne1 = ne2		GG
+					else if(ne2 == sw1)				//	sw1 = token = ne1 = ne2		GG
 					{
 						result = true;
 					}
@@ -323,7 +284,7 @@ public class Board {
 					{
 						result = true;
 					}
-					else if(nw2 == se1)			//	se1 = token = nw1 = nw2		GG
+					else if(nw2 == se1)				//	se1 = token = nw1 = nw2		GG
 					{
 						result = true;
 					}
@@ -347,7 +308,6 @@ public class Board {
 				}
 			}
 		}
-*/
 
 		return result;
 	}

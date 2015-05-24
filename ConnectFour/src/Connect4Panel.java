@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -104,6 +107,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	
+
 		if (e.getSource() == mw.getToken(0)){
 			if (board.isLegal(0)){
 				tempx = 0;
@@ -176,9 +181,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			}
 		} else if (e.getSource() == mw.getRestart()){
 			clearEverything();
+			setVisible();
 		} else if (e.getSource() == mw.getPvp()){
 			clearEverything();
 			setAi(false);
+			setVisible();
 		} else if (e.getSource() == mw.getMvp()){
 			clearEverything();
 			setAi(true);
@@ -187,7 +194,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			} else if (mw.getHard().isSelected()){
 				aiPlayer = new AI("hard", board);
 			}
-			
+			setVisible();
 		}
 		
 		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
@@ -211,9 +218,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			incTurn();
 		}
 		
-		//need to check here if the game is won or if board is full
-		//tempX(row) and tempY(column) is the position on the board
 		repaint();
+		
+		if (board.isBoardFull(getTurn())){
+			showDraw();
+		}
 	}
     
 	/**
@@ -312,7 +321,27 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			this.player = true;
 		}
 	}
+	
+	public void showDraw(){
+		final JFrame parent = new JFrame();
+        
+		JOptionPane.showMessageDialog(parent, "It is a draw!");
+		setInvisible();
+	}
 
+	public void setInvisible(){
+		for (JButton b : mw.getTokens()){
+			b.setVisible(false);
+		}
+	}
+	
+	public void setVisible(){
+		for (JButton b : mw.getTokens()){
+			b.setVisible(true);
+		}
+	}
+	
+	
 	/**
 	 * 
 	 */

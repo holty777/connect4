@@ -113,10 +113,11 @@ public class Board {
 		return l;
 	}
 	
-	public boolean isBoardFull()
+	public boolean isBoardFull(int turn)
 	{
 		boolean boardFull = false;
 		
+		/*
 		ArrayList<Tokens> column0 = board.get(0);
 		ArrayList<Tokens> column1 = board.get(1);
 		ArrayList<Tokens> column2 = board.get(2);
@@ -127,7 +128,8 @@ public class Board {
 		
 		int counter = 0;
 		
-		
+		// this is assuming that there is stuff in the board so there is
+		// array out of bounds exception.
 		if(column0.get(6) != null)
 			counter = counter + 1;
 		
@@ -151,6 +153,11 @@ public class Board {
 		
 		if(counter == 7)
 		{
+			boardFull = true;
+		}
+		*/
+		
+		if (turn > 41){
 			boardFull = true;
 		}
 		

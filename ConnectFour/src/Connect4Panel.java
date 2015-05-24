@@ -109,8 +109,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
-
 		if (e.getSource() == mw.getToken(0)){
 			if (board.isLegal(0)){
 				tempx = 0;

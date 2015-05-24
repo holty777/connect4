@@ -124,20 +124,18 @@ public class Board {
 		return boardFull;
 	}
 
-	public boolean weHaveAWinner (int row, int column)
-	{
+	public boolean weHaveAWinner (int row, int column){
 		boolean result = false;
-		int counter = 0; // if you put it inside the for loop, it will always be 0
+		int counter = 0;
 
 		//Checking columns
 		//iterate through column given 
-		//this works now
 		ArrayList<Tokens> columns = board.get(column);
 		int tokenColour = columns.get(row).getPlayerNum();
 
 		for (int i = 0; i < columns.size(); i++) {
 			if (columns.get(i).getPlayerNum() == tokenColour){
-				counter += 1; // it was counter += counter before, that means counter += 0 basically in the beginning haha
+				counter += 1; 
 				if (counter == 4) {
 					result = true;
 					break;
@@ -184,131 +182,139 @@ public class Board {
 			}
 		}
 		
-
 		//ignore initialization values
-		// i guess you need to do the same here :) haha lots of checking
 		if (result != true){
 			int token = 99;
 
 			int ne1 = 91;
 			int ne2 = 92;
-			int ne3 = 98;
+			int ne3 = 93;
 
-			int sw1	= 87;
-			int sw2	= 84;
-			int sw3 = 81;
+			int sw1	= 94;
+			int sw2	= 95;
+			int sw3 = 96;
 
 			int nw1 = 82;
-			int nw2 = 85;
-			int nw3 = 82;
+			int nw2 = 83;
+			int nw3 = 84;
 
-			int se1 = 91;
-			int se2 = 93;
-			int se3 = 94;
+			int se1 = 85;
+			int se2 = 86;
+			int se3 = 87;
 						
 			//check diagonals
-			if(row < board.get(column).size())
+			if(row < board.get(column).size()){
 				token = board.get(column).get(row).getPlayerNum();			// token just played
-
+			}
+			
 			//North East from token
-			if((row + 1) < board.get(column + 1).size())
-				ne1 = board.get(column + 1).get(row + 1).getPlayerNum();
-			if((row + 2) < board.get(column + 2).size())
-				ne2 = board.get(column + 2).get(row + 2).getPlayerNum();
-			if((row + 3) < board.get(column + 3).size())
-				ne3 = board.get(column + 3).get(row + 3).getPlayerNum();
-
-			//South West from token
-			if((row - 1) < board.get(column - 1).size())
-				sw1 = board.get(column - 1).get(row - 1).getPlayerNum();
-			if((row - 2) < board.get(column - 2).size())
-				sw2 = board.get(column - 2).get(row - 2).getPlayerNum();
-			if((row - 3) < board.get(column - 3).size())
-				sw3 = board.get(column - 3).get(row - 3).getPlayerNum();
-
-			//North West from token
-			if((row + 1) < board.get(column - 1).size())
-				nw1 = board.get(column - 1).get(row + 1).getPlayerNum();
-			if((row + 2) < board.get(column - 2).size())
-				nw2 = board.get(column - 2).get(row + 2).getPlayerNum();
-			if((row + 3) < board.get(column - 3).size())
-				nw3 = board.get(column - 3).get(row + 3).getPlayerNum();
-
-			//South East from token
-			if((row - 1) < board.get(column + 1).size())
-				se1 = board.get(column + 1).get(row - 1).getPlayerNum();
-			if((row - 2) < board.get(column + 2).size())
-				se2 = board.get(column + 2).get(row - 2).getPlayerNum();
-			if((row - 3) < board.get(column + 3).size())
-				se3 = board.get(column + 3).get(row - 3).getPlayerNum();
-
-			// win with NE/SW diagonal
-			if(token == ne1)						// token = ne1					
-			{
-				if(ne1 == ne2)						//	token = ne1 = ne2		
-				{
-					if(ne2 == ne3)					//  token = ne1 = ne2 = ne3		GG	 
-					{
-						result = true;
-					}
-					else if(ne2 == sw1)				//	sw1 = token = ne1 = ne2		GG
-					{
-						result = true;
-					}
-				}
-				else if (ne1 == sw1)				//	sw1 = token = ne1
-				{
-					if(sw1 == sw2)					//	sw2 = sw1 = token = ne1		GG
-					{
-						result = true;					
-					}
+			if (column < 6){
+				if((row + 1) < board.get(column + 1).size() && row < 6){
+					ne1 = board.get(column + 1).get(row + 1).getPlayerNum();
 				}
 			}
-			else if (token == sw1)					// sw1 = token 
-			{
-				if(sw1 == sw2)						// sw2 = sw1 = token 
-				{
-					if(sw2 == sw3)					// sw3 = sw2 = sw1 = token 		GG
-					{
+			if (column < 5){
+				if((row + 2) < board.get(column + 2).size() && row < 5){
+					ne2 = board.get(column + 2).get(row + 2).getPlayerNum();
+				}
+			}
+			if (column < 4){
+				if((row + 3) < board.get(column + 3).size() && row < 4){
+					ne3 = board.get(column + 3).get(row + 3).getPlayerNum();
+				}
+			}
+			//South West from token
+			if (column > 0){
+				if((row - 1) < board.get(column - 1).size() && row > 0){
+					sw1 = board.get(column - 1).get(row - 1).getPlayerNum();
+				}
+			}
+			if (column > 1){
+				if((row - 2) < board.get(column - 2).size() && row > 1){
+					sw2 = board.get(column - 2).get(row - 2).getPlayerNum();
+				}
+			}
+			if (column > 2){
+				if((row - 3) < board.get(column - 3).size() && row > 2){
+					sw3 = board.get(column - 3).get(row - 3).getPlayerNum();
+				}
+			}
+			//North West from token
+			if (column > 0){
+				if((row + 1) < board.get(column - 1).size() && row < 6){
+					nw1 = board.get(column - 1).get(row + 1).getPlayerNum();
+				}
+			}
+			if (column > 1){
+				if((row + 2) < board.get(column - 2).size() && row < 5){
+					nw2 = board.get(column - 2).get(row + 2).getPlayerNum();
+				}
+			}
+			if (column > 2){
+				if((row + 3) < board.get(column - 3).size() && row < 4){
+					nw3 = board.get(column - 3).get(row + 3).getPlayerNum();
+				}
+			}
+
+			//South East from token
+			if (column < 6){
+				if((row - 1) < board.get(column + 1).size() && row > 0){
+					se1 = board.get(column + 1).get(row - 1).getPlayerNum();
+				}
+			}
+			if (column < 5){
+				if((row - 2) < board.get(column + 2).size() && row > 1){
+					se2 = board.get(column + 2).get(row - 2).getPlayerNum();
+				}
+			}
+			if (column < 4){
+				if((row - 3) < board.get(column + 3).size() && row > 2){
+					se3 = board.get(column + 3).get(row - 3).getPlayerNum();
+				}
+			}
+			
+			// win with NE/SW diagonal
+			if(token == ne1){						// token = ne1					
+				if(ne1 == ne2){						//	token = ne1 = ne2		
+					if(ne2 == ne3){				//  token = ne1 = ne2 = ne3		GG	 
+						result = true;
+					} else if(ne2 == sw1){				//	sw1 = token = ne1 = ne2		GG
+						result = true;
+					} else if (ne1 == sw1){		//	sw1 = token = ne1
+						if(sw1 == sw2){				//	sw2 = sw1 = token = ne1		GG
+							result = true;					
+						}
+					}
+				}
+			} else if (token == sw1) {					// sw1 = token 
+				if(sw1 == sw2){					// sw2 = sw1 = token 
+					if(sw2 == sw3){			// sw3 = sw2 = sw1 = token 		GG
 						result = true;
 					}
 				}
 			}
 
 			//win with NW/SE diagonal
-			if(token == nw1)						// token = nw1					
-			{
-				if(nw1 ==nw2)						//	token = nw1 = nw2		
-				{
-					if(nw2 == nw3)					//  token = nw1 = nw2 = nw3		GG	 
-					{
+			if(token == nw1){						// token = nw1					
+				if(nw1 ==nw2){					//	token = nw1 = nw2		
+					if(nw2 == nw3){				//  token = nw1 = nw2 = nw3		GG	 
+						result = true;
+					} else if(nw2 == se1){			//	se1 = token = nw1 = nw2		GG
 						result = true;
 					}
-					else if(nw2 == se1)				//	se1 = token = nw1 = nw2		GG
-					{
-						result = true;
-					}
-				}
-				else if (nw1 == se1)				//	se1 = token = nw1
-				{
-					if(se1 == se2)					//	se2 = se1 = token = nw1		GG
-					{
+				} else if (nw1 == se1){			//	se1 = token = nw1
+					if(se1 == se2){				//	se2 = se1 = token = nw1		GG
 						result = true;					
 					}
 				}
-			}
-			else if (token == se1)					// se1 = token 
-			{
-				if(se1 == se2)						// se2 = se1 = token 
-				{
-					if(se2 == se3)					// se3 = se2 = se1 = token 		GG
-					{
+			}else if (token == se1){				// se1 = token 
+				if(se1 == se2){					// se2 = se1 = token 
+					if(se2 == se3){				// se3 = se2 = se1 = token 		GG
 						result = true;
 					}
 				}
 			}
 		}
-
 		return result;
 	}
 }

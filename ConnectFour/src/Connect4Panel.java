@@ -214,11 +214,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		repaint();
 		
 		if (getTurn() > 0){
-			if (board.isBoardFull(getTurn())){
-				showDraw();
-				setFinished(true);
-			} else if (board.weHaveAWinner(tempRow, tempCol)){
+			if (board.weHaveAWinner(tempRow, tempCol)){
 				showWin();
+				setFinished(true);
+			} else if (board.isBoardFull(getTurn())){
+				showDraw();
 				setFinished(true);
 			}
 		}
@@ -238,13 +238,14 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			aiPlayer.clearMoves();
 			incTurn();
 			changePlayer();
-
+			
 			repaint();
 			
 			if (board.isBoardFull(getTurn())){
 				showDraw();
 			} else if (board.weHaveAWinner(tempRow, tempCol)){
 				showWin();
+				
 			}
 			
 		}

@@ -160,23 +160,11 @@ public class Board {
 		if (turn > 41){
 			boardFull = true;
 		}
-		
+
 		return boardFull;
 	}
-	
-	public boolean ifExists(ArrayList<Tokens> column, int row)
-	{
-		boolean exists = false;
-		
-		if(row <= column.size())
-		{
-			exists = true;
-		}
-		
-		return exists;
-	}
 
-	public boolean weHaveAWinner (int row, int column) 	//Board position given by (row,column)
+	public boolean weHaveAWinner (int row, int column)
 	{
 		boolean result = false;
 		int counter = 0; // if you put it inside the for loop, it will always be 0
@@ -199,24 +187,6 @@ public class Board {
 			}
 		}
 
-		//get row number and check rows
-		// im pretty sure you need to check the columns to the left and right of 
-		// the current row but you seem to be checking only column 0-4?
-		// also before you go to each different column.get(row) check the size of that column
-		// and if the row exists. (if (row < column.getSize()) :)
-		// you can make a function that goes checkIsNotEmpty? or something.
-		// whatever you want the function to be named, just not isLegal :) cos that exists XD
-		
-		
-		//the way I do this is that I take the first 4 columns from the left... and then move right
-		// Suppose the columns are named 1, 2, 3, 4, 5, 6, 7
-		// Check if 1, 2, 3, 4 are a winner
-		// Check if 2, 3, 4, 5 are a winner
-		// Check if 3, 4, 5, 6 are a winner
-		// Check if 4, 5, 6, 7 are a winner
-		// Hence the j for loop from 0 - 3 and then 3 columns from the j
-		// if (row <= columnj.size()) Isn't this checking if it exists or not?? If it exists then we access it??
-		// or are the columns non existent??
 		
 		if (result != true){
 			for (int j = 0; j <= 3; j++)
@@ -225,23 +195,22 @@ public class Board {
 				ArrayList<Tokens> columnj1 = board.get(j + 1);
 				ArrayList<Tokens> columnj2 = board.get(j + 2);
 				ArrayList<Tokens> columnj3 = board.get(j + 3);
-				
+		
 				int a = 97;
 				int b = 65;
 				int c = 54;
 				int d = 99;
 				
-//				if(ifExists(columnj, row))
-//					a = columnj.get(row).getPlayerNum();
-				if (row <= columnj.size())
+				if (row < columnj.size())
 					a = columnj.get(row).getPlayerNum();
-				if (row <= columnj1.size())
+				if (row < columnj1.size())
 					b = columnj1.get(row).getPlayerNum();
-				if (row <= columnj2.size())
+				if (row < columnj2.size())
 					c = columnj2.get(row).getPlayerNum();
-				if (row <= columnj3.size())
+				if (row < columnj3.size())
 					d = columnj3.get(row).getPlayerNum();
-				if(a == b)										// A = B
+
+				if (a == b)										// A = B
 				{
 					if(c == d)									// C = D
 					{
@@ -254,7 +223,8 @@ public class Board {
 				}
 			}
 		}
-	/*
+		
+		/*
 		//ignore initialization values
 		// i guess you need to do the same here :) haha lots of checking
 		if (result != true){
@@ -377,8 +347,8 @@ public class Board {
 				}
 			}
 		}
-
 */
+
 		return result;
 	}
 }

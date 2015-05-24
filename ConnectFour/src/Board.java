@@ -176,11 +176,8 @@ public class Board {
 		int tokenColour = columns.get(row).getPlayerNum();
 
 		for (int i = 0; i < columns.size(); i++) {
-			System.out.println("Colour = " + tokenColour);
 			if (columns.get(i).getPlayerNum() == tokenColour){
-				System.out.println("hi");
 				counter += 1; // it was counter += counter before, that means counter += 0 basically in the beginning haha
-				System.out.println(counter);
 				if (counter == 4) {
 					result = true;
 					break;

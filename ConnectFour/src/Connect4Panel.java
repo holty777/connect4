@@ -197,11 +197,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			setVisible();
 		}
 		
-		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
-				&& !(e.getSource() == mw.getMvp())){
-				changePlayer();
-			}
-		
 		if (isAi() && (getTurn() % 2 == 1)){
 			AIMove = aiPlayer.placeToken();
 			
@@ -218,10 +213,17 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			incTurn();
 		}
 		
-		repaint();
+		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
+				&& !(e.getSource() == mw.getMvp())){
+				changePlayer();
+		}
 		
+		repaint();
 		if (board.isBoardFull(getTurn())){
 			showDraw();
+		} else if (board.weHaveAWinner(tempy, tempx)){
+			
+			showWin();
 		}
 	}
     
@@ -329,6 +331,18 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		setInvisible();
 	}
 
+	public void showWin(){
+		final JFrame parent = new JFrame();
+        
+		if (isPlayer()){
+			JOptionPane.showMessageDialog(parent, "Player 2 Wins!!!");
+		} else {
+			JOptionPane.showMessageDialog(parent, "Player 1 Wins!!!");
+
+		}
+		setInvisible();
+	}
+	
 	public void setInvisible(){
 		for (JButton b : mw.getTokens()){
 			b.setVisible(false);

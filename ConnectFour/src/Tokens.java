@@ -23,12 +23,9 @@ public class Tokens {
 	
 	public int getPlayerNum()
 	{
-		if (player == true)
-		{
+		if (player == true){
 			return 1;
-		}
-		else
-		{
+		} else {
 			return 2;
 		}
 	}

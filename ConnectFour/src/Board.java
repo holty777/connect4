@@ -167,31 +167,36 @@ public class Board {
 	public boolean weHaveAWinner (int row, int column) 	//Board position given by (row,column)
 	{
 		boolean result = false;
+		int counter = 0; // if you put it inside the for loop, it will always be 0
 		
 		//Checking columns
 		//iterate through column given 
+		//this works now
 		ArrayList<Tokens> columns = board.get(column);
-		for (int i = 0; i < columns.size(); i++)
-		{
-			int tokenColour = columns.get(0).getPlayerNum();
-			int counter = 0;
-			if (columns.get(i).getPlayerNum() == tokenColour)
-			{
-				counter += counter;
-				if (counter == 4)
-				{
+		int tokenColour = columns.get(row).getPlayerNum();
+
+		for (int i = 0; i < columns.size(); i++) {
+			System.out.println("Colour = " + tokenColour);
+			if (columns.get(i).getPlayerNum() == tokenColour){
+				System.out.println("hi");
+				counter += 1; // it was counter += counter before, that means counter += 0 basically in the beginning haha
+				System.out.println(counter);
+				if (counter == 4) {
 					result = true;
 					break;
 				}
-			}
-			else
-			{
-				tokenColour = columns.get(i).getPlayerNum();
+			} else {
 				counter = 0;
 			}
 		}
 		
 		//get row number and check rows
+		// im pretty sure you need to check the columns to the left and right of 
+		// the current row but you seem to be checking only column 0-4?
+		// also before you go to each different column.get(row) check the size of that column
+		// and if the row exists. (if (row < column.getSize()) :)
+		// you can make a function that goes checkIsNotEmpty? or something.
+		// whatever you want the function to be named, just not isLegal :) cos that exists XD
 		for (int j = 0; j <= 3; j++)
 		{
 			ArrayList<Tokens> columnj = board.get(j);
@@ -216,6 +221,7 @@ public class Board {
 		}
 		
 		//ignore initialization values
+		// i guess you need to do the same here :) haha lots of checking
 		int token = 99;
 		
 		int ne1 = 91;

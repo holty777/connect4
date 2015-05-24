@@ -21,6 +21,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private boolean paintBoard;
 	private boolean player;
 	private boolean ai;
+	private boolean finished;
 	private int xPos;
 	private int yPos;
 	private int tempx;
@@ -40,6 +41,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
         this.paintBoard = true;
         this.player = true;
         this.ai = false;
+        this.finished = false;
 		this.board = new Board();
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.xPos = 0;
@@ -182,10 +184,14 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		} else if (e.getSource() == mw.getRestart()){
 			clearEverything();
 			setVisible();
+			setFinished(false);
+			setPlayer(true);
 		} else if (e.getSource() == mw.getPvp()){
 			clearEverything();
 			setAi(false);
 			setVisible();
+			setFinished(false);
+			setPlayer(true);
 		} else if (e.getSource() == mw.getMvp()){
 			clearEverything();
 			setAi(true);
@@ -195,9 +201,29 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				aiPlayer = new AI("hard", board);
 			}
 			setVisible();
+			setFinished(false);
+			setPlayer(true);
 		}
 		
-		if (isAi() && (getTurn() % 2 == 1)){
+		
+		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
+				&& !(e.getSource() == mw.getMvp())){
+				changePlayer();
+		}
+		
+		repaint();
+		
+		if (getTurn() > 0){
+			if (board.isBoardFull(getTurn())){
+				showDraw();
+				setFinished(true);
+			} else if (board.weHaveAWinner(tempy, tempx)){
+				showWin();
+				setFinished(true);
+			}
+		}
+		
+		if (isAi() && (getTurn() % 2 == 1) && !isFinished()){
 			AIMove = aiPlayer.placeToken();
 			
 			tempx = AIMove.get(0);
@@ -211,19 +237,16 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			AIMove.clear();
 			aiPlayer.clearMoves();
 			incTurn();
-		}
-		
-		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
-				&& !(e.getSource() == mw.getMvp())){
-				changePlayer();
-		}
-		
-		repaint();
-		if (board.isBoardFull(getTurn())){
-			showDraw();
-		} else if (board.weHaveAWinner(tempy, tempx)){
+			changePlayer();
+
+			repaint();
 			
-			showWin();
+			if (board.isBoardFull(getTurn())){
+				showDraw();
+			} else if (board.weHaveAWinner(tempy, tempx)){
+				showWin();
+			}
+			
 		}
 	}
     
@@ -264,6 +287,20 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
 	public void setAi(boolean ai) {
 		this.ai = ai;
+	}
+
+	/**
+	 * @return the finished
+	 */
+	public boolean isFinished() {
+		return finished;
+	}
+
+	/**
+	 * @param finished the finished to set
+	 */
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 
 	/**
@@ -334,12 +371,20 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	public void showWin(){
 		final JFrame parent = new JFrame();
         
-		if (isPlayer()){
-			JOptionPane.showMessageDialog(parent, "Player 2 Wins!!!");
+		if (!isAi()){
+			if (isPlayer()){
+				JOptionPane.showMessageDialog(parent, "Player 2 Wins!!!");
+			} else {
+				JOptionPane.showMessageDialog(parent, "Player 1 Wins!!!");
+			}
 		} else {
-			JOptionPane.showMessageDialog(parent, "Player 1 Wins!!!");
-
+			if (isPlayer()){
+				JOptionPane.showMessageDialog(parent, "Computer Wins!!!");
+			} else {
+				JOptionPane.showMessageDialog(parent, "Player 1 Wins!!!");
+			}
 		}
+		
 		setInvisible();
 	}
 	

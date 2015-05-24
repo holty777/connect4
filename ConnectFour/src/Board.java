@@ -194,7 +194,7 @@ public class Board {
 		// and if the row exists. (if (row < column.getSize()) :)
 		// you can make a function that goes checkIsNotEmpty? or something.
 		// whatever you want the function to be named, just not isLegal :) cos that exists XD
-
+/*
 		if (result != true){
 			for (int j = 0; j <= 3; j++)
 			{
@@ -341,7 +341,7 @@ public class Board {
 				}
 			}
 		}
-
+*/
 
 		return result;
 	}

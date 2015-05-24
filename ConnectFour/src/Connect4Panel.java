@@ -24,8 +24,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private boolean finished;
 	private int xPos;
 	private int yPos;
-	private int tempx;
-	private int tempy;
+	private int tempCol;
+	private int tempRow;
 	private int turn;
 	private ArrayList<Integer> AIMove;
 	private ArrayList<Integer> xP;
@@ -46,8 +46,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.xPos = 0;
         this.yPos = 0;
-        this.tempx = 0;
-        this.tempy = 0;
+        this.tempCol = 0;
+        this.tempRow = 0;
         this.setTurn(0);
         this.AIMove = new ArrayList<Integer>();
         this.xP = new ArrayList<Integer>();
@@ -109,74 +109,76 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	
+
 		if (e.getSource() == mw.getToken(0)){
 			if (board.isLegal(0)){
-				tempx = 0;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 0;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(1)){
 			if (board.isLegal(1)){
-				tempx = 1;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 1;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(2)){
 			if (board.isLegal(2)){
-				tempx = 2;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 2;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(3)){
 			if (board.isLegal(3)){
-				tempx = 3;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 3;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(4)){
 			if (board.isLegal(4)){
-				tempx = 4;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 4;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(5)){
 			if (board.isLegal(5)){
-				tempx = 5;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 5;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(6)){
 			if (board.isLegal(6)){
-				tempx = 6;
-				tempy = board.getNextToken(tempx, player);
-				xP.add(tempx);
-				yP.add(tempy);
+				tempCol = 6;
+				tempRow = board.getNextToken(tempCol, player);
+				xP.add(tempCol);
+				yP.add(tempRow);
 				
-				board.addToken(tempx, tempy, player);
+				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getRestart()){
@@ -215,7 +217,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			if (board.isBoardFull(getTurn())){
 				showDraw();
 				setFinished(true);
-			} else if (board.weHaveAWinner(tempy, tempx)){
+			} else if (board.weHaveAWinner(tempRow, tempCol)){
 				showWin();
 				setFinished(true);
 			}
@@ -224,13 +226,13 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		if (isAi() && (getTurn() % 2 == 1) && !isFinished()){
 			AIMove = aiPlayer.placeToken();
 			
-			tempx = AIMove.get(0);
-			tempy =	AIMove.get(1);
+			tempCol = AIMove.get(0);
+			tempRow =	AIMove.get(1);
 			
-			xP.add(tempx);
-			yP.add(tempy);
+			xP.add(tempCol);
+			yP.add(tempRow);
 			
-			board.addToken(tempx, tempy, player);
+			board.addToken(tempCol, tempRow, player);
 			
 			AIMove.clear();
 			aiPlayer.clearMoves();
@@ -241,7 +243,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			
 			if (board.isBoardFull(getTurn())){
 				showDraw();
-			} else if (board.weHaveAWinner(tempy, tempx)){
+			} else if (board.weHaveAWinner(tempRow, tempCol)){
 				showWin();
 			}
 			

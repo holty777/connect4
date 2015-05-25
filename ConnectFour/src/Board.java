@@ -80,6 +80,9 @@ public class Board {
 
 
 	// self created functions
+	/**
+	 * initialise the board with empty array
+	 */
 	public void fillBoard(){
 		for (int i = 0; i < 7; i++){
 			ArrayList<Tokens> arr = new ArrayList<Tokens>(6);
@@ -87,11 +90,21 @@ public class Board {
 		}
 	}
 
+	/**
+	 * @param col the column for the token to be placed
+	 * @param row the row for the token to be placed
+	 * @param player the current player
+	 */
 	public void addToken(int col, int row, boolean player){
 		Tokens t = new Tokens (player);
 		board.get(col).add(t);
 	}
 
+	/**
+	 * @param i the column for the token to be placed in
+	 * @param player the players turn
+	 * @return the next free place for the token to be placed in
+	 */
 	public int getNextToken(int i, boolean player) {
 		if (board.get(i) == null){
 			Tokens token = new Tokens (player);
@@ -103,6 +116,10 @@ public class Board {
 
 	}
 
+	/**
+	 * @param i the column for the token to be placed in
+	 * @return if the column is full or not
+	 */
 	public boolean isLegal(int i){
 		boolean l = true;
 
@@ -113,6 +130,10 @@ public class Board {
 		return l;
 	}
 
+	/**
+	 * @param turn the current turn
+	 * @return if the board is full
+	 */
 	public boolean isBoardFull(int turn)
 	{
 		boolean boardFull = false;
@@ -124,6 +145,11 @@ public class Board {
 		return boardFull;
 	}
 
+	/**
+	 * @param row the row the token is in
+	 * @param column the column the token is in
+	 * @return if the board is at a winning state
+	 */
 	public boolean weHaveAWinner (int row, int column){
 		boolean result = false;
 		int counter = 0;
@@ -203,9 +229,7 @@ public class Board {
 			int se3 = 87;
 						
 			//check diagonals
-			if(row < board.get(column).size()){
-				token = board.get(column).get(row).getPlayerNum();			// token just played
-			}
+			token = board.get(column).get(row).getPlayerNum();			// token just played
 			
 			//North East from token
 			if (column < 6){

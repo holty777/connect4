@@ -1,4 +1,3 @@
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,8 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -38,8 +35,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private AI aiPlayer;
 	private BufferedImage tok1;
 	private BufferedImage tok2;
-	private float alpha = 0f;
-	private Timer timer;
 	
 	/**
 	 * Constructor for a Connect4 panel

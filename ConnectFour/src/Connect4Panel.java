@@ -4,9 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +34,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private ArrayList<Integer> xP;
 	private ArrayList<Integer> yP;
 	private AI aiPlayer;
+	private BufferedImage tok1;
+	private BufferedImage tok2;
 	
 	/**
 	 * Constructor for a Connect4 panel
@@ -52,7 +57,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
         this.AIMove = new ArrayList<Integer>();
         this.xP = new ArrayList<Integer>();
         this.yP = new ArrayList<Integer>();
-        
+        this.tok1 = ImageIO.read(new File("src/TokenRed.png"));
+        this.tok2 = ImageIO.read(new File("src/TokenYellow.png"));
 
     }
 
@@ -96,15 +102,15 @@ public class Connect4Panel extends JPanel implements ActionListener{
     public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
-    	g2.setColor(Color.YELLOW);
-    	g2.fillRect(15 + getxPos()*109, 670 - getyPos()*110, 90, 90);
+  
+    	g2.drawImage(tok2, 17 + getxPos()*109, 671 - getyPos()*109, null);
     }
     
     public void paintBToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
-    	g2.setColor(Color.RED);
-    	g2.fillRect(15 + getxPos()*109, 670 - getyPos()*110, 90, 90);
+    	
+    	g2.drawImage(tok1, 17 + getxPos()*109, 671 - getyPos()*109, null);
     }
 
     @Override
@@ -241,13 +247,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			
 			repaint();
 			
-			if (board.isBoardFull(getTurn())){
-				showDraw();
-			} else if (board.weHaveAWinner(tempRow, tempCol)){
+			 if (board.weHaveAWinner(tempRow, tempCol)){
 				showWin();
-				
-			}
-			
+			} else if (board.isBoardFull(getTurn())){
+				showDraw();
+			} 
 		}
 	}
     

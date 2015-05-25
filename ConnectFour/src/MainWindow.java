@@ -80,7 +80,7 @@ public class MainWindow {
 		hard = new JRadioButton ("Hard Mode");
 		
 		//create the rightPanel
-		JLabel pic = new JLabel(new ImageIcon("BackgroundImage/Connect4Vertical.png"));
+		JLabel pic = new JLabel(new ImageIcon("src/Logo.png"));
 		rightPanel.add(pic);
         //Creates outside Panel
         outsidePanel = new JPanel();
@@ -174,7 +174,7 @@ public class MainWindow {
 		}
 		
 		for(i=0;i<42;i++){
-        	connect4Panel.add(new JLabel(new ImageIcon("src/pic1.png")));
+        	connect4Panel.add(new JLabel(new ImageIcon("src/board.png")));
         }
 
 	}

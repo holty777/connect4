@@ -8,11 +8,13 @@ public class HighScore {
 		this.name = name;
 		this.score = score;
 	}
-
+	
+	//return name
 	public String getName(){
 		return this.name;
 	}
-
+	
+	//return score
 	public int getScore(){
 		return this.score;
 	}

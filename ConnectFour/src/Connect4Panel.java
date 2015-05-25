@@ -91,7 +91,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
         }
         
     }
-
+    //drawing player 1 token
     public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
@@ -99,6 +99,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	g2.drawImage(tok2, 17 + getxPos()*109, 671 - getyPos()*109, null);
     }
     
+    //drawing player 2 token
     public void paintBToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;

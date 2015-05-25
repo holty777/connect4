@@ -5,16 +5,21 @@ import java.util.Random;
 public class AI {
 	
 	private Board board;
-	private int playerNum;
+	private Board tempBoard;
 	private String difficulty;
 	private ArrayList<Integer> moves;
 	private Random random;
 	private int rNum;
 	private boolean finished;
 	
-	public AI (String difficulty, Board board) {
+	private ArrayList<Integer> xPos;
+	private ArrayList<Integer> yPos;
+	
+	public AI (String difficulty, Board board, ArrayList<Integer> xP, ArrayList<Integer> yP) {
 		this.board = board;
 		this.difficulty = difficulty;
+		this.xPos = xP;
+		this.yPos = yP;
 		this.moves = new ArrayList<Integer>();
 		random = new Random();
 		
@@ -33,8 +38,15 @@ public class AI {
 	
 	public void easyMode () {
 		while (!isFinished()){
+
+			//int xPrev = xPos.get(xPos.size()-1);
+			//int yPrev = yPos.get(yPos.size()-1);
 			
-			rNum = random.nextInt(7);
+			if (block() < 7) {
+				rNum = block();
+			} else {
+				rNum = random.nextInt(7);
+			}
 
 			if (board.isLegal(rNum)){
 				moves.add(rNum);
@@ -45,20 +57,30 @@ public class AI {
 		setFinished(false);
 	}
 	
-	public void intermediateMode() {
-		
-	}
-	
 	public void hardMode () {
 		while (!isFinished()){
 			
-			rNum = random.nextInt(7);
-
+			if (block() < 7) {
+				rNum = block();
+			} else {
+				rNum = random.nextInt(7);
+			}
+			
 			if (board.isLegal(rNum)){
 				moves.add(rNum);
 				moves.add(board.getNextToken(rNum, false));
 				setFinished(true);
 			}
+			
+			/*tempBoard = board;
+			
+			// possible states
+			for (int i = 0; i < 7; i++) {
+				if (tempBoard.isLegal(i)) {
+					//minmax (Y)
+				}
+			}*/
+
 		}
 		setFinished(false);
 	}
@@ -75,14 +97,6 @@ public class AI {
 	 */
 	public void setBoard(Board board) {
 		this.board = board;
-	}
-
-	public int getPlayerNum() {
-		return playerNum;
-	}
-
-	public void setPlayerNum(int playerNum) {
-		this.playerNum = playerNum;
 	}
 
 	/**
@@ -145,6 +159,70 @@ public class AI {
 		this.moves.clear();
 	}
 	
+	public int block () {
+		int cNum = 9;
+		int tCount = 0;
+		
+		// check vertical
+		for (int i = 0; i < 7; i++) {
+			tCount = 0;
+			if (board.getBoard().get(i).size() < 3) {
+				continue;
+			} else {
+				for (int j = 0; j < board.getBoard().get(i).size(); j++) {
+					if (board.getBoard().get(i).get(j).isPlayer()) {
+						tCount++;
+					} else {
+						tCount = 0;
+					}
+					
+					if (tCount == 3 && board.isLegal(i)) {
+						if (isBlocked(i, j+1)) {
+							break;
+						} else {
+							cNum = i;
+							break;
+						}
+					}
+				}
+			}
+			
+			if (cNum != 9) {
+				break;
+			}
+		}
+		
+		// check horizontal
+		if (cNum == 9) {
+			for (int i = 0; i < board.getBoard().get(i).size(); i++) {
+				// check col
+			}
+			
+		}
+		// check diagonal
+		if (cNum == 9) {
+			for (int i = 0; i < 7; i++) {
+				
+			}
+		}
+		
+		return cNum;
+	}
+	
+	public boolean isBlocked (int xC, int yC) {
+		boolean status = false;
+		for (int s = 0; s < xPos.size(); s++) {
+			if (xPos.get(s) == xC && yPos.get(s) == yC) {
+				status = true;
+			}
+		}
+		return status;
+	}
 
+	public int minMax (Board board, int tempRow, int tempCol) {
+		
+		// to do
+		return 0;
+	}
 	
 }

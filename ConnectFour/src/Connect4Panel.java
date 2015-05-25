@@ -195,9 +195,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			clearEverything();
 			setAi(true);
 			if (mw.getEasy().isSelected()){
-				aiPlayer = new AI("easy", board);
+				aiPlayer = new AI("easy", board, xP, yP);
 			} else if (mw.getHard().isSelected()){
-				aiPlayer = new AI("hard", board);
+				aiPlayer = new AI("hard", board, xP, yP);
 			}
 			setVisible();
 			setFinished(false);

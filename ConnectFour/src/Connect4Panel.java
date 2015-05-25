@@ -1,3 +1,4 @@
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -36,6 +38,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private AI aiPlayer;
 	private BufferedImage tok1;
 	private BufferedImage tok2;
+	private float alpha = 0f;
+	private Timer timer;
 	
 	/**
 	 * Constructor for a Connect4 panel
@@ -91,14 +95,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
         		paintBToken(g);
         	}
         }
+        
+    }
 
-    }
-    
-    public void paintTest(Graphics g){
-    	Graphics2D g2 = (Graphics2D) g;
-    	g2.fillRect(0, 0, 10, 10);
-    }
-    
     public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
@@ -253,6 +252,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				showDraw();
 			} 
 		}
+		
+		
 	}
     
 	/**

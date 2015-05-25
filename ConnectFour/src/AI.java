@@ -38,7 +38,21 @@ public class AI {
 	
 	public void easyMode () {
 		while (!isFinished()){
+			
+			/* this doesn't fully work. it doesn't paint the player token before
+			 * introducing the delay. it just delays immediately after button press.
+			 * tried putting the delay in other locations, still no avail. i think
+			 * its the way we paint the graphics?
+			*/
+			
+			try {
+				Thread.sleep(500);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+		    	Thread.currentThread().interrupt();
+			}
 
+			
+			
 			//int xPrev = xPos.get(xPos.size()-1);
 			//int yPrev = yPos.get(yPos.size()-1);
 			

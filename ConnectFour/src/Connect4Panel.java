@@ -56,9 +56,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
         this.AIMove = new ArrayList<Integer>();
         this.xP = new ArrayList<Integer>();
         this.yP = new ArrayList<Integer>();
-        this.tok1 = ImageIO.read(new File("test/TokenRed.png"));
-        this.tok2 = ImageIO.read(new File("test/TokenYellow.png"));
-
+        this.tok1 = ImageIO.read(new File("src/TokenRed.png"));
+        this.tok2 = ImageIO.read(new File("src/TokenYellow.png"));
     }
 
     /**

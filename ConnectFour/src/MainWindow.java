@@ -262,12 +262,11 @@ public class MainWindow {
 		
 		
 		scores = new JPanel();
-		scores.setPreferredSize(new Dimension(150,75));
+		scores.setPreferredSize(new Dimension(150,80));
 		scores.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		
 		if (!isAi){
-  		scores.add(new JLabel ("Current Wins", JLabel.CENTER));
-		scores.add(new JLabel ("<html>Player 1 = " + scoreA + "<br>Player 2 = " + scoreB + "</html>"));
+		scores.add(new JLabel ("<html><center>~ Scores ~</center><br>Player 1 = " + scoreA + "<br>Player 2 = " + scoreB + "</html>"));
 		} else {
 			scores.add(new JLabel ("<html>Computer Difficulty</font> <br><br></html>", JLabel.CENTER));
 			if (diff.equals("easy")){

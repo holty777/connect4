@@ -37,7 +37,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private AI aiPlayer;
 	private BufferedImage tok1;
 	private BufferedImage tok2;
-	
 	public static Help hw;
 	
 	/**
@@ -165,6 +164,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getToken(5)){
+
 			if (board.isLegal(5)){
 				tempCol = 5;
 				tempRow = board.getNextToken(tempCol, player);
@@ -180,11 +180,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				tempRow = board.getNextToken(tempCol, player);
 				xP.add(tempCol);
 				yP.add(tempRow);
-				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
 			}
 		} else if (e.getSource() == mw.getRestart()){
+
 			clearEverything();
 			setVisible();
 			setFinished(false);
@@ -206,17 +206,18 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			setVisible();
 			setFinished(false);
 			setPlayer(true);
+		} else if(e.getSource() == mw.getHelp()){
+
+			showHelp();
 		}
 		
 		
 		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
-				&& !(e.getSource() == mw.getMvp())){
+				&& !(e.getSource() == mw.getMvp()) && !(e.getSource() == mw.getHelp())){
 				changePlayer();
 		}
 		
-		if(e.getSource() == mw.getHelp()){
-			showHelp();
-		}
+		
 		
 		repaint();
 		
@@ -410,7 +411,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	
 	public void showHelp(){
 		hw = new Help();
-		hw.display();
 		// display the help window in a different thread.
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {

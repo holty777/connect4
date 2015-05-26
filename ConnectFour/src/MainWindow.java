@@ -32,7 +32,6 @@ public class MainWindow {
     GridLayout experimentLayout = new GridLayout(7,7);
     GridBagLayout leftSideLayout = new GridBagLayout();
     GridBagConstraints con;
-    List<JLabel> holes = new ArrayList<JLabel>();
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JPanel experiment;
@@ -86,9 +85,7 @@ public class MainWindow {
 		rightPanel.add(pic);
         //Creates outside Panel
         outsidePanel = new JPanel();
-        outsidePanel.add(leftPanel);
-        outsidePanel.add(connect4Panel );
-        outsidePanel.add(rightPanel);
+        
         
        
         //create token buttons 
@@ -96,6 +93,10 @@ public class MainWindow {
         createTopButtons();
         createButtonGroup();
         createLeftButtons();
+        
+        outsidePanel.add(leftPanel);
+        outsidePanel.add(connect4Panel );
+        outsidePanel.add(rightPanel);
         
 		
 	}
@@ -131,6 +132,7 @@ public class MainWindow {
 	public JButton getHelp(){
 		return help;
 	}
+	
 
 	public void setMvp(JButton mvp) {
 		this.mvp = mvp;
@@ -194,6 +196,11 @@ public class MainWindow {
 	
 	public void createLeftButtons(){
 		
+		help.addActionListener(connect4Panel);
+		restart.addActionListener(connect4Panel);
+		pvp.addActionListener(connect4Panel);
+		mvp.addActionListener(connect4Panel);
+		
         con.fill = GridBagConstraints.CENTER;
 		con.gridx = 0;
 		con.gridy = 1;
@@ -230,11 +237,8 @@ public class MainWindow {
         con.gridy = 5;
         con.gridwidth = 2;
         leftPanel.add(help, con);
+ 
         
-        help.addActionListener(connect4Panel);
-		restart.addActionListener(connect4Panel);
-		pvp.addActionListener(connect4Panel);
-		mvp.addActionListener(connect4Panel);
 	}
 	
 	public void drawGame(String name, int turn){

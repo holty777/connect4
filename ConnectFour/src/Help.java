@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -7,10 +8,10 @@ import javax.swing.JTabbedPane;
 
 public class Help extends JFrame {
 	
-	GridLayout layout1 = new GridLayout(10,2);
 	JTabbedPane tabs = new JTabbedPane();
 	final static JPanel goal = new JPanel();
 	final static JPanel instructions = new JPanel();
+	GridLayout layout1 = new GridLayout(2,1);
 	
 	
 	public Help(){
@@ -21,8 +22,8 @@ public class Help extends JFrame {
 	void display(){
 		this.pack();
         this.setVisible(true);
-		this.setSize(400, 400);
-		this.setLayout(layout1);
+		this.setSize(450, 200);
+		
 		
 		goal.add(new JLabel("The aim of the game is too connect 4 tokens in a row!"));
 		goal.add(new JLabel("Good Luck!!"));
@@ -34,6 +35,8 @@ public class Help extends JFrame {
 		
 		tabs.addTab("Goal", goal);
 		tabs.addTab("Instructions", instructions);
+		tabs.setSize(300, 300);
+		this.add(tabs, BorderLayout.CENTER);
 
 
 

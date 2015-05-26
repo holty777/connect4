@@ -207,7 +207,7 @@ public class Board {
 		
 		//ignore initialization values
 		if (result != true){
-			int token = 99;
+			int token;
 
 			int ne1 = 91;
 			int ne2 = 92;

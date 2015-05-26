@@ -122,6 +122,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(1)){
 			if (board.isLegal(1)){
@@ -132,6 +133,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(2)){
 			if (board.isLegal(2)){
@@ -142,6 +144,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(3)){
 			if (board.isLegal(3)){
@@ -152,6 +155,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(4)){
 			if (board.isLegal(4)){
@@ -162,6 +166,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(5)){
 
@@ -173,6 +178,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getToken(6)){
 			if (board.isLegal(6)){
@@ -182,6 +188,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				yP.add(tempRow);
 				board.addToken(tempCol, tempRow, player);
 				incTurn();
+				changePlayer();
 			}
 		} else if (e.getSource() == mw.getRestart()){
 
@@ -207,18 +214,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			setFinished(false);
 			setPlayer(true);
 		} else if(e.getSource() == mw.getHelp()){
-
 			showHelp();
 		}
-		
-		
-		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
-				&& !(e.getSource() == mw.getMvp()) && !(e.getSource() == mw.getHelp())){
-				changePlayer();
-		}
-		
-		
-		
+
 		repaint();
 		
 		if (getTurn() > 0){
@@ -364,9 +362,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	
 	public void changePlayer(){
 		if (player){
-			this.player = false;
-		} else if (!player){
-			this.player = true;
+			setPlayer(false);
+		} else {
+			setPlayer(true);
 		}
 	}
 	

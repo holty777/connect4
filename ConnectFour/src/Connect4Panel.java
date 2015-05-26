@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
-public class Connect4Panel extends JPanel implements ActionListener{
+public class Connect4Panel extends JPanel implements ActionListener, MouseListener{
 	
 	private MainWindow mw;
 	private Board board;
@@ -83,7 +85,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
         } else {
         	mw.drawGame("pvp", turn, scoreA, scoreB, isAi(), "");
         }
- 
+        
         //this makes sure the board keeps the old drawn graphics too
         for (int i = 0; i < xP.size(); i++){
         	xPos = xP.get(i);
@@ -112,87 +114,16 @@ public class Connect4Panel extends JPanel implements ActionListener{
     	g2.drawImage(tok1, 17 + getxPos()*109, 671 - getyPos()*109, null);
     }
 
+    public void hoverToken(Graphics g, String inst, int num){
+      	
+    	Graphics2D g2 = (Graphics2D) g;
+    	
+    	g2.drawImage(tok1, num*109, num*109, null);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == mw.getToken(0)){
-			if (board.isLegal(0)){
-				tempCol = 0;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(1)){
-			if (board.isLegal(1)){
-				tempCol = 1;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(2)){
-			if (board.isLegal(2)){
-				tempCol = 2;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(3)){
-			if (board.isLegal(3)){
-				tempCol = 3;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(4)){
-			if (board.isLegal(4)){
-				tempCol = 4;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(5)){
-
-			if (board.isLegal(5)){
-				tempCol = 5;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getToken(6)){
-			if (board.isLegal(6)){
-				tempCol = 6;
-				tempRow = board.getNextToken(tempCol, player);
-				xP.add(tempCol);
-				yP.add(tempRow);
-				board.addToken(tempCol, tempRow, player);
-				incTurn();
-				changePlayer();
-			}
-		} else if (e.getSource() == mw.getRestart()){
+    	if (e.getSource() == mw.getRestart()){
 			clearEverything();
 			setVisible();
 			setFinished(false);
@@ -221,44 +152,185 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		}
 
 		repaint();
-		
-		if (getTurn() > 0){
-			if (board.weHaveAWinner(tempRow, tempCol)){
-				showWin();
-				setFinished(true);
-			} else if (board.isBoardFull(getTurn())){
-				showDraw();
-				setFinished(true);
-			}
-		}
-		
-		if (isAi() && (getTurn() % 2 == 1) && !isFinished()){
-			AIMove = aiPlayer.placeToken();
-			
-			tempCol = AIMove.get(0);
-			tempRow =	AIMove.get(1);
-			
-			xP.add(tempCol);
-			yP.add(tempRow);
-			
-			board.addToken(tempCol, tempRow, player);
-			
-			AIMove.clear();
-			aiPlayer.clearMoves();
-			incTurn();
-			changePlayer();
-			
-			repaint();
-			
-			 if (board.weHaveAWinner(tempRow, tempCol)){
-				showWin();
-			} else if (board.isBoardFull(getTurn())){
-				showDraw();
-			} 
-		}
-		
-		
+
 	}
+    
+    public void mousePressed(MouseEvent e) {
+    	if (e.getSource() == mw.getToken(0)){
+ 			if (board.isLegal(0)){
+ 				tempCol = 0;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(1)){
+ 			if (board.isLegal(1)){
+ 				tempCol = 1;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(2)){
+ 			if (board.isLegal(2)){
+ 				tempCol = 2;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(3)){
+ 			if (board.isLegal(3)){
+ 				tempCol = 3;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(4)){
+ 			if (board.isLegal(4)){
+ 				tempCol = 4;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(5)){
+
+ 			if (board.isLegal(5)){
+ 				tempCol = 5;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		} else if (e.getSource() == mw.getToken(6)){
+ 			if (board.isLegal(6)){
+ 				tempCol = 6;
+ 				tempRow = board.getNextToken(tempCol, player);
+ 				xP.add(tempCol);
+ 				yP.add(tempRow);
+ 				board.addToken(tempCol, tempRow, player);
+ 				incTurn();
+ 				changePlayer();
+ 			}
+ 		}
+    	 repaint();
+    	 
+
+ 		if (getTurn() > 0){
+ 			if (board.weHaveAWinner(tempRow, tempCol)){
+ 				showWin();
+ 				setFinished(true);
+ 			} else if (board.isBoardFull(getTurn())){
+ 				showDraw();
+ 				setFinished(true);
+ 			}
+ 		}
+ 		
+ 		if (isAi() && (getTurn() % 2 == 1) && !isFinished()){
+ 			AIMove = aiPlayer.placeToken();
+ 			
+ 			tempCol = AIMove.get(0);
+ 			tempRow =	AIMove.get(1);
+ 			
+ 			xP.add(tempCol);
+ 			yP.add(tempRow);
+ 			
+ 			board.addToken(tempCol, tempRow, player);
+ 			
+ 			AIMove.clear();
+ 			aiPlayer.clearMoves();
+ 			incTurn();
+ 			changePlayer();
+ 			
+ 			repaint();
+ 			
+ 			 if (board.weHaveAWinner(tempRow, tempCol)){
+ 				showWin();
+ 			} else if (board.isBoardFull(getTurn())){
+ 				showDraw();
+ 			} 
+ 		}
+ 		
+     }
+
+     public void mouseReleased(MouseEvent e) {
+    	 if (e.getSource() == mw.getToken(0)){
+      		mw.released(0, player);
+   		} else if (e.getSource() == mw.getToken(1)){
+   			mw.released(1, player);
+   		} else if (e.getSource() == mw.getToken(2)){
+   			mw.released(2, player);
+   		} else if (e.getSource() == mw.getToken(3)){
+   			mw.released(3, player);
+   		} else if (e.getSource() == mw.getToken(4)){
+   			mw.released(4, player);
+   		} else if (e.getSource() == mw.getToken(5)){
+   			mw.released(5, player);
+   		} else if (e.getSource() == mw.getToken(6)){
+   			mw.released(6, player);
+   		}
+     }
+
+     public void mouseEntered(MouseEvent e) {
+    	 if (e.getSource() == mw.getToken(0)){
+    		mw.hover(0, player);
+ 		} else if (e.getSource() == mw.getToken(1)){
+ 			mw.hover(1, player);
+ 		} else if (e.getSource() == mw.getToken(2)){
+ 			mw.hover(2, player);
+ 		} else if (e.getSource() == mw.getToken(3)){
+ 			mw.hover(3, player);
+ 		} else if (e.getSource() == mw.getToken(4)){
+ 			mw.hover(4, player);
+ 		} else if (e.getSource() == mw.getToken(5)){
+ 			mw.hover(5, player);
+ 		} else if (e.getSource() == mw.getToken(6)){
+ 			mw.hover(6, player);
+ 		}
+     }
+
+     public void mouseExited(MouseEvent e) {
+    	 if (e.getSource() == mw.getToken(0)){
+     		mw.unhover(0, player);
+  		} else if (e.getSource() == mw.getToken(1)){
+  			mw.unhover(1, player);
+  		} else if (e.getSource() == mw.getToken(2)){
+  			mw.unhover(2, player);
+  		} else if (e.getSource() == mw.getToken(3)){
+  			mw.unhover(3, player);
+  		} else if (e.getSource() == mw.getToken(4)){
+  			mw.unhover(4, player);
+  		} else if (e.getSource() == mw.getToken(5)){
+  			mw.unhover(5, player);
+  		} else if (e.getSource() == mw.getToken(6)){
+  			mw.unhover(6, player);
+  		}
+     }
+
+     public void mouseClicked(MouseEvent e) {
+    	 
+     }
     
 	/**
 	 * @return the paintBoard
@@ -417,13 +489,13 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	}
 	
 	public void setInvisible(){
-		for (JButton b : mw.getTokens()){
+		for (JPanel b : mw.getTokens()){
 			b.setVisible(false);
 		}
 	}
 	
 	public void setVisible(){
-		for (JButton b : mw.getTokens()){
+		for (JPanel b : mw.getTokens()){
 			b.setVisible(true);
 		}
 	}

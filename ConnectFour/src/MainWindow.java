@@ -25,7 +25,7 @@ public class MainWindow {
 	private JFrame mainFrame;
 	private Connect4Panel connect4Panel;
 	private JPanel outsidePanel;
-	private ArrayList<JButton> tokens;
+	private ArrayList<JPanel> tokens;
 	private JButton restart;
 	private JButton pvp;
 	private JButton mvp;
@@ -93,7 +93,7 @@ public class MainWindow {
   		help = new JButton("Help");
        
         //create token buttons 
-        tokens = new ArrayList<JButton>(7);
+        tokens = new ArrayList<JPanel>(7);
         createTopButtons();
         createButtonGroup();
         createLeftButtons();
@@ -103,11 +103,11 @@ public class MainWindow {
         outsidePanel.add(rightPanel);
 	}
 	
-	public ArrayList<JButton> getTokens() {
+	public ArrayList<JPanel> getTokens() {
 		return tokens;
 	}
 
-	public void setTokens(ArrayList<JButton> tokens) {
+	public void setTokens(ArrayList<JPanel> tokens) {
 		this.tokens = tokens;
 	}
 
@@ -172,15 +172,15 @@ public class MainWindow {
 		int i = 0;
 		
 		for (int j = 0; j < 7; j++){
-			JButton a = new JButton("");
+			JPanel a = new JPanel();
+			a.setSize(110,110);
         	tokens.add(a);
+
         }
-	 
-		for (JButton j : tokens){
-		    j.addActionListener(connect4Panel);
-			j.setBounds(130 + i*80, 50,40,40);
+
+		for (JPanel j : tokens){
+		    j.addMouseListener(connect4Panel);
 			connect4Panel.add(j);
-			i++;
 		}
 		
 		for(i=0;i<42;i++){
@@ -288,16 +288,37 @@ public class MainWindow {
 		leftPanel.revalidate();
 
 	}
+
+	public void hover(int num, boolean player){
+		if (player){
+			tokens.get(num).add(new JLabel(new ImageIcon("src/TokenYellow.png")));
+		} else {
+			tokens.get(num).add(new JLabel(new ImageIcon("src/TokenRed.png")));
+		}
+	}
 	
-	
-	private void setForeground(Color blue) {
-		// TODO Auto-generated method stub
-		
+	public void unhover(int num, boolean player){
+		tokens.get(num).removeAll();	
+		tokens.get(num).revalidate();
+		tokens.get(num).repaint();
 	}
 
-	public JButton getToken(int i) {
+	public void released (int num, boolean player){
+		tokens.get(num).removeAll();	
+		tokens.get(num).revalidate();
+		tokens.get(num).repaint();
+		if (player){
+			tokens.get(num).add(new JLabel(new ImageIcon("src/TokenYellow.png")));
+		} else {
+			tokens.get(num).add(new JLabel(new ImageIcon("src/TokenRed.png")));
+		}
+	}
+	
+	public JPanel getToken(int i) {
 		return tokens.get(i);
 	}
+	
+	
 
 	/**
 	 * Method to display the main window

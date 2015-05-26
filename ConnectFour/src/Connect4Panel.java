@@ -8,12 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 
 public class Connect4Panel extends JPanel implements ActionListener{
@@ -35,6 +37,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private AI aiPlayer;
 	private BufferedImage tok1;
 	private BufferedImage tok2;
+	
+	public static Help hw;
 	
 	/**
 	 * Constructor for a Connect4 panel
@@ -109,7 +113,6 @@ public class Connect4Panel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
 
 		if (e.getSource() == mw.getToken(0)){
 			if (board.isLegal(0)){
@@ -209,6 +212,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		if (!(e.getSource() == mw.getRestart()) && !(e.getSource() == mw.getPvp())
 				&& !(e.getSource() == mw.getMvp())){
 				changePlayer();
+		}
+		
+		if(e.getSource() == mw.getHelp()){
+			showHelp();
 		}
 		
 		repaint();
@@ -401,6 +408,16 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		}
 	}
 	
+	public void showHelp(){
+		hw = new Help();
+		hw.display();
+		// display the help window in a different thread.
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	hw.display();
+            }
+        });
+	}
 	
 	/**
 	 * 

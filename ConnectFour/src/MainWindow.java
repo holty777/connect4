@@ -25,6 +25,7 @@ public class MainWindow {
 	private JButton restart;
 	private JButton pvp;
 	private JButton mvp;
+	private JButton help;
 	private JRadioButton easy;
 	private JRadioButton hard;
 	private ButtonGroup bg;
@@ -78,6 +79,7 @@ public class MainWindow {
 		easy = new JRadioButton ("Easy Mode");
 		easy.setSelected(true);
 		hard = new JRadioButton ("Hard Mode");
+		help = new JButton("Help");
 		
 		//create the rightPanel
 		JLabel pic = new JLabel(new ImageIcon("src/logo.png"));
@@ -124,6 +126,10 @@ public class MainWindow {
 
 	public JButton getMvp() {
 		return mvp;
+	}
+	
+	public JButton getHelp(){
+		return help;
 	}
 
 	public void setMvp(JButton mvp) {
@@ -218,6 +224,14 @@ public class MainWindow {
 		con.gridwidth = 2;
 
         leftPanel.add(restart, con);
+        
+        con.fill = GridBagConstraints.PAGE_END;
+        con.gridx = 0;
+        con.gridy = 5;
+        con.gridwidth = 2;
+        leftPanel.add(help, con);
+        
+        help.addActionListener(connect4Panel);
 		restart.addActionListener(connect4Panel);
 		pvp.addActionListener(connect4Panel);
 		mvp.addActionListener(connect4Panel);

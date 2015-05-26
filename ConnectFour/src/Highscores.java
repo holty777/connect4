@@ -15,9 +15,8 @@ public class Highscores {
 		highscoreList = new ArrayList<HighScore>();
 	}
 
-	public ArrayList getHighscoreList() throws FileNotFoundException {
-		Scanner sc = null;
-	    sc = new Scanner(new FileReader("src/HighScores.txt"));
+	public ArrayList<HighScore> getHighscoreList() throws FileNotFoundException {
+		Scanner sc = new Scanner(new FileReader("src/HighScores.txt"));
 	    while(sc.hasNext()){
 	    	String splitt = sc.nextLine();
 			String[] action = splitt.split("\\s+");

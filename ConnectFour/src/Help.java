@@ -8,10 +8,7 @@ import javax.swing.JTabbedPane;
 
 public class Help extends JFrame {
 	
-	JTabbedPane tabs = new JTabbedPane();
-	final static JPanel goal = new JPanel();
-	final static JPanel instructions = new JPanel();
-	GridLayout layout1 = new GridLayout(2,1);
+	
 	
 	
 	public Help(){
@@ -21,10 +18,13 @@ public class Help extends JFrame {
 	
 	void display(){
 		this.pack();
+		this.setLocationRelativeTo(null);
         this.setVisible(true);
 		this.setSize(450, 200);
-		
-		
+		JTabbedPane tabs = new JTabbedPane();
+		JPanel goal = new JPanel();
+		JPanel instructions = new JPanel();
+		GridLayout layout1 = new GridLayout(2,1);
 		goal.add(new JLabel("The aim of the game is too connect 4 tokens in a row!"));
 		goal.add(new JLabel("Good Luck!!"));
 

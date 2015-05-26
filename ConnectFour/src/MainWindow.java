@@ -71,22 +71,23 @@ public class MainWindow {
         connect4Panel.setLayout(experimentLayout);
         con = new GridBagConstraints();
         
-        // create the leftPanel
-		restart = new JButton("Restart");		
-		pvp =  new JButton ("Player VS Player");
-		mvp = new JButton ("Player VS Computer");
-		easy = new JRadioButton ("Easy Mode");
-		easy.setSelected(true);
-		hard = new JRadioButton ("Hard Mode");
-		help = new JButton("Help");
+  
 		
 		//create the rightPanel
 		JLabel pic = new JLabel(new ImageIcon("src/logo.png"));
 		rightPanel.add(pic);
+		
         //Creates outside Panel
         outsidePanel = new JPanel();
         
-        
+        // create the leftPanel
+  		restart = new JButton("Restart");		
+  		pvp =  new JButton ("Player VS Player");
+  		mvp = new JButton ("Player VS Computer");
+  		easy = new JRadioButton ("Easy Mode");
+  		easy.setSelected(true);
+  		hard = new JRadioButton ("Hard Mode");
+  		help = new JButton("Help");
        
         //create token buttons 
         tokens = new ArrayList<JButton>(7);
@@ -95,7 +96,7 @@ public class MainWindow {
         createLeftButtons();
         
         outsidePanel.add(leftPanel);
-        outsidePanel.add(connect4Panel );
+        outsidePanel.add(connect4Panel);
         outsidePanel.add(rightPanel);
         
 		

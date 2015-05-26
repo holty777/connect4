@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -269,7 +270,7 @@ public class MainWindow {
 		scores.add(new JLabel ("<html>Player 1 = " + scoreA + "<br>Player 2 = " + scoreB + "</html>"));
 		} else {
 			if (diff.equals("easy")){
-				scores.add(new JLabel ("Computer Difficulty", JLabel.CENTER));
+				scores.add(new JLabel ("<html>Computer Difficulty</font> <br><br></html>", JLabel.CENTER));
 				scores.add(new JLabel ("Easy Mode"));
 			} else {
 				scores.add(new JLabel ("Computer Difficulty", JLabel.CENTER));
@@ -291,6 +292,11 @@ public class MainWindow {
 	}
 	
 	
+	private void setForeground(Color blue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public JButton getToken(int i) {
 		return tokens.get(i);
 	}

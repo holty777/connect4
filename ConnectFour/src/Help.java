@@ -24,7 +24,8 @@ public class Help extends JFrame {
 		JTabbedPane tabs = new JTabbedPane();
 		JPanel goal = new JPanel();
 		JPanel instructions = new JPanel();
-		GridLayout layout1 = new GridLayout(2,1);
+		goal.setLayout(new GridLayout(2,1));
+		instructions.setLayout(new GridLayout(5,1));
 		goal.add(new JLabel("The aim of the game is too connect 4 tokens in a row!"));
 		goal.add(new JLabel("Good Luck!!"));
 

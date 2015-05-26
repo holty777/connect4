@@ -45,11 +45,11 @@ public class AI {
 			 * its the way we paint the graphics?
 			*/
 			
-			try {
+			/*try {
 				Thread.sleep(500);                 //1000 milliseconds is one second.
 			} catch(InterruptedException ex) {
 		    	Thread.currentThread().interrupt();
-			}
+			}*/
 
 			
 			
@@ -208,15 +208,63 @@ public class AI {
 		
 		// check horizontal
 		if (cNum == 9) {
-			for (int i = 0; i < board.getBoard().get(i).size(); i++) {
-				// check col
-			}
+			int xPrev = xPos.get(xPos.size()-1);
+			int yPrev = yPos.get(yPos.size()-1);
+			int count = 0;
+			int noMatch = 0;
 			
-		}
-		// check diagonal
-		if (cNum == 9) {
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 4; i++) {
+				count = 0;
 				
+				ArrayList<Tokens> columnj = board.getBoard().get(i);
+				ArrayList<Tokens> columnj1 = board.getBoard().get(i + 1);
+				ArrayList<Tokens> columnj2 = board.getBoard().get(i + 2);
+				ArrayList<Tokens> columnj3 = board.getBoard().get(i + 3);
+		
+				int a = 99;
+				int b = 98;
+				int c = 97;
+				int d = 96;
+				
+				if (yPrev < columnj.size()) 
+					a = columnj.get(yPrev).getPlayerNum();
+				if (yPrev < columnj1.size())
+					b = columnj1.get(yPrev).getPlayerNum();
+				if (yPrev < columnj2.size())
+					c = columnj2.get(yPrev).getPlayerNum();
+				if (yPrev < columnj3.size())
+					d = columnj3.get(yPrev).getPlayerNum();
+				
+				if (a == 1)	{
+					count++;
+				} else {
+					noMatch = i;
+				}
+				if (b == 1) {
+					count++;
+				} else {
+					noMatch = i+1;
+				}
+				if (c == 1) {
+					count++;
+				} else {
+					noMatch = i+2;
+				}
+				if (d == 1) {
+					count++;
+				} else {
+					noMatch = i+3;
+				}
+				
+				if (count == 3) {
+					if (board.getBoard().get(noMatch).size() == board.getBoard().get(xPrev).size()-1) {
+						cNum = noMatch;
+					}
+				}
+				
+				if (cNum != 9) {
+					break;
+				}
 			}
 		}
 		

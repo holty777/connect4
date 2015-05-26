@@ -194,12 +194,9 @@ public class Board {
 				if (row < columnj3.size())
 					d = columnj3.get(row).getPlayerNum();
 
-				if (a == b)										// A = B
-				{
-					if(c == d)									// C = D
-					{
-						if(a == c)								// A = C, therefore they are all equal 
-						{
+				if (a == b){										// A = B
+					if(c == d){									// C = D
+						if(a == c){								// A = C, therefore they are all equal 
 							result = true;
 							break;
 						}

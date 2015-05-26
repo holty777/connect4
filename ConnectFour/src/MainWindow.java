@@ -290,6 +290,9 @@ public class MainWindow {
 	}
 
 	public void hover(int num, boolean player){
+		tokens.get(num).removeAll();	
+		tokens.get(num).revalidate();
+		tokens.get(num).repaint();
 		if (player){
 			tokens.get(num).add(new JLabel(new ImageIcon("src/TokenYellow.png")));
 		} else {

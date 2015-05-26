@@ -269,11 +269,10 @@ public class MainWindow {
   		scores.add(new JLabel ("Current Wins", JLabel.CENTER));
 		scores.add(new JLabel ("<html>Player 1 = " + scoreA + "<br>Player 2 = " + scoreB + "</html>"));
 		} else {
+			scores.add(new JLabel ("<html>Computer Difficulty</font> <br><br></html>", JLabel.CENTER));
 			if (diff.equals("easy")){
-				scores.add(new JLabel ("<html>Computer Difficulty</font> <br><br></html>", JLabel.CENTER));
 				scores.add(new JLabel ("Easy Mode"));
 			} else {
-				scores.add(new JLabel ("Computer Difficulty", JLabel.CENTER));
 				scores.add(new JLabel ("Hard Mode"));
 			}
 			

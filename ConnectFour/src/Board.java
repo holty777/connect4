@@ -7,8 +7,6 @@ public class Board {
 	boolean gameFinished;
 	String gameMode;
 	String gameDifficulty;
-	int scoreA;
-	int scoreB;
 	boolean isLegal;
 
 	public Board() {
@@ -19,14 +17,6 @@ public class Board {
 	public boolean checkGameFinished() {
 		//check if winner/board full
 		return false;
-	}
-
-	public void incrementScore(boolean player) {
-		if (player == false) {
-			scoreA++;
-		} else {
-			scoreB++;
-		}
 	}
 
 	public void addHighscore(String name, int score) {
@@ -63,21 +53,6 @@ public class Board {
 	public void setGameDifficulty(String gameDifficulty) {
 		this.gameDifficulty = gameDifficulty;
 	}
-	public int getScoreA() {
-		return scoreA;
-	}
-	public void setScoreA(int scoreA) {
-		this.scoreA = scoreA;
-	}
-	public int getScoreB() {
-		return scoreB;
-	}
-	public void setScoreB(int scoreB) {
-		this.scoreB = scoreB;
-	}
-
-
-
 
 	// self created functions
 	/**

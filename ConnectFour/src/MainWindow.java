@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -6,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EtchedBorder;
 
 
 public class MainWindow {
@@ -35,6 +38,7 @@ public class MainWindow {
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JPanel experiment;
+    private JPanel scores;
 
 	/**
 	 * Method to bootstrap the main frame
@@ -69,9 +73,7 @@ public class MainWindow {
 		// create the connect4 panel
 		connect4Panel = new Connect4Panel(this);
         connect4Panel.setLayout(experimentLayout);
-        con = new GridBagConstraints();
-        
-  
+        con = new GridBagConstraints();  
 		
 		//create the rightPanel
 		JLabel pic = new JLabel(new ImageIcon("src/logo.png"));
@@ -98,8 +100,6 @@ public class MainWindow {
         outsidePanel.add(leftPanel);
         outsidePanel.add(connect4Panel);
         outsidePanel.add(rightPanel);
-        
-		
 	}
 	
 	public ArrayList<JButton> getTokens() {
@@ -204,45 +204,44 @@ public class MainWindow {
 		
         con.fill = GridBagConstraints.CENTER;
 		con.gridx = 0;
-		con.gridy = 1;
+		con.gridy = 3;
 		con.gridwidth = 2;
 
         leftPanel.add(pvp, con);
         con.fill = GridBagConstraints.CENTER;
 		con.gridx = 0;
-		con.gridy = 2;
+		con.gridy = 4;
 		con.gridwidth = 1;
 
         leftPanel.add(easy, con);
         con.fill = GridBagConstraints.CENTER;
 		con.gridx = 1;
-		con.gridy = 2;
+		con.gridy = 4;
 		con.gridwidth = 1;
 
         leftPanel.add(hard, con);
         con.fill = GridBagConstraints.CENTER;
 		con.gridx = 0;
-		con.gridy = 3;
+		con.gridy = 5;
 		con.gridwidth = 2;
 
         leftPanel.add(mvp, con);
         con.fill = GridBagConstraints.PAGE_END;
 		con.gridx = 0;
-		con.gridy = 4;
+		con.gridy = 6;
 		con.gridwidth = 2;
 
         leftPanel.add(restart, con);
         
         con.fill = GridBagConstraints.PAGE_END;
         con.gridx = 0;
-        con.gridy = 5;
+        con.gridy = 7;
         con.gridwidth = 2;
         leftPanel.add(help, con);
- 
-        
+     
 	}
 	
-	public void drawGame(String name, int turn){
+	public void drawGame(String name, int turn, int scoreA, int scoreB, boolean isAi, String diff){
 		leftPanel.removeAll();
 		
 		con.fill = GridBagConstraints.HORIZONTAL;
@@ -253,13 +252,38 @@ public class MainWindow {
 		con.gridwidth = 2;
 		
 		if (name.equals("pvp") && turn % 2 == 0){
-			leftPanel.add(new JLabel(new ImageIcon("src/pvp 1.png")), con);	
+			leftPanel.add(new JLabel(new ImageIcon("src/pvp 1.png")), con);				
 		} else if (name.equals("pvp") && turn % 2 == 1){
 			leftPanel.add(new JLabel(new ImageIcon("src/pvp 2.png")), con);
 		} else{
 			leftPanel.add(new JLabel(new ImageIcon("src/mvp.png")), con);
 		}
-	
+		
+		
+		scores = new JPanel();
+		scores.setPreferredSize(new Dimension(150,75));
+		scores.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		
+		if (!isAi){
+  		scores.add(new JLabel ("Current Wins", JLabel.CENTER));
+		scores.add(new JLabel ("<html>Player 1 = " + scoreA + "<br>Player 2 = " + scoreB + "</html>"));
+		} else {
+			if (diff.equals("easy")){
+				scores.add(new JLabel ("Computer Difficulty", JLabel.CENTER));
+				scores.add(new JLabel ("Easy Mode"));
+			} else {
+				scores.add(new JLabel ("Computer Difficulty", JLabel.CENTER));
+				scores.add(new JLabel ("Hard Mode"));
+			}
+			
+		}
+		
+		con.fill = GridBagConstraints.CENTER;
+		con.gridx = 0;
+		con.gridy = 1;
+		con.gridwidth = 2;
+
+		leftPanel.add(scores, con);
 		createLeftButtons();
 
 		leftPanel.revalidate();

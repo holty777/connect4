@@ -38,6 +38,8 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	private BufferedImage tok1;
 	private BufferedImage tok2;
 	public static Help hw;
+	public int scoreA;
+	public int scoreB;
 	
 	/**
 	 * Constructor for a Connect4 panel
@@ -77,9 +79,9 @@ public class Connect4Panel extends JPanel implements ActionListener{
         super.paintComponent(g);       
         
         if (isAi()){
-        	mw.drawGame("mvp", turn);
+        	mw.drawGame("mvp", turn, scoreA, scoreB, isAi(), aiPlayer.getDifficulty());
         } else {
-        	mw.drawGame("pvp", turn);
+        	mw.drawGame("pvp", turn, scoreA, scoreB, isAi(), "");
         }
  
         //this makes sure the board keeps the old drawn graphics too
@@ -191,11 +193,11 @@ public class Connect4Panel extends JPanel implements ActionListener{
 				changePlayer();
 			}
 		} else if (e.getSource() == mw.getRestart()){
-
 			clearEverything();
 			setVisible();
 			setFinished(false);
 			setPlayer(true);
+			clearScore();
 		} else if (e.getSource() == mw.getPvp()){
 			clearEverything();
 			setAi(false);
@@ -213,6 +215,7 @@ public class Connect4Panel extends JPanel implements ActionListener{
 			setVisible();
 			setFinished(false);
 			setPlayer(true);
+			clearScore();
 		} else if(e.getSource() == mw.getHelp()){
 			showHelp();
 		}
@@ -352,6 +355,22 @@ public class Connect4Panel extends JPanel implements ActionListener{
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
+	
+	public int getScoreA() {
+		return scoreA;
+	}
+	
+	public void setScoreA(int scoreA) {
+		this.scoreA = scoreA;
+	}
+	
+	public int getScoreB() {
+		return scoreB;
+	}
+	
+	public void setScoreB(int scoreB) {
+		this.scoreB = scoreB;
+	}
 
 	/**
 	 * increments the turn number
@@ -381,8 +400,10 @@ public class Connect4Panel extends JPanel implements ActionListener{
 		if (!isAi()){
 			if (isPlayer()){
 				JOptionPane.showMessageDialog(parent, "Player 2 Wins!!!");
+				incrementScore(player);
 			} else {
 				JOptionPane.showMessageDialog(parent, "Player 1 Wins!!!");
+				incrementScore(player);
 			}
 		} else {
 			if (isPlayer()){
@@ -417,6 +438,18 @@ public class Connect4Panel extends JPanel implements ActionListener{
         });
 	}
 	
+	public void incrementScore(boolean player) {
+		if (player == false) {
+			scoreA++;
+		} else {
+			scoreB++;
+		}
+	}
+	
+	public void clearScore(){
+		setScoreA(0);
+		setScoreB(0);
+	}
 	/**
 	 * 
 	 */

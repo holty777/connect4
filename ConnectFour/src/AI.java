@@ -169,6 +169,20 @@ public class AI {
 		this.finished = finished;
 	}
 
+	/**
+	 * @return the difficulty
+	 */
+	public String getDifficulty() {
+		return difficulty;
+	}
+
+	/**
+	 * @param difficulty the difficulty to set
+	 */
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
 	public void clearMoves(){
 		this.moves.clear();
 	}

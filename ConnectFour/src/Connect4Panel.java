@@ -212,7 +212,6 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  				changePlayer();
  			}
  		} else if (e.getSource() == mw.getToken(5)){
-
  			if (board.isLegal(5)){
  				tempCol = 5;
  				tempRow = board.getNextToken(tempCol, player);
@@ -229,12 +228,13 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  				tempRow = board.getNextToken(tempCol, player);
  				xP.add(tempCol);
  				yP.add(tempRow);
+ 				
  				board.addToken(tempCol, tempRow, player);
  				incTurn();
  				changePlayer();
  			}
  		}
-    	 repaint();
+    	repaint();
     	 
 
  		if (getTurn() > 0){
@@ -251,7 +251,7 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  			AIMove = aiPlayer.placeToken();
  			
  			tempCol = AIMove.get(0);
- 			tempRow =	AIMove.get(1);
+ 			tempRow = AIMove.get(1);
  			
  			xP.add(tempCol);
  			yP.add(tempRow);
@@ -459,6 +459,9 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		}
 	}
 	
+	/**
+	 * displays the draw window
+	 */
 	public void showDraw(){
 		final JFrame parent = new JFrame();
         
@@ -466,6 +469,9 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		setInvisible();
 	}
 
+	/**
+	 * displays the winner window
+	 */
 	public void showWin(){
 		final JFrame parent = new JFrame();
         
@@ -500,6 +506,9 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		}
 	}
 	
+	/**
+	 * displays the help window
+	 */
 	public void showHelp(){
 		hw = new Help();
 		// display the help window in a different thread.
@@ -510,6 +519,10 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
         });
 	}
 	
+	/**
+	 * increments the score
+	 * @param player the current player
+	 */
 	public void incrementScore(boolean player) {
 		if (player == false) {
 			scoreA++;
@@ -518,12 +531,16 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		}
 	}
 	
+	/**
+	 * clears the score
+	 */
 	public void clearScore(){
 		setScoreA(0);
 		setScoreB(0);
 	}
+	
 	/**
-	 * 
+	 * resets the game back to initial state
 	 */
 	public void clearEverything(){
 		board = new Board();

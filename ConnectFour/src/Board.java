@@ -81,12 +81,6 @@ public class Board {
 	 * @return the next free place for the token to be placed in
 	 */
 	public int getNextToken(int i, boolean player) {
-		if (board.get(i) == null){
-			Tokens token = new Tokens (player);
-			board.get(i).add(token);
-
-		}
-
 		return board.get(i).size();
 
 	}
@@ -276,10 +270,10 @@ public class Board {
 						result = true;
 					} else if(ne2 == sw1){				//	sw1 = token = ne1 = ne2		GG
 						result = true;
-					} else if (ne1 == sw1){		//	sw1 = token = ne1
-						if(sw1 == sw2){				//	sw2 = sw1 = token = ne1		GG
-							result = true;					
-						}
+					}
+				} else if (ne1 == sw1){		//	sw1 = token = ne1
+					if(sw1 == sw2){				//	sw2 = sw1 = token = ne1		GG
+						result = true;					
 					}
 				}
 			} else if (token == sw1) {					// sw1 = token 

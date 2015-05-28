@@ -11,6 +11,7 @@ public class AI {
 	private Random random;
 	private int rNum;
 	private boolean finished;
+	private int hDepth;
 	
 	private ArrayList<Integer> xPos;
 	private ArrayList<Integer> yPos;
@@ -21,6 +22,7 @@ public class AI {
 		this.xPos = xP;
 		this.yPos = yP;
 		this.moves = new ArrayList<Integer>();
+		this.hDepth = 2;
 		random = new Random();
 		
 	}
@@ -50,15 +52,14 @@ public class AI {
 			} catch(InterruptedException ex) {
 		    	Thread.currentThread().interrupt();
 			}*/
-
 			
 			
 			//int xPrev = xPos.get(xPos.size()-1);
 			//int yPrev = yPos.get(yPos.size()-1);
 			
-			if (block() < 7) {
-				rNum = block();
-			} else {
+			rNum = block();
+			
+			if (!(rNum < 7)) {
 				rNum = random.nextInt(7);
 			}
 
@@ -74,27 +75,18 @@ public class AI {
 	public void hardMode () {
 		while (!isFinished()){
 			
-			if (block() < 7) {
-				rNum = block();
-			} else {
-				rNum = random.nextInt(7);
-			}
+			rNum = block();
 			
+			if (!(rNum < 7)) {
+				tempBoard = copyBoard(board);
+				rNum = negaMax(tempBoard, -10000000, 0, true, (xPos.get(xPos.size()-1)), (yPos.get(yPos.size()-1)));
+			}
 			if (board.isLegal(rNum)){
 				moves.add(rNum);
 				moves.add(board.getNextToken(rNum, false));
 				setFinished(true);
 			}
 			
-			/*tempBoard = board;
-			
-			// possible states
-			for (int i = 0; i < 7; i++) {
-				if (tempBoard.isLegal(i)) {
-					//minmax (Y)
-				}
-			}*/
-
 		}
 		setFinished(false);
 	}
@@ -186,7 +178,10 @@ public class AI {
 	public void clearMoves(){
 		this.moves.clear();
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public int block () {
 		int cNum = 9;
 		int tCount = 0;
@@ -285,6 +280,12 @@ public class AI {
 		return cNum;
 	}
 	
+	/**
+	 * 
+	 * @param xC
+	 * @param yC
+	 * @return
+	 */
 	public boolean isBlocked (int xC, int yC) {
 		boolean status = false;
 		for (int s = 0; s < xPos.size(); s++) {
@@ -294,11 +295,708 @@ public class AI {
 		}
 		return status;
 	}
-
-	public int minMax (Board board, int tempRow, int tempCol) {
-		
+	
+	/**
+	 * 
+	 * @param toCopy
+	 * @return
+	 */
+	public Board copyBoard (Board toCopy) {
+		Board newBoard = new Board();
+		ArrayList<ArrayList<Tokens>> tempGboard = new ArrayList<ArrayList<Tokens>>(7);
+		for (int i = 0; i < 7; i++) {
+			tempGboard.add(new ArrayList<Tokens>(toCopy.getBoard().get(i)));
+		}
+		newBoard.setBoard(tempGboard);	
+		return newBoard;
+	}
+	
+	/**
+	 * 
+	 * @param nextBoard
+	 * @param depth
+	 * @return
+	 */
+	public int negaMax (Board boardCopy, int alpha, int depth, boolean player, int xCoord, int yCoord) {		
 		// to do
-		return 0;
+		
+		/* insert in each column
+		 * once final depth (3) is reached, "evalute" the board
+		 * return the best value
+		 * compare to current best value, set new best path to current if >= previous value
+		 * return best path at the end
+		 */
+		
+		/* for col and rows...
+		 * remove previous token move if c > 0
+		 * if next move isLegal, negamax.....recurse....
+		 * return best path if min depth (recursed back to the start)
+		 * else return best value
+		 */
+		
+		int bestPath = 0;
+		int nodeVal = alpha;
+		int pNum;
+		boolean nextPlayer;
+		
+		if (player) {
+			pNum = 1;
+			nextPlayer = false;
+		} else {
+			pNum = 2;
+			nextPlayer = true;
+		}
+		
+		if (boardCopy.weHaveAWinner(yCoord, xCoord)) {
+			// IF WE HAVE A WINNERRRRR
+			nodeVal = 10000000;
+//			System.out.println(pNum + " can win...? " + xCoord + " " + yCoord + " " + nodeVal);
+			if (pNum == 2) {
+				nodeVal = nodeVal * -1; 
+			}
+			
+		} else if ((boardCopy.getBoard().get(0).size() == 6) &&
+					(boardCopy.getBoard().get(1).size() == 6) &&
+					(boardCopy.getBoard().get(2).size() == 6) &&
+					(boardCopy.getBoard().get(3).size() == 6) &&
+					(boardCopy.getBoard().get(4).size() == 6) &&
+					(boardCopy.getBoard().get(5).size() == 6) &&
+					(boardCopy.getBoard().get(6).size() == 6)) {
+						// if its a draw
+						nodeVal = 0;
+						
+		} else if (depth == hDepth) {
+			nodeVal = evalBoard(boardCopy, pNum);
+			
+			if (pNum == 1) {
+				nodeVal = nodeVal*-1; 
+			}
+			
+		} else {
+			// NEGAMAXAXAXAXAXAX
+			for (int col = 0; col < 7; col++) {
+//				Tokens newToken = new Tokens(player);
+				Board nextState = copyBoard(boardCopy);
+//				System.out.println(col);
+				
+				if (nextState.isLegal(col)){
+					nextState.addToken(col, (nextState.getBoard().get(col).size()), nextPlayer);
+					//nextState.getBoard().get(col).add(newToken);
+					int nValue = -negaMax (nextState, -10000000, (depth+1), nextPlayer, col, (nextState.getBoard().get(col).size()-1));
+//					System.out.println("token in " + col + " " + (nextState.getBoard().get(col).size()-1));
+//					System.out.println(col);
+					
+					if (nValue >= nodeVal) {
+						bestPath = col;
+						nodeVal = nValue;
+					}
+				} else {
+					continue;
+				}
+			}
+		}
+		
+		if (depth == 0) {
+			// finished recursing back up
+			return bestPath;
+		} else {
+			// still recursing
+			return nodeVal;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param nextState
+	 * @param player
+	 * @return
+	 */
+	public int evalBoard (Board nextState, int playerNum) {
+		// find weight of move
+		
+		// check for 2 in a row AND 3 in a row
+		// closed ends && open ended cases. open ended >> closed ends
+		
+		// prioritise horizontal > diagonal > vertical
+		int vertical = 1;
+		int diagonal = 2;
+		int horizontal = 3;
+		
+		int cTwo = 5;
+		int cThree = 1000;
+		
+		int bestVal = 0;
+		
+		// horizontal connect 2
+		for (int r = 0; r < 6; r++) {
+			for (int c = 0; c < 4; c++) {
+				// (xx00)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r <= nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+					
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= r) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*horizontal;
+						}
+				}
+				
+				// (x0x0)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r <= nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+						
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= r) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*horizontal;
+						}
+				}
+				
+				// (x00x)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r <= nextState.getBoard().get(c+1).size()) &&
+					(r <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+							
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= r) && 
+							(nextState.getBoard().get(c+2).size() <= r) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*horizontal;
+						}
+				}
+				
+				// (0xx0)
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+							
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*horizontal;
+						}
+				}
+				
+				// (0x0x)
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+					
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= r) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*horizontal;
+						}
+				}
+				
+				// (00xx)
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					(r <= nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+							
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).size() <= r) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*horizontal;
+						}
+				}				
+			}
+		}
+		
+		// diagonal connect 2 (/, sw to ne)
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 4; c++) {
+				/*    0
+				 *   0
+				 *  x
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) <= nextState.getBoard().get(c+2).size()) &&
+					((r+3) <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+2)) &&
+							(nextState.getBoard().get(c+3).size() <= (r+3))) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/*    0
+				 *   x
+				 *  0
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) <= nextState.getBoard().get(c+1).size()) &&
+					((r+2) < nextState.getBoard().get(c+2).size()) &&
+					((r+3) <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+1)) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= (r+3))) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   0
+				 *  0
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) <= nextState.getBoard().get(c+1).size()) &&
+					((r+2) <= nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+1)) && 
+							(nextState.getBoard().get(c+2).size() <= (r+2)) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/*    0
+				 *   x
+				 *  x
+				 * 0
+				 */
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) < nextState.getBoard().get(c+2).size()) &&
+					((r+3) <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= (r+3))) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   0
+				 *  x
+				 * 0
+				 */
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) <= nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+2)) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   x
+				 *  0
+				 * 0
+				 */
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					((r+1) <= nextState.getBoard().get(c+1).size()) &&
+					((r+2) < nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).size() <= (r+1)) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+			}
+		}
+		
+		// opposite diagonal connect 2 (\, nw to se)
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 4; c++) {
+				/* x
+				 *  x
+				 *   0
+				 *    0
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) <= nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+1)) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/* x
+				 *  0
+				 *   x
+				 *    0
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) <= nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+2)) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/* x
+				 *  0
+				 *   0
+				 *    x
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) <= nextState.getBoard().get(c+1).size()) &&
+					((r+1) <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+2)) && 
+							(nextState.getBoard().get(c+2).size() <= (r+1)) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/* 0
+				 *  x
+				 *   x
+				 *    0
+				 */
+				if (((r+3) <= nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= (r+3)) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/* 0
+				 *  x
+				 *   0
+				 *    x
+				 */
+				if (((r+3) <= nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= (r+3)) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+1)) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+				
+				/* 0
+				 *  0
+				 *   x
+				 *    x
+				 */
+				if (((r+3) <= nextState.getBoard().get(c).size()) && 
+					((r+2) <= nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= (r+3)) && 
+							(nextState.getBoard().get(c+1).size() <= (r+2)) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cTwo*diagonal;
+						}
+				}
+			}
+		}
+		
+		// vertical connect 2
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 7; c++) {
+				/* 0
+				 * 0
+				 * x
+				 * x
+				 */
+				if ((r+3) <= nextState.getBoard().get(c).size()) {
+									
+					if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+						(nextState.getBoard().get(c).get(r+1).getPlayerNum() == playerNum) && 
+						(nextState.getBoard().get(c).size() <= (r+2))) {
+							bestVal += cTwo*vertical;
+					}
+				}
+			}
+		}
+		
+		// horizontal connect 3
+		for (int r = 0; r < 6; r++) {
+			for (int c = 0; c < 4; c++) {
+				// (xxx0)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+					
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cThree*horizontal;
+						}
+				}
+				
+				// (xx0x)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+						
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= r) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*horizontal;
+						}
+				}
+				
+				// (x0xx)
+				if ((r < nextState.getBoard().get(c).size()) && 
+					(r <= nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+							
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= r) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*horizontal;
+						}
+				}
+				
+				// (0xxx)
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					(r < nextState.getBoard().get(c+1).size()) &&
+					(r < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+							
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*horizontal;
+						}
+				}	
+			}
+		}
+				
+		// diagonal connect 3 (/, sw to ne)
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 4; c++) {
+				/*    0
+				 *   x
+				 *  x
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) < nextState.getBoard().get(c+2).size()) &&
+					((r+3) <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= (r+3))) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   0
+				 *  x
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) <= nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+2)) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   x
+				 *  0
+				 * x
+				 */
+				if ((r < nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) <= nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+1)) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/*    x
+				 *   x
+				 *  x
+				 * 0
+				 */
+				if ((r <= nextState.getBoard().get(c).size()) && 
+					((r+1) < nextState.getBoard().get(c+1).size()) &&
+					((r+2) < nextState.getBoard().get(c+2).size()) &&
+					((r+3) < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= r) && 
+							(nextState.getBoard().get(c+1).get(r+1).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+2).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r+3).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+			}
+		}
+		
+		// opposite diagonal connect 3 (\, nw to se)
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 4; c++) {
+				/* x
+				 *  x
+				 *   x
+				 *    0
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r <= nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).size() <= r)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/* x
+				 *  x
+				 *   0
+				 *    x
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) <= nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).size() <= (r+1)) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/* x
+				 *  0
+				 *   x
+				 *    x
+				 */
+				if (((r+3) < nextState.getBoard().get(c).size()) && 
+					((r+2) <= nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).get(r+3).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+1).size() <= (r+2)) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+				
+				/* 0
+				 *  x
+				 *   x
+				 *    x
+				 */
+				if (((r+3) <= nextState.getBoard().get(c).size()) && 
+					((r+2) < nextState.getBoard().get(c+1).size()) &&
+					((r+1) < nextState.getBoard().get(c+2).size()) &&
+					(r < nextState.getBoard().get(c+3).size())) {
+								
+						if ((nextState.getBoard().get(c).size() <= (r+3)) && 
+							(nextState.getBoard().get(c+1).get(r+2).getPlayerNum() == playerNum) && 
+							(nextState.getBoard().get(c+2).get(r+1).getPlayerNum() == playerNum) &&
+							(nextState.getBoard().get(c+3).get(r).getPlayerNum() == playerNum)) {
+								bestVal += cThree*diagonal;
+						}
+				}
+			}
+		}
+		
+		// vertical connect 3
+		for (int r = 0; r < 3; r++) {
+			for (int c = 0; c < 7; c++) {
+				/* 0
+				 * x
+				 * x
+				 * x
+				 */
+				if ((r+3) <= nextState.getBoard().get(c).size()) {
+									
+					if ((nextState.getBoard().get(c).get(r).getPlayerNum() == playerNum) && 
+						(nextState.getBoard().get(c).get(r+1).getPlayerNum() == playerNum) && 
+						(nextState.getBoard().get(c).get(r+2).getPlayerNum() == playerNum) &&
+						(nextState.getBoard().get(c).size() <= (r+3))) {
+							bestVal += cThree*vertical;
+					}
+				}
+			}
+		}
+		
+		return bestVal;
 	}
 	
 }

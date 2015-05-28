@@ -14,15 +14,6 @@ public class Board {
 		fillBoard();
 	}
 
-	public boolean checkGameFinished() {
-		//check if winner/board full
-		return false;
-	}
-
-	public void addHighscore(String name, int score) {
-		//set the highscore
-	}
-
 	public ArrayList<ArrayList<Tokens>> getBoard() {
 		return board;
 	}

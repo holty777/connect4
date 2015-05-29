@@ -446,8 +446,8 @@ public class AI {
 	
 	/**
 	 * 
-	 * @param nextState
-	 * @param player
+	 * @param nextState next state of the board
+	 * @param playerNum current player being evaluated on the board
 	 * @return score based on the current state of the board
 	 */
 	public int evalBoard (Board nextState, int playerNum) {

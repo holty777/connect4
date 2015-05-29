@@ -2,6 +2,10 @@
 public class Tokens {
 	private boolean player;
 	
+	/**
+	 * Constructor for the token
+	 * @param playerNum player number to be associated with the token
+	 */
 	public Tokens (boolean playerNum) {
 		this.setPlayer(playerNum);
 	}

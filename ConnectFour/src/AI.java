@@ -15,6 +15,14 @@ public class AI {
 	private int rNum;
 	private int hDepth;
 	
+	/**
+	 * Constructor for the ai
+	 * 
+	 * @param difficulty difficulty setting of the ai
+	 * @param board current game board
+	 * @param xP list of all the x coordinate moves
+	 * @param yP list of all the y coordinate moves
+	 */
 	public AI (String difficulty, Board board, ArrayList<Integer> xP, ArrayList<Integer> yP) {
 		this.board = board;
 		this.difficulty = difficulty;
@@ -440,7 +448,7 @@ public class AI {
 	 * 
 	 * @param nextState
 	 * @param player
-	 * @return
+	 * @return score based on the current state of the board
 	 */
 	public int evalBoard (Board nextState, int playerNum) {
 		// prioritise horizontal > diagonal > vertical

@@ -9,6 +9,9 @@ public class Board {
 	String gameMode;
 	String gameDifficulty;
 
+	/**
+	 * Constructor for the board
+	 */
 	public Board() {
 		board = new ArrayList<ArrayList<Tokens>>(7);
 		fillBoard();

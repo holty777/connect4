@@ -19,11 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-
-/**
- * @author Cindy
- *
- */
 public class Connect4Panel extends JPanel implements ActionListener, MouseListener{
 	
 	private MainWindow mw;
@@ -234,9 +229,8 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  				changePlayer();
  			}
  		}
+    	
     	repaint();
-
-    	 
 
  		if (getTurn() > 0){
  			if (board.weHaveAWinner(tempRow, tempCol)){
@@ -606,6 +600,9 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		this.setTurn(this.getTurn() + 1);
 	}
 	
+	/**
+	 * changes the current players turn
+	 */
 	public void changePlayer(){
 		if (player){
 			setPlayer(false);

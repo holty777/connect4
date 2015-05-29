@@ -518,8 +518,6 @@ public class MainWindow {
 		return tokens.get(i);
 	}
 	
-	
-
 	/**
 	 * Method to display the main window
 	 */
@@ -530,6 +528,4 @@ public class MainWindow {
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
 	}
-
-
 }

@@ -7,14 +7,13 @@ public class AI {
 	private Board board;
 	private Board tempBoard;
 	private ArrayList<Integer> moves;
+	private ArrayList<Integer> xPos;
+	private ArrayList<Integer> yPos;
 	private String difficulty;
 	private Random random;
 	private boolean finished;
 	private int rNum;
 	private int hDepth;
-	
-	private ArrayList<Integer> xPos;
-	private ArrayList<Integer> yPos;
 	
 	public AI (String difficulty, Board board, ArrayList<Integer> xP, ArrayList<Integer> yP) {
 		this.board = board;
@@ -40,23 +39,7 @@ public class AI {
 	
 	public void easyMode () {
 		while (!isFinished()){
-			
-			/* this doesn't fully work. it doesn't paint the player token before
-			 * introducing the delay. it just delays immediately after button press.
-			 * tried putting the delay in other locations, still no avail. i think
-			 * its the way we paint the graphics?
-			*/
-			
-			/*try {
-				Thread.sleep(500);                 //1000 milliseconds is one second.
-			} catch(InterruptedException ex) {
-		    	Thread.currentThread().interrupt();
-			}*/
-			
-			
-			//int xPrev = xPos.get(xPos.size()-1);
-			//int yPrev = yPos.get(yPos.size()-1);
-			
+
 			rNum = block();
 			
 			if (!(rNum < 7)) {
@@ -318,22 +301,6 @@ public class AI {
 	 * @return
 	 */
 	public int negaMax (Board boardCopy, int alpha, int depth, boolean player, int xCoord, int yCoord) {		
-		// to do
-		
-		/* insert in each column
-		 * once final depth (3) is reached, "evalute" the board
-		 * return the best value
-		 * compare to current best value, set new best path to current if >= previous value
-		 * return best path at the end
-		 */
-		
-		/* for col and rows...
-		 * remove previous token move if c > 0
-		 * if next move isLegal, negamax.....recurse....
-		 * return best path if min depth (recursed back to the start)
-		 * else return best value
-		 */
-		
 		int bestPath = 0;
 		int nodeVal = alpha;
 		int pNum;
@@ -350,7 +317,6 @@ public class AI {
 		if (boardCopy.weHaveAWinner(yCoord, xCoord)) {
 			// IF WE HAVE A WINNERRRRR
 			nodeVal = 10000000;
-//			System.out.println(pNum + " can win...? " + xCoord + " " + yCoord + " " + nodeVal);
 			if (pNum == 2) {
 				nodeVal = nodeVal * -1; 
 			}
@@ -373,18 +339,12 @@ public class AI {
 			}
 			
 		} else {
-			// NEGAMAXAXAXAXAXAX
 			for (int col = 0; col < 7; col++) {
-//				Tokens newToken = new Tokens(player);
 				Board nextState = copyBoard(boardCopy);
-//				System.out.println(col);
 				
 				if (nextState.isLegal(col)){
 					nextState.addToken(col, (nextState.getBoard().get(col).size()), nextPlayer);
-					//nextState.getBoard().get(col).add(newToken);
 					int nValue = -negaMax (nextState, -10000000, (depth+1), nextPlayer, col, (nextState.getBoard().get(col).size()-1));
-//					System.out.println("token in " + col + " " + (nextState.getBoard().get(col).size()-1));
-//					System.out.println(col);
 					
 					if (nValue >= nodeVal) {
 						bestPath = col;
@@ -412,11 +372,6 @@ public class AI {
 	 * @return
 	 */
 	public int evalBoard (Board nextState, int playerNum) {
-		// find weight of move
-		
-		// check for 2 in a row AND 3 in a row
-		// closed ends && open ended cases. open ended >> closed ends
-		
 		// prioritise horizontal > diagonal > vertical
 		int vertical = 1;
 		int diagonal = 2;

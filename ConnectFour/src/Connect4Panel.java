@@ -89,17 +89,12 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
         for (int i = 0; i < xP.size(); i++){
         	xPos = xP.get(i);
         	yPos = yP.get(i);
-        	if (i % 2 == 0){ //cheat way to get alternating players (change maybe)
+        	if (i % 2 == 0){
         		paintAToken(g);
         	} else {
         		paintBToken(g);
         	}
         }
-        
-        /*for (int i = 0; i < board.getBoard().size(); i++) {
-        	System.out.println(board.getBoard().get(i).size());
-        }*/
-        
     }
     
     //drawing player 1 token
@@ -236,10 +231,8 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  				changePlayer();
  			}
  		}
-    	
-//    	if (getTurn() % 2 == 1) {
-    		repaint();
-//    	}
+    	repaint();
+
     	 
 
  		if (getTurn() > 0){
@@ -267,20 +260,10 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
  			aiPlayer.clearMoves();
  			incTurn();
  			changePlayer();
+
+ 			repaint();
  			
- 			/*new Thread(new Runnable(){
-				   public void run(){
-				       try{
-				          Thread.sleep(1000);
-				       }catch(InterruptedException ex){
-				          ex.printStackTrace();
-				       }
-				       repaint();
-				   }
-				}).start();*/
-// 			repaint();
- 			
- 			 if (board.weHaveAWinner(tempRow, tempCol)){
+ 			if (board.weHaveAWinner(tempRow, tempCol)){
  				showWin();
  			} else if (board.isBoardFull(getTurn())){
  				showDraw();

@@ -14,25 +14,39 @@ public class Board {
 		fillBoard();
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<ArrayList<Tokens>> getBoard() {
 		return board;
 	}
+	
+	/**
+	 * @param board
+	 */
 	public void setBoard(ArrayList<ArrayList<Tokens>> board) {
 		this.board = board;
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean isPlayerTurn() {
 		return playerTurn;
 	}
+	
 	public void setPlayerTurn(boolean playerTurn) {
 		this.playerTurn = playerTurn;
 	}
+	
 	public boolean isGameFinished() {
 		return gameFinished;
 	}
+	
 	public void setGameFinished(boolean gameFinished) {
 		this.gameFinished = gameFinished;
 	}
+	
 	public String getGameMode() {
 		return gameMode;
 	}
@@ -154,9 +168,9 @@ public class Board {
 				if (row < columnj3.size())
 					d = columnj3.get(row).getPlayerNum();
 
-				if (a == b){										// A = B
-					if(c == d){									// C = D
-						if(a == c){								// A = C, therefore they are all equal 
+				if (a == b){
+					if(c == d){
+						if(a == c){ 
 							result = true;
 							break;
 						}
@@ -257,19 +271,19 @@ public class Board {
 			// win with NE/SW diagonal
 			if(token == ne1){						// token = ne1					
 				if(ne1 == ne2){						//	token = ne1 = ne2		
-					if(ne2 == ne3){				//  token = ne1 = ne2 = ne3		GG	 
+					if(ne2 == ne3){				//  token = ne1 = ne2 = ne3
 						result = true;
-					} else if(ne2 == sw1){				//	sw1 = token = ne1 = ne2		GG
+					} else if(ne2 == sw1){				//	sw1 = token = ne1 = ne2
 						result = true;
 					}
 				} else if (ne1 == sw1){		//	sw1 = token = ne1
-					if(sw1 == sw2){				//	sw2 = sw1 = token = ne1		GG
+					if(sw1 == sw2){				//	sw2 = sw1 = token = ne1
 						result = true;					
 					}
 				}
 			} else if (token == sw1) {					// sw1 = token 
 				if(sw1 == sw2){					// sw2 = sw1 = token 
-					if(sw2 == sw3){			// sw3 = sw2 = sw1 = token 		GG
+					if(sw2 == sw3){			// sw3 = sw2 = sw1 = token
 						result = true;
 					}
 				}
@@ -278,19 +292,19 @@ public class Board {
 			//win with NW/SE diagonal
 			if(token == nw1){						// token = nw1					
 				if(nw1 ==nw2){					//	token = nw1 = nw2		
-					if(nw2 == nw3){				//  token = nw1 = nw2 = nw3		GG	 
+					if(nw2 == nw3){				//  token = nw1 = nw2 = nw3	
 						result = true;
-					} else if(nw2 == se1){			//	se1 = token = nw1 = nw2		GG
+					} else if(nw2 == se1){			//	se1 = token = nw1 = nw2	
 						result = true;
 					}
 				} else if (nw1 == se1){			//	se1 = token = nw1
-					if(se1 == se2){				//	se2 = se1 = token = nw1		GG
+					if(se1 == se2){				//	se2 = se1 = token = nw1
 						result = true;					
 					}
 				}
-			}else if (token == se1){				// se1 = token 
-				if(se1 == se2){					// se2 = se1 = token 
-					if(se2 == se3){				// se3 = se2 = se1 = token 		GG
+			}else if (token == se1){				// se1 = token
+				if(se1 == se2){					// se2 = se1 = token
+					if(se2 == se3){				// se3 = se2 = se1 = token
 						result = true;
 					}
 				}

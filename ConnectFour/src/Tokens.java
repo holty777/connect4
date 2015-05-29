@@ -20,7 +20,9 @@ public class Tokens {
 		this.player = player;
 	}
 
-	
+	/**
+	 * @return returns an int value for the player number
+	 */
 	public int getPlayerNum()
 	{
 		if (player == true){

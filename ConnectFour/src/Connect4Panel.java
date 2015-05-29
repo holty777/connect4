@@ -24,6 +24,12 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	
 	private MainWindow mw;
 	private Board board;
+	private AI aiPlayer;
+	private ArrayList<Integer> AIMove;
+	private ArrayList<Integer> xP;
+	private ArrayList<Integer> yP;
+	private BufferedImage tok1;
+	private BufferedImage tok2;
 	private boolean paintBoard;
 	private boolean player;
 	private boolean ai;
@@ -33,12 +39,6 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	private int tempCol;
 	private int tempRow;
 	private int turn;
-	private ArrayList<Integer> AIMove;
-	private ArrayList<Integer> xP;
-	private ArrayList<Integer> yP;
-	private AI aiPlayer;
-	private BufferedImage tok1;
-	private BufferedImage tok2;
 	public int scoreA;
 	public int scoreB;
 	

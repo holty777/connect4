@@ -5,9 +5,9 @@ public class Board {
 	ArrayList<ArrayList<Tokens>> board;
 	boolean playerTurn;
 	boolean gameFinished;
+	boolean isLegal;
 	String gameMode;
 	String gameDifficulty;
-	boolean isLegal;
 
 	public Board() {
 		board = new ArrayList<ArrayList<Tokens>>(7);

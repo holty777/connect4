@@ -24,22 +24,22 @@ public class MainWindow {
 	
 	private JFrame mainFrame;
 	private Connect4Panel connect4Panel;
-	private JPanel outsidePanel;
 	private ArrayList<JPanel> tokens;
-	private JButton restart;
-	private JButton pvp;
-	private JButton mvp;
-	private JButton help;
-	private JRadioButton easy;
-	private JRadioButton hard;
-	private ButtonGroup bg;
-    GridLayout experimentLayout = new GridLayout(7,7);
-    GridBagLayout leftSideLayout = new GridBagLayout();
-    GridBagConstraints con;
+	private JPanel outsidePanel;
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JPanel experiment;
     private JPanel scores;
+	private JButton restart;
+	private JButton pvp;
+	private JButton mvp;
+	private JRadioButton easy;
+	private JRadioButton hard;
+	private ButtonGroup bg;
+    GridLayout experimentLayout;
+    GridBagLayout leftSideLayout;
+    GridBagConstraints con;
+
 
 	/**
 	 * Method to bootstrap the main frame
@@ -65,6 +65,8 @@ public class MainWindow {
 		experiment = new JPanel();
 		leftPanel = new JPanel();
 		rightPanel = new JPanel();
+		experimentLayout = new GridLayout(7,7);
+		leftSideLayout = new GridBagLayout();
 		leftPanel.setLayout(leftSideLayout);
 		rightPanel.setLayout(leftSideLayout);
 		experiment.setLayout(experimentLayout);
@@ -90,7 +92,6 @@ public class MainWindow {
   		easy = new JRadioButton ("Easy Mode");
   		easy.setSelected(true);
   		hard = new JRadioButton ("Hard Mode");
-  		help = new JButton("Help");
        
         //create token buttons 
         tokens = new ArrayList<JPanel>(7);
@@ -130,11 +131,6 @@ public class MainWindow {
 	public JButton getMvp() {
 		return mvp;
 	}
-	
-	public JButton getHelp(){
-		return help;
-	}
-	
 
 	public void setMvp(JButton mvp) {
 		this.mvp = mvp;
@@ -198,7 +194,6 @@ public class MainWindow {
 	
 	public void createLeftButtons(){
 		
-		help.addActionListener(connect4Panel);
 		restart.addActionListener(connect4Panel);
 		pvp.addActionListener(connect4Panel);
 		mvp.addActionListener(connect4Panel);
@@ -233,12 +228,6 @@ public class MainWindow {
 		con.gridwidth = 2;
 
         leftPanel.add(restart, con);
-        
-        con.fill = GridBagConstraints.PAGE_END;
-        con.gridx = 0;
-        con.gridy = 7;
-        con.gridwidth = 2;
-        leftPanel.add(help, con);
      
 	}
 	

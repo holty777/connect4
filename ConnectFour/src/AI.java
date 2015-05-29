@@ -6,11 +6,11 @@ public class AI {
 	
 	private Board board;
 	private Board tempBoard;
-	private String difficulty;
 	private ArrayList<Integer> moves;
+	private String difficulty;
 	private Random random;
-	private int rNum;
 	private boolean finished;
+	private int rNum;
 	private int hDepth;
 	
 	private ArrayList<Integer> xPos;

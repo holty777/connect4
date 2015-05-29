@@ -39,7 +39,6 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	private AI aiPlayer;
 	private BufferedImage tok1;
 	private BufferedImage tok2;
-	public static Help hw;
 	public int scoreA;
 	public int scoreB;
 	
@@ -152,8 +151,6 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 			setFinished(false);
 			setPlayer(true);
 			clearScore();
-		} else if(e.getSource() == mw.getHelp()){
-			showHelp();
 		}
 
 		repaint();
@@ -522,19 +519,6 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		for (JPanel b : mw.getTokens()){
 			b.setVisible(true);
 		}
-	}
-	
-	/**
-	 * displays the help window
-	 */
-	public void showHelp(){
-		hw = new Help();
-		// display the help window in a different thread.
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	hw.display();
-            }
-        });
 	}
 	
 	/**

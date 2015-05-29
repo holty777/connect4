@@ -26,6 +26,9 @@ public class AI {
 		
 	}
 	
+	/**
+	 * @return the coord to place next token depending on difficulty
+	 */
 	public ArrayList<Integer> placeToken () {
 		if (difficulty.equals("easy")){
 			easyMode();
@@ -37,6 +40,9 @@ public class AI {
 		return moves;
 	}
 	
+	/**
+	 * easy mode ai
+	 */
 	public void easyMode () {
 		while (!isFinished()){
 
@@ -55,6 +61,9 @@ public class AI {
 		setFinished(false);
 	}
 	
+	/**
+	 * hard mode ai
+	 */
 	public void hardMode () {
 		while (!isFinished()){
 			
@@ -74,6 +83,7 @@ public class AI {
 		setFinished(false);
 	}
 
+
 	/**
 	 * @return the board
 	 */
@@ -89,17 +99,17 @@ public class AI {
 	}
 
 	/**
-	 * @return the difficulty
+	 * @return the tempBoard
 	 */
-	public String getDiff() {
-		return difficulty;
+	public Board getTempBoard() {
+		return tempBoard;
 	}
 
 	/**
-	 * @param diff the difficulty to set
+	 * @param tempBoard the tempBoard to set
 	 */
-	public void setDiff(String difficulty) {
-		this.difficulty = difficulty;
+	public void setTempBoard(Board tempBoard) {
+		this.tempBoard = tempBoard;
 	}
 
 	/**
@@ -115,19 +125,61 @@ public class AI {
 	public void setMoves(ArrayList<Integer> moves) {
 		this.moves = moves;
 	}
-	
+
 	/**
-	 * @return the rNum
+	 * @return the xPos
 	 */
-	public int getrNum() {
-		return rNum;
+	public ArrayList<Integer> getxPos() {
+		return xPos;
 	}
 
 	/**
-	 * @param rNum the rNum to set
+	 * @param xPos the xPos to set
 	 */
-	public void setrNum(int rNum) {
-		this.rNum = rNum;
+	public void setxPos(ArrayList<Integer> xPos) {
+		this.xPos = xPos;
+	}
+
+	/**
+	 * @return the yPos
+	 */
+	public ArrayList<Integer> getyPos() {
+		return yPos;
+	}
+
+	/**
+	 * @param yPos the yPos to set
+	 */
+	public void setyPos(ArrayList<Integer> yPos) {
+		this.yPos = yPos;
+	}
+
+	/**
+	 * @return the difficulty
+	 */
+	public String getDifficulty() {
+		return difficulty;
+	}
+
+	/**
+	 * @param difficulty the difficulty to set
+	 */
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	/**
+	 * @return the random
+	 */
+	public Random getRandom() {
+		return random;
+	}
+
+	/**
+	 * @param random the random to set
+	 */
+	public void setRandom(Random random) {
+		this.random = random;
 	}
 
 	/**
@@ -145,25 +197,40 @@ public class AI {
 	}
 
 	/**
-	 * @return the difficulty
+	 * @return the rNum
 	 */
-	public String getDifficulty() {
-		return difficulty;
+	public int getrNum() {
+		return rNum;
 	}
 
 	/**
-	 * @param difficulty the difficulty to set
+	 * @param rNum the rNum to set
 	 */
-	public void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
+	}
+
+	/**
+	 * @return the hDepth
+	 */
+	public int gethDepth() {
+		return hDepth;
+	}
+
+	/**
+	 * @param hDepth the hDepth to set
+	 */
+	public void sethDepth(int hDepth) {
+		this.hDepth = hDepth;
 	}
 
 	public void clearMoves(){
 		this.moves.clear();
 	}
+	
 	/**
 	 * 
-	 * @return
+	 * @return the column to block
 	 */
 	public int block () {
 		int cNum = 9;
@@ -265,9 +332,9 @@ public class AI {
 	
 	/**
 	 * 
-	 * @param xC
-	 * @param yC
-	 * @return
+	 * @param xC the x cord
+	 * @param yC the y cord
+	 * @return whether that x,y cord it is blocked
 	 */
 	public boolean isBlocked (int xC, int yC) {
 		boolean status = false;
@@ -281,8 +348,8 @@ public class AI {
 	
 	/**
 	 * 
-	 * @param toCopy
-	 * @return
+	 * @param toCopy the board to copy
+	 * @return the copied board
 	 */
 	public Board copyBoard (Board toCopy) {
 		Board newBoard = new Board();
@@ -294,11 +361,15 @@ public class AI {
 		return newBoard;
 	}
 	
+
 	/**
-	 * 
-	 * @param nextBoard
-	 * @param depth
-	 * @return
+	 * @param boardCopy the copy of the board
+	 * @param alpha the alpha value
+	 * @param depth the depth to explore
+	 * @param player the player number
+	 * @param xCoord the x value
+	 * @param yCoord the y value
+	 * @return the negamax value
 	 */
 	public int negaMax (Board boardCopy, int alpha, int depth, boolean player, int xCoord, int yCoord) {		
 		int bestPath = 0;

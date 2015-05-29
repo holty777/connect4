@@ -20,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
+/**
+ * @author Cindy
+ *
+ */
 public class Connect4Panel extends JPanel implements ActionListener, MouseListener{
 	
 	private MainWindow mw;
@@ -97,7 +101,10 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
         }
     }
     
-    //drawing player 1 token
+    /**
+     * draws player 1 token
+     * @param g the Graphics
+     */
     public void paintAToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
@@ -105,19 +112,15 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
     	g2.drawImage(tok2, 17 + getxPos()*109, 671 - getyPos()*109, null);
     }
     
-    //drawing player 2 token
+    /**
+     * draws player 2 token
+     * @param g the Graphics
+     */
     public void paintBToken(Graphics g){
     	
     	Graphics2D g2 = (Graphics2D) g;
     	
     	g2.drawImage(tok1, 17 + getxPos()*109, 671 - getyPos()*109, null);
-    }
-
-    public void hoverToken(Graphics g, String inst, int num){
-      	
-    	Graphics2D g2 = (Graphics2D) g;
-    	
-    	g2.drawImage(tok1, num*109, num*109, null);
     }
     
     @Override
@@ -329,7 +332,119 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
      public void mouseClicked(MouseEvent e) {
     	 
      }
-    
+
+	/**
+	 * @return the mw
+	 */
+	public MainWindow getMw() {
+		return mw;
+	}
+
+	/**
+	 * @param mw the mw to set
+	 */
+	public void setMw(MainWindow mw) {
+		this.mw = mw;
+	}
+
+	/**
+	 * @return the board
+	 */
+	public Board getBoard() {
+		return board;
+	}
+
+	/**
+	 * @param board the board to set
+	 */
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	/**
+	 * @return the aiPlayer
+	 */
+	public AI getAiPlayer() {
+		return aiPlayer;
+	}
+
+	/**
+	 * @param aiPlayer the aiPlayer to set
+	 */
+	public void setAiPlayer(AI aiPlayer) {
+		this.aiPlayer = aiPlayer;
+	}
+
+	/**
+	 * @return the aIMove
+	 */
+	public ArrayList<Integer> getAIMove() {
+		return AIMove;
+	}
+
+	/**
+	 * @param aIMove the aIMove to set
+	 */
+	public void setAIMove(ArrayList<Integer> aIMove) {
+		AIMove = aIMove;
+	}
+
+	/**
+	 * @return the xP
+	 */
+	public ArrayList<Integer> getxP() {
+		return xP;
+	}
+
+	/**
+	 * @param xP the xP to set
+	 */
+	public void setxP(ArrayList<Integer> xP) {
+		this.xP = xP;
+	}
+
+	/**
+	 * @return the yP
+	 */
+	public ArrayList<Integer> getyP() {
+		return yP;
+	}
+
+	/**
+	 * @param yP the yP to set
+	 */
+	public void setyP(ArrayList<Integer> yP) {
+		this.yP = yP;
+	}
+
+	/**
+	 * @return the tok1
+	 */
+	public BufferedImage getTok1() {
+		return tok1;
+	}
+
+	/**
+	 * @param tok1 the tok1 to set
+	 */
+	public void setTok1(BufferedImage tok1) {
+		this.tok1 = tok1;
+	}
+
+	/**
+	 * @return the tok2
+	 */
+	public BufferedImage getTok2() {
+		return tok2;
+	}
+
+	/**
+	 * @param tok2 the tok2 to set
+	 */
+	public void setTok2(BufferedImage tok2) {
+		this.tok2 = tok2;
+	}
+
 	/**
 	 * @return the paintBoard
 	 */
@@ -343,28 +458,31 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	public void setPaintBoard(boolean paintBoard) {
 		this.paintBoard = paintBoard;
 	}
-	
+
 	/**
-	 * @return the current player
+	 * @return the player
 	 */
 	public boolean isPlayer() {
 		return player;
 	}
 
 	/**
-	 * @param player
+	 * @param player the player to set
 	 */
 	public void setPlayer(boolean player) {
 		this.player = player;
 	}
 
 	/**
-	 * @return if ai is present in the game
+	 * @return the ai
 	 */
 	public boolean isAi() {
 		return ai;
 	}
 
+	/**
+	 * @param ai the ai to set
+	 */
 	public void setAi(boolean ai) {
 		this.ai = ai;
 	}
@@ -409,9 +527,36 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	 */
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
-	}  
-	
-	
+	}
+
+	/**
+	 * @return the tempCol
+	 */
+	public int getTempCol() {
+		return tempCol;
+	}
+
+	/**
+	 * @param tempCol the tempCol to set
+	 */
+	public void setTempCol(int tempCol) {
+		this.tempCol = tempCol;
+	}
+
+	/**
+	 * @return the tempRow
+	 */
+	public int getTempRow() {
+		return tempRow;
+	}
+
+	/**
+	 * @param tempRow the tempRow to set
+	 */
+	public void setTempRow(int tempRow) {
+		this.tempRow = tempRow;
+	}
+
 	/**
 	 * @return the turn
 	 */
@@ -425,19 +570,31 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
-	
+
+	/**
+	 * @return the scoreA
+	 */
 	public int getScoreA() {
 		return scoreA;
 	}
-	
+
+	/**
+	 * @param scoreA the scoreA to set
+	 */
 	public void setScoreA(int scoreA) {
 		this.scoreA = scoreA;
 	}
-	
+
+	/**
+	 * @return the scoreB
+	 */
 	public int getScoreB() {
 		return scoreB;
 	}
-	
+
+	/**
+	 * @param scoreB the scoreB to set
+	 */
 	public void setScoreB(int scoreB) {
 		this.scoreB = scoreB;
 	}
@@ -492,12 +649,18 @@ public class Connect4Panel extends JPanel implements ActionListener, MouseListen
 		setInvisible();
 	}
 	
+	/**
+	 * make the JPanel invisible after winning condition
+	 */
 	public void setInvisible(){
 		for (JPanel b : mw.getTokens()){
 			b.setVisible(false);
 		}
 	}
 	
+	/**
+	 * make the JPanel visible again
+	 */
 	public void setVisible(){
 		for (JPanel b : mw.getTokens()){
 			b.setVisible(true);

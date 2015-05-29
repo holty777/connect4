@@ -15,48 +15,87 @@ public class Board {
 	}
 
 	/**
-	 * @return
+	 * @return the board
 	 */
 	public ArrayList<ArrayList<Tokens>> getBoard() {
 		return board;
 	}
 	
 	/**
-	 * @param board
+	 * @param board the board to set
 	 */
 	public void setBoard(ArrayList<ArrayList<Tokens>> board) {
 		this.board = board;
 	}
 
 	/**
-	 * @return
+	 * @return the players turn
 	 */
 	public boolean isPlayerTurn() {
 		return playerTurn;
 	}
 	
+	/**
+	 * @param playerTurn the players turn to set
+	 */
 	public void setPlayerTurn(boolean playerTurn) {
 		this.playerTurn = playerTurn;
 	}
 	
+	/**
+	 * @return is game finished
+	 */
 	public boolean isGameFinished() {
 		return gameFinished;
 	}
 	
+	/**
+	 * @param gameFinished set whether game is finished or not
+	 */
 	public void setGameFinished(boolean gameFinished) {
 		this.gameFinished = gameFinished;
 	}
 	
+	/**
+	 * @return  the gameMode
+	 */
 	public String getGameMode() {
 		return gameMode;
 	}
 
+	/**
+	 * @param gameMode the gameMode to be set
+	 */
 	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
 	}
-
+	
+	/**
+	 * @return the gameDifficulty
+	 */
+	public String getGameDifficulty() {
+		return gameDifficulty;
+	}
+	
+	/**
+	 * @param gameDifficulty the gameDifficulty to be set
+	 */
 	public void setGameDifficulty(String gameDifficulty) {
 		this.gameDifficulty = gameDifficulty;
+	}
+
+	/**
+	 * @return the isLegal
+	 */
+	public boolean isLegal() {
+		return isLegal;
+	}
+
+	/**
+	 * @param isLegal the isLegal to set
+	 */
+	public void setLegal(boolean isLegal) {
+		this.isLegal = isLegal;
 	}
 
 	// self created functions

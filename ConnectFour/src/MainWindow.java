@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,8 +5,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -103,35 +100,158 @@ public class MainWindow {
         outsidePanel.add(connect4Panel);
         outsidePanel.add(rightPanel);
 	}
-	
+
+
+	/**
+	 * @return the mainFrame
+	 */
+	public JFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	/**
+	 * @param mainFrame the mainFrame to set
+	 */
+	public void setMainFrame(JFrame mainFrame) {
+		this.mainFrame = mainFrame;
+	}
+
+	/**
+	 * @return the connect4Panel
+	 */
+	public Connect4Panel getConnect4Panel() {
+		return connect4Panel;
+	}
+
+	/**
+	 * @param connect4Panel the connect4Panel to set
+	 */
+	public void setConnect4Panel(Connect4Panel connect4Panel) {
+		this.connect4Panel = connect4Panel;
+	}
+
+	/**
+	 * @return the tokens
+	 */
 	public ArrayList<JPanel> getTokens() {
 		return tokens;
 	}
 
+	/**
+	 * @param tokens the tokens to set
+	 */
 	public void setTokens(ArrayList<JPanel> tokens) {
 		this.tokens = tokens;
 	}
 
+	/**
+	 * @return the outsidePanel
+	 */
+	public JPanel getOutsidePanel() {
+		return outsidePanel;
+	}
+
+	/**
+	 * @param outsidePanel the outsidePanel to set
+	 */
+	public void setOutsidePanel(JPanel outsidePanel) {
+		this.outsidePanel = outsidePanel;
+	}
+
+	/**
+	 * @return the leftPanel
+	 */
+	public JPanel getLeftPanel() {
+		return leftPanel;
+	}
+
+	/**
+	 * @param leftPanel the leftPanel to set
+	 */
+	public void setLeftPanel(JPanel leftPanel) {
+		this.leftPanel = leftPanel;
+	}
+
+	/**
+	 * @return the rightPanel
+	 */
+	public JPanel getRightPanel() {
+		return rightPanel;
+	}
+
+	/**
+	 * @param rightPanel the rightPanel to set
+	 */
+	public void setRightPanel(JPanel rightPanel) {
+		this.rightPanel = rightPanel;
+	}
+
+	/**
+	 * @return the experiment
+	 */
+	public JPanel getExperiment() {
+		return experiment;
+	}
+
+	/**
+	 * @param experiment the experiment to set
+	 */
+	public void setExperiment(JPanel experiment) {
+		this.experiment = experiment;
+	}
+
+	/**
+	 * @return the scores
+	 */
+	public JPanel getScores() {
+		return scores;
+	}
+
+	/**
+	 * @param scores the scores to set
+	 */
+	public void setScores(JPanel scores) {
+		this.scores = scores;
+	}
+
+	/**
+	 * @return the restart
+	 */
 	public JButton getRestart() {
 		return restart;
 	}
-	
+
+	/**
+	 * @param restart the restart to set
+	 */
 	public void setRestart(JButton restart) {
 		this.restart = restart;
 	}
 
+	/**
+	 * @return the pvp
+	 */
 	public JButton getPvp() {
 		return pvp;
 	}
 
+	/**
+	 * @param pvp the pvp to set
+	 */
 	public void setPvp(JButton pvp) {
 		this.pvp = pvp;
 	}
 
+	/**
+	 * @return the mvp
+	 */
 	public JButton getMvp() {
 		return mvp;
 	}
 
+	/**
+	 * @param mvp the mvp to set
+	 */
 	public void setMvp(JButton mvp) {
 		this.mvp = mvp;
 	}
@@ -164,6 +284,65 @@ public class MainWindow {
 		this.hard = hard;
 	}
 
+	/**
+	 * @return the bg
+	 */
+	public ButtonGroup getBg() {
+		return bg;
+	}
+
+	/**
+	 * @param bg the bg to set
+	 */
+	public void setBg(ButtonGroup bg) {
+		this.bg = bg;
+	}
+
+	/**
+	 * @return the experimentLayout
+	 */
+	public GridLayout getExperimentLayout() {
+		return experimentLayout;
+	}
+
+	/**
+	 * @param experimentLayout the experimentLayout to set
+	 */
+	public void setExperimentLayout(GridLayout experimentLayout) {
+		this.experimentLayout = experimentLayout;
+	}
+
+	/**
+	 * @return the leftSideLayout
+	 */
+	public GridBagLayout getLeftSideLayout() {
+		return leftSideLayout;
+	}
+
+	/**
+	 * @param leftSideLayout the leftSideLayout to set
+	 */
+	public void setLeftSideLayout(GridBagLayout leftSideLayout) {
+		this.leftSideLayout = leftSideLayout;
+	}
+
+	/**
+	 * @return the con
+	 */
+	public GridBagConstraints getCon() {
+		return con;
+	}
+
+	/**
+	 * @param con the con to set
+	 */
+	public void setCon(GridBagConstraints con) {
+		this.con = con;
+	}
+
+	/**
+	 * create the top JPanels
+	 */
 	public void createTopButtons(){
 		int i = 0;
 		
@@ -171,7 +350,6 @@ public class MainWindow {
 			JPanel a = new JPanel();
 			a.setSize(110,110);
         	tokens.add(a);
-
         }
 
 		for (JPanel j : tokens){
@@ -185,6 +363,9 @@ public class MainWindow {
 
 	}
 	
+	/**
+	 * create button group of the difficulty levels
+	 */
 	public void createButtonGroup(){
 		bg = new ButtonGroup();
 		
@@ -192,6 +373,9 @@ public class MainWindow {
 		bg.add(hard);
 	}
 	
+	/**
+	 * creates the left panel buttons
+	 */
 	public void createLeftButtons(){
 		
 		restart.addActionListener(connect4Panel);
@@ -231,6 +415,14 @@ public class MainWindow {
      
 	}
 	
+	/**
+	 * @param name the gameMode
+	 * @param turn the turn number
+	 * @param scoreA the score of player 1
+	 * @param scoreB the score of player 2
+	 * @param isAi if there is an ai
+	 * @param diff the difficulty level
+	 */
 	public void drawGame(String name, int turn, int scoreA, int scoreB, boolean isAi, String diff){
 		leftPanel.removeAll();
 		
@@ -278,6 +470,10 @@ public class MainWindow {
 
 	}
 
+	/**
+	 * @param num the column the mouse was hovered over
+	 * @param player the current player
+	 */
 	public void hover(int num, boolean player){
 		tokens.get(num).removeAll();	
 		tokens.get(num).revalidate();
@@ -289,12 +485,20 @@ public class MainWindow {
 		}
 	}
 	
+	/**
+	 * @param num the column the mouse was unhovered from
+	 * @param player the current player
+	 */
 	public void unhover(int num, boolean player){
 		tokens.get(num).removeAll();	
 		tokens.get(num).revalidate();
 		tokens.get(num).repaint();
 	}
 
+	/**
+	 * @param num the column the mouse was released from
+	 * @param player the current player
+	 */
 	public void released (int num, boolean player){
 		tokens.get(num).removeAll();	
 		tokens.get(num).revalidate();
@@ -306,6 +510,10 @@ public class MainWindow {
 		}
 	}
 	
+	/**
+	 * @param i the token number
+	 * @return the JPanel in the array
+	 */
 	public JPanel getToken(int i) {
 		return tokens.get(i);
 	}
